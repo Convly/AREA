@@ -15,6 +15,8 @@ namespace WebClient.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -23,6 +25,9 @@ namespace WebClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             ViewBag.ReturnUrl = returnUrl;
 
             if (!ModelState.IsValid)
