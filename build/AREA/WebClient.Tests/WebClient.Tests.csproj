@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8F2EE2F1-832A-4EF5-8A2F-A6B8586CED37}</ProjectGuid>
+    <ProjectGuid>{CB0E8A47-FA95-477E-B254-D97B993C8E5D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebClient.Tests</RootNamespace>
@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -99,12 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebClient\WebClient.csproj">
-      <Project>{DC5D3376-9F99-4672-A5EB-4098D2724D28}</Project>
+      <Project>{2D368407-A9A8-4566-8D1B-558E4F0DB15F}</Project>
       <Name>WebClient</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

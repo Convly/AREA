@@ -5,7 +5,7 @@ namespace WebClient
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+        // Pour plus d'informations sur le regroupement, visitez https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -15,7 +15,7 @@ namespace WebClient
                         "~/Scripts/jquery.validate*"));
 
             // Utilisez la version de développement de Modernizr pour le développement et l'apprentissage. Puis, une fois
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
+            // prêt pour la production, utilisez l'outil de génération à l'adresse https://modernizr.com pour sélectionner uniquement les tests dont vous avez besoin.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
