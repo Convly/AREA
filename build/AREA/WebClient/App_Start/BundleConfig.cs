@@ -25,7 +25,11 @@ namespace WebClient
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/font-awesome.css",
+                      "~/Content/style.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/login").Include(
+                      "~/Scripts/login.js"));
         }
     }
 }

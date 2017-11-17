@@ -9,13 +9,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
+    @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/login")
     @RenderSection("scripts", required: false)
 </body>
 </html>
