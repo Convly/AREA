@@ -8,6 +8,19 @@
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
+@using System.Security.Claims
+@{
+    if (Request.IsAuthenticated)
+    {
+        var claimId = User.Identity as ClaimsIdentity;
+        if (claimId != null)
+        {
+            var str = "Bonjour " + claimId.FindFirst(ClaimTypes.NameIdentifier).Value + " ! Voulez-vous vous ";
+            @str @Html.ActionLink("déconnecter", "Logout", "Auth") <span>?</span>
+        }
+    }
+}
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
