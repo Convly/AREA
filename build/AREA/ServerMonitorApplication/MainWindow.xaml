@@ -112,6 +112,7 @@
     </WindowChrome.WindowChrome>
 
     <Grid Background="{StaticResource FlatWetAsphaltBrush}">
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}"/>
     </Grid>
 
 </Window>
