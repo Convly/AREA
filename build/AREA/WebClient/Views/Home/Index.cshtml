@@ -25,13 +25,25 @@
         <section class="sidebarItemsContainer">
             @for (int i = 0; i < @Model.Areas.Count; i++)
             {
-                <div class="@(Model.Areas[i].IsSelected == false ? "sidebarItem" : "sidebarItem selectedItem")" id="sidebarItem@(i)">
+                <div class="sidebarItem" id="sidebarItem@(i)">
+                    <script>
+                        var arr = '@Html.Raw(Model.Areas)'
+                        $("#sidebarItem@(i)").click(function () {
+                            for (var j = 0; j < arr.length; j++)
+                                $("#sidebarItem" + j.toString()).removeClass("selectedItem")
+                            $("#sidebarItem@(i)").addClass("selectedItem")
+                            clearCanvasContent();
+                            //TODO: Draw tree content
+                            drawTextInCanvas("Salut monde @(i)", 12, "Arial", 100, 100);
+                        });
+                    </script>
                     <p>@Model.Areas[i].Name</p>
                 </div>
             }
         </section>
     </aside>
     <section class="canvasContainer">
-        <canvas class="mainCanvas"></canvas>
+        <canvas id="canvasTree" class="mainCanvas" runat="server"></canvas>
+        <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
     </section>
 </div>
