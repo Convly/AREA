@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1A2A3DC-92E2-40C0-8D9E-C67E1E3A2ED0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Area</RootNamespace>
-    <AssemblyName>Area</AssemblyName>
+    <ProjectGuid>{51598902-31C4-4B93-80DC-A8D4376160AA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ClientTest</RootNamespace>
+    <AssemblyName>ClientTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,9 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Area.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,18 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandsManager.cs" />
-    <Compile Include="Dispatcher.cs" />
-    <Compile Include="EventFactory.cs" />
-    <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\AddServiceLinkEvent.cs" />
-    <Compile Include="Events\HttpEventAnswer.cs" />
-    <Compile Include="Events\HttpEventStatus.cs" />
-    <Compile Include="MessageBus.cs" />
-    <Compile Include="QueriesManager.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfos.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Network\Network.csproj">

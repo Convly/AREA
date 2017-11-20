@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Area.Events;
 
 namespace Area
 {
+    /// <summary>
+    /// Defines a manager used to handle HTTP commands
+    /// </summary>
     public class CommandsManager
     {
+        private EventFactory evtFactory = new EventFactory();
+
+        /// <summary>
+        /// <see cref="EventFactory"/> used to manage the <see cref="Event"/>s
+        /// </summary>
+        public EventFactory EvtFactory { get => evtFactory; set => evtFactory = value; }
+
+        private bool ProcessEvent(Event e)
+        {
+            return true;
+        }
     }
 }
