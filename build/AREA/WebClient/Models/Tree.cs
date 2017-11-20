@@ -9,8 +9,8 @@ namespace WebClient.Models
 
     public class Tree<T>
     {
-        private T data;
-        private LinkedList<Tree<T>> children;
+        public T data;
+        public LinkedList<Tree<T>> children;
 
         public Tree(T data)
         {

@@ -32,9 +32,10 @@
                             for (var j = 0; j < arr.length; j++)
                                 $("#sidebarItem" + j.toString()).removeClass("selectedItem")
                             $("#sidebarItem@(i)").addClass("selectedItem")
-                            clearCanvasContent();
-                            //TODO: Draw tree content
-                            drawTextInCanvas("Salut monde @(i)", 12, "Arial", 100, 100);
+                            drawTreeData('@Html.Raw(Model.Areas[i].AreaToJSON())');
+                            //TEMP
+                            drawTextInCanvas("Hello le monde!", 24, "Roboto", "#000000", getCanvasSize().width / 2, getCanvasSize().height / 2, "center");
+                            drawTextInCanvas("Vous etes sur @Html.Raw(Model.Areas[i].Name)", 24, "Roboto", "#000000", getCanvasSize().width / 2, getCanvasSize().height / 2 + 40, "center");
                         });
                     </script>
                     <p>@Model.Areas[i].Name</p>
@@ -42,8 +43,11 @@
             }
         </section>
     </aside>
-    <section class="canvasContainer">
-        <canvas id="canvasTree" class="mainCanvas" runat="server"></canvas>
+    <section id="canvasContainer" class="canvasContainer" onresize="resizeCanvasToSquare()">
+        <canvas id="canvasTree"></canvas>
         <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
+        <script type="text/javascript">
+            //Events on canvas here (onclick etc..)
+        </script>
     </section>
 </div>
