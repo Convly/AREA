@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ServerMonitorApplication
+namespace ServerMonitorApplication.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WindowView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowView : Window
     {
-        public MainWindow()
+        public WindowView()
         {
             InitializeComponent();
-
-            this.DataContext = new WindowViewModel(this);
         }
     }
 }

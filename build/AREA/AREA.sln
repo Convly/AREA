@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spike", "Spike", "{D86830E8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerLibraryTestApplication", "Spike\ServerLibraryTestApplication\ServerLibraryTestApplication.csproj", "{2300EFB7-6DC3-4B88-BD91-93FC9B8FF9F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitorApplication", "ServerMonitorApplication\ServerMonitorApplication.csproj", "{2A29A8BD-E9B4-4F95-B0F8-DC93259DE3E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitorApplication", "ServerMonitorApplication\ServerMonitorApplication.csproj", "{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{2300EFB7-6DC3-4B88-BD91-93FC9B8FF9F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2300EFB7-6DC3-4B88-BD91-93FC9B8FF9F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2300EFB7-6DC3-4B88-BD91-93FC9B8FF9F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A29A8BD-E9B4-4F95-B0F8-DC93259DE3E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A29A8BD-E9B4-4F95-B0F8-DC93259DE3E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A29A8BD-E9B4-4F95-B0F8-DC93259DE3E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A29A8BD-E9B4-4F95-B0F8-DC93259DE3E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
