@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ServerMonitorApplication">
+
+    <Color x:Key="FlatGrey">#D1D5D8</Color>
+    <SolidColorBrush x:Key="FlatGreyBrush" Color="{StaticResource FlatGrey}" />
+
+    <Color x:Key="FlatRed">#E74C3C</Color>
+    <SolidColorBrush x:Key="FlatRedBrush" Color="{StaticResource FlatRed}" />
+
+    <Color x:Key="FlatGreen">#1ABC9C</Color>
+    <SolidColorBrush x:Key="FlatGreenBrush" Color="{StaticResource FlatGreen}" />
+
+    <Color x:Key="FlatYellow">#F1C40F</Color>
+    <SolidColorBrush x:Key="FlatYellowBrush" Color="{StaticResource FlatYellow}" />
+
+    <Color x:Key="FlatBlue">#3498DB</Color>
+    <SolidColorBrush x:Key="FlatBlueBrush" Color="{StaticResource FlatBlue}" />
+
+    <Color x:Key="FlatDark">#000000</Color>
+    <SolidColorBrush x:Key="FlatDarkBrush" Color="{StaticResource FlatDark}" />
+
+    <Color x:Key="FlatMidnightBlue">#2C3E50</Color>
+    <SolidColorBrush x:Key="FlatMidnightBlueBrush" Color="{StaticResource FlatMidnightBlue}" />
+
+    <Color x:Key="FlatWetAsphalt">#34495E</Color>
+    <SolidColorBrush x:Key="FlatWetAsphaltBrush" Color="{StaticResource FlatWetAsphalt}" />
+
+</ResourceDictionary>
