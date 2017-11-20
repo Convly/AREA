@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D1A2A3DC-92E2-40C0-8D9E-C67E1E3A2ED0}</ProjectGuid>
+    <ProjectGuid>{543F8EE1-1683-49D2-95DF-B257C0069A00}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Area</RootNamespace>
-    <AssemblyName>Area</AssemblyName>
+    <RootNamespace>Network</RootNamespace>
+    <AssemblyName>Network</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,21 +16,26 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Network\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Area.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\Network\Network.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Network\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\bin\Network\Network.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NetworkCommsDotNet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f58108eb6480f6ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetworkCommsDotNet.3.0.3\lib\NetworkCommsDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,24 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandsManager.cs" />
-    <Compile Include="Dispatcher.cs" />
-    <Compile Include="EventFactory.cs" />
-    <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\AddServiceLinkEvent.cs" />
-    <Compile Include="Events\HttpEventAnswer.cs" />
-    <Compile Include="Events\HttpEventStatus.cs" />
-    <Compile Include="MessageBus.cs" />
-    <Compile Include="QueriesManager.cs" />
+    <Compile Include="MonitorClient.cs" />
+    <Compile Include="Lock\Locker.cs" />
+    <Compile Include="Lock\LockManager.cs" />
+    <Compile Include="NetTools\Packet.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInfos.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Network\Network.csproj">
-      <Project>{543f8ee1-1683-49d2-95df-b257c0069a00}</Project>
-      <Name>Network</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
