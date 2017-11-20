@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ServerMonitorApplication
+namespace ServerMonitorApplication.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for ConnectionPage.xaml
+    /// Interaction logic for ConnectionView.xaml
     /// </summary>
-    public partial class ConnectionPage : Page
+    public partial class ConnectionView : UserControl
     {
-        public ConnectionPage()
+        public ConnectionView()
         {
             InitializeComponent();
         }
