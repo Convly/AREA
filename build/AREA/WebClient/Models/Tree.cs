@@ -8,7 +8,7 @@ namespace WebClient.Models
     public delegate void TreeIterator<T>(T nodeData);
 
     /// <summary>
-    /// Defines an Tree
+    /// Defines an <see cref="Tree{T}"/>
     /// </summary>
     public class Tree<T>
     {
@@ -23,7 +23,7 @@ namespace WebClient.Models
         public LinkedList<Tree<T>> children;
 
         /// <summary>
-        /// Constructor
+        /// Constructor of a <see cref="Tree{T}"/>
         /// </summary>
         /// <param name="data">The data to be filled in the node</param>
         public Tree(T data)

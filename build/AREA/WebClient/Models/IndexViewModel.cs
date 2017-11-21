@@ -7,17 +7,17 @@ using System.Web;
 namespace WebClient.Models
 {
     /// <summary>
-    /// Defines an IndexViewModel
+    /// Defines an <see cref="IndexViewModel"/>
     /// </summary>
     public class IndexViewModel
     {
         /// <summary>
-        /// The list of AREAs visible
+        /// The list of <see cref="Area"/> visible
         /// </summary>
         public List<Area> Areas { get; set; }
 
         /// <summary>
-        /// Serialize the list of AREAs
+        /// Serialize the list of <see cref="Area"/>
         /// </summary>
         /// <returns>The stringified list of AREAs</returns>
         public string AreasToJSON()
@@ -26,7 +26,7 @@ namespace WebClient.Models
         }
 
         /// <summary>
-        /// Constructor "copy"
+        /// Constructor of an <see cref="IndexViewModel"/> 
         /// </summary>
         /// <param name="areas">A list of AREAs</param>
         public IndexViewModel(List<Area> areas)

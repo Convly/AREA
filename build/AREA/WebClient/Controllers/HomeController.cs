@@ -15,9 +15,9 @@ namespace WebClient.Controllers
         IndexViewModel vm = new IndexViewModel();
 
         /// <summary>
-        /// GET :Home/Index
+        /// GET: Home/Index
         /// </summary>
-        /// <returns>The 'Index' view</returns>
+        /// <returns>The <see cref="IndexViewModel"/></returns>
         public ActionResult Index()
         {
             return View(vm);

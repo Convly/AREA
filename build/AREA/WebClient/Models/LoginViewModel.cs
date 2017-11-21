@@ -7,7 +7,7 @@ using System.Web;
 namespace WebClient.Models
 {
     /// <summary>
-    /// Defines an LoginViewModel
+    /// Defines an <see cref="LoginViewModel"/>
     /// </summary>
     public class LoginViewModel
     {

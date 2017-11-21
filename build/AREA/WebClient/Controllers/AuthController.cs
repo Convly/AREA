@@ -17,7 +17,7 @@ namespace WebClient.Controllers
         /// <summary>
         /// GET: Auth/Login
         /// </summary>
-        /// <returns>The 'Login' view</returns>
+        /// <returns>The <see cref="LoginViewModel"/></returns>
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -27,9 +27,9 @@ namespace WebClient.Controllers
         }
 
         /// <summary>
-        /// GET: Auth/Login?ReturnUrl=
+        /// POST: Auth/Login?ReturnUrl=
         /// </summary>
-        /// <param name="model">A LoginViewModel</param>
+        /// <param name="model">A <see cref="LoginViewModel"/></param>
         /// <param name="returnUrl">Parameters for the ReturnUrl</param>
         /// <returns>An action</returns>
         [HttpPost]
@@ -82,9 +82,9 @@ namespace WebClient.Controllers
         }
 
         /// <summary>
-        /// GET: Auth/Register?ReturnUrl=
+        /// POST: Auth/Register?ReturnUrl=
         /// </summary>
-        /// <param name="model">A LoginViewModel</param>
+        /// <param name="model">A <see cref="LoginViewModel"/></param>
         /// <param name="returnUrl">Parameters for the ReturnUrl</param>
         /// <returns>An action</returns>
         [HttpPost]
