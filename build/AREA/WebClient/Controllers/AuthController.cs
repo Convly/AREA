@@ -34,7 +34,7 @@ namespace WebClient.Controllers
             {
                 return View(model);
             }
-            if (!ValidateUser(model.Login, model.Password))
+            if (!ValidateUser(model.Email, model.Password))
             {
                 ModelState.AddModelError(string.Empty, "Le nom d'utilisateur ou le mot de passe est incorrect.");
                 return View(model);
@@ -42,7 +42,7 @@ namespace WebClient.Controllers
 
             // L'authentification est réussie, 
             // injecter l'identifiant utilisateur dans le cookie d'authentification :
-            var loginClaim = new Claim(ClaimTypes.NameIdentifier, model.Login);
+            var loginClaim = new Claim(ClaimTypes.NameIdentifier, model.Email);
             var claimsIdentity = new ClaimsIdentity(new[] { loginClaim }, DefaultAuthenticationTypes.ApplicationCookie);
             var ctx = Request.GetOwinContext();
             var authenticationManager = ctx.Authentication;
@@ -61,6 +61,43 @@ namespace WebClient.Controllers
 
             // Pour ce tutoriel, j'utilise une validation extrêmement sécurisée...
             return login == password;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(LoginViewModel model, string returnUrl)
+        {
+            if (Request.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
+            ViewBag.ReturnUrl = returnUrl;
+
+            if (!ModelState.IsValid)
+            {
+                return View("Login", model);
+            }
+            if (!ValidateUser(model.Password, model.ConfirmPassword))
+            {
+                ModelState.AddModelError(string.Empty, "Les mots de passes diffèrent.");
+                model.Password = "";
+                model.ConfirmPassword = "";
+                return View("Login", model);
+            }
+
+            // L'authentification est réussie, 
+            // injecter l'identifiant utilisateur dans le cookie d'authentification :
+            var loginClaim = new Claim(ClaimTypes.NameIdentifier, model.Email);
+            var claimsIdentity = new ClaimsIdentity(new[] { loginClaim }, DefaultAuthenticationTypes.ApplicationCookie);
+            var ctx = Request.GetOwinContext();
+            var authenticationManager = ctx.Authentication;
+            authenticationManager.SignIn(claimsIdentity);
+
+            // Rediriger vers l'URL d'origine :
+            if (Url.IsLocalUrl(ViewBag.ReturnUrl))
+                return Redirect(ViewBag.ReturnUrl);
+            // Par défaut, rediriger vers la page d'accueil :
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
