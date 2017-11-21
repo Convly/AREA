@@ -9,9 +9,15 @@ using WebClient.Models;
 
 namespace WebClient.Controllers
 {
+    /// <summary>
+    /// The Auth Controller
+    /// </summary>
     public class AuthController : Controller
     {
-        // GET: Auth
+        /// <summary>
+        /// GET: Auth/Login
+        /// </summary>
+        /// <returns>The 'Login' view</returns>
         [AllowAnonymous]
         public ActionResult Login()
         {
@@ -20,6 +26,12 @@ namespace WebClient.Controllers
             return View();
         }
 
+        /// <summary>
+        /// GET: Auth/Login?ReturnUrl=
+        /// </summary>
+        /// <param name="model">A LoginViewModel</param>
+        /// <param name="returnUrl">Parameters for the ReturnUrl</param>
+        /// <returns>An action</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -55,14 +67,26 @@ namespace WebClient.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Check if the login / password combination matches the database
+        /// </summary>
+        /// <param name="login">The user's login</param>
+        /// <param name="password">The user's password</param>
+        /// <returns>User was found</returns>
         private bool ValidateUser(string login, string password)
         {
             // TODO : insérer ici la validation des identifiant et mot de passe de l'utilisateur...
 
             // Pour ce tutoriel, j'utilise une validation extrêmement sécurisée...
-            return login == password;
+            return (login == password);
         }
 
+        /// <summary>
+        /// GET: Auth/Register?ReturnUrl=
+        /// </summary>
+        /// <param name="model">A LoginViewModel</param>
+        /// <param name="returnUrl">Parameters for the ReturnUrl</param>
+        /// <returns>An action</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -100,6 +124,10 @@ namespace WebClient.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Log out the user
+        /// </summary>
+        /// <returns>A redirection to the login page</returns>
         [HttpGet]
         public ActionResult Logout()
         {
@@ -108,7 +136,7 @@ namespace WebClient.Controllers
             authenticationManager.SignOut();
 
             // Rediriger vers la page d'accueil :
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

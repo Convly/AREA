@@ -7,11 +7,17 @@ using WebClient.Models;
 
 namespace WebClient.Controllers
 {
+    /// <summary>
+    /// The Home Controller
+    /// </summary>
     public class HomeController : Controller
     {
         IndexViewModel vm = new IndexViewModel();
 
-        // GET: Home
+        /// <summary>
+        /// GET :Home/Index
+        /// </summary>
+        /// <returns>The 'Index' view</returns>
         public ActionResult Index()
         {
             return View(vm);

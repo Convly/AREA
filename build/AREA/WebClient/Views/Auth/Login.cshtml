@@ -57,7 +57,7 @@
             </div>
             <div class="input-container">
                 @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required"} })
-                <label for="#{label}">Password</label>
+                <label for="#{label}">Confirm password</label>
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                 <div class="bar"></div>
             </div>
