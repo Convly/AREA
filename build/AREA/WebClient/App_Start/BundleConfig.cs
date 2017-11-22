@@ -30,6 +30,9 @@ namespace WebClient
 
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
                       "~/Scripts/login.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/index").Include(
+                      "~/Scripts/tree.js"));
         }
     }
 }
