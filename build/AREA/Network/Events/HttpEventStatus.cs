@@ -1,4 +1,4 @@
-﻿namespace Area.Events
+﻿namespace Network.Events
 {
     /// <summary>
     /// Defines a data model used to store an http status
