@@ -1,0 +1,73 @@
+﻿@using WebClient.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="pen-title">
+    <h1>AREA</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+<div class="container">
+    <div class="card"></div>
+    <div class="card">
+        <h1 class="title">Login</h1>
+        @using (Html.BeginForm("Login", "Auth", Model))
+        {
+            @Html.AntiForgeryToken()
+            <div class="input-container">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required" } })
+                <label for="#{label}">Email</label>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger"})
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required" } })
+                <label for="#{label}">Password</label>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <div class="bar"></div>
+            </div>
+            <div class="button-container">
+                <button type="submit"><span>Log in</span></button>
+            </div>
+            <div class="footer"><a href="#">Forgot your password?</a></div>
+        }
+    </div>
+    <div class="card alt">
+        <div class="toggle"></div>
+        <h1 class="title">
+            Register
+            <div class="close"></div>
+        </h1>
+        @using (Html.BeginForm("Register", "Auth", Model))
+        {
+            @Html.AntiForgeryToken()
+            <div class="input-container">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required" } })
+                <label for="#{label}">Email</label>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required" } })
+                <label for="#{label}">Password</label>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <div class="bar"></div>
+            </div>
+            <div class="input-container">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { id = "#{label}", @class = "", required = "required"} })
+                <label for="#{label}">Confirm password</label>
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                <div class="bar"></div>
+            </div>
+            <div class="button-container">
+                <button type="submit"><span>Register</span></button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
