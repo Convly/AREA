@@ -16,13 +16,13 @@ namespace WebClient.Controllers
         public ActionResult AddArea()
         {
             string name = "";
-            DataAccess db = new DataAccess();
+            DataAccess db = DataAccess.Instance;
             if (User.Identity is ClaimsIdentity claimId)
             {
                 name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
                 db.AddAreaToUser(name, "New area");
             }
-            IndexViewModel vm = new IndexViewModel(name, db);
+            IndexViewModel vm = new IndexViewModel(name);
             return View("Index", vm);
         }
 

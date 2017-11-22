@@ -12,7 +12,6 @@ namespace WebClient.Models
     /// </summary>
     public class IndexViewModel
     {
-        public DataAccess Db { get; set; }
         /// <summary>
         /// The list of <see cref="Area"/> visible
         /// </summary>
@@ -55,17 +54,10 @@ namespace WebClient.Models
             return (-1);
         }
 
-        public IndexViewModel(string email, DataAccess db)
-        {
-            Db = db;
-            User user = Db.GetUser(email);
-            Areas = user.AreasList;
-        }
-
         public IndexViewModel(string email)
         {
-            Db = new DataAccess();
-            User user = Db.GetUser(email);
+            DataAccess db = DataAccess.Instance;
+            User user = db.GetUser(email);
             Areas = user.AreasList;
         }
     }
