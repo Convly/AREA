@@ -27,11 +27,16 @@ namespace WebClient.Models
         MongoClient     _client;
         IMongoDatabase  _db;
 
-        public DataAccess()
+        private DataAccess()
         {
             _client = new MongoClient();
             _db = _client.GetDatabase("Area");
         }
+
+        ~DataAccess()
+        {
+            _client.DropDatabase("Area");
+        } 
 
         public List<User> GetUsers()
         {
