@@ -20,6 +20,19 @@ namespace WebClient.Models
             _db = _client.GetDatabase("Area");
         }
 
+        public void AddAreaToUser(string email, string areaName)
+        {
+            User user = GetUser(email);
+            if (user != null)
+            {
+                user.AreasList.Add(new Area(areaName));
+                var collection = _db.GetCollection<User>("Authentification");
+                var filter = Builders<User>.Filter.Eq("Email", email);
+                var update = Builders<User>.Update.Set("AreasList", user.AreasList);
+                collection.UpdateOne(filter, update);
+            }
+        }
+
         public List<User> GetUsers()
         {
             return _db.GetCollection<User>("Authentification").Find(new BsonDocument()).ToList();

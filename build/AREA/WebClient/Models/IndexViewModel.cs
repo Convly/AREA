@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 namespace WebClient.Models
@@ -11,6 +12,7 @@ namespace WebClient.Models
     /// </summary>
     public class IndexViewModel
     {
+        public DataAccess Db { get; set; }
         /// <summary>
         /// The list of <see cref="Area"/> visible
         /// </summary>
@@ -53,24 +55,18 @@ namespace WebClient.Models
             return (-1);
         }
 
-        /// <summary>
-        /// Constructor of an <see cref="IndexViewModel"/> 
-        /// </summary>
-        /// <param name="areas">A list of AREAs</param>
-        public IndexViewModel(List<Area> areas)
+        public IndexViewModel(string email, DataAccess db)
         {
-            Areas = areas;
+            Db = db;
+            User user = Db.GetUser(email);
+            Areas = user.AreasList;
         }
 
-        //TEMP
-        public IndexViewModel()
+        public IndexViewModel(string email)
         {
-            Areas = new List<Area>
-            {
-                new Area("Emails"),
-                new Area("FB notifications"),
-                new Area("Twitter notifications")
-            };
+            Db = new DataAccess();
+            User user = Db.GetUser(email);
+            Areas = user.AreasList;
         }
     }
 }
