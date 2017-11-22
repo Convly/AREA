@@ -83,7 +83,7 @@ namespace WebClient.Controllers
         private bool ValidateUser(string email, string pwd)
         {
             // Temp
-            return true;
+            //return true;
 
             // Check if user authentification is correct
             try
