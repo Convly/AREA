@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Area.Events;
+using Network.Events;
 
 namespace Area
 {
@@ -18,6 +15,14 @@ namespace Area
         /// Getter and Setter for the <see cref="Dispatcher"/> routes
         /// </summary>
         public Dictionary<HttpEventType, Func<Event, HttpEventAnswer>> Routes { get => routes; set => routes = value; }
+
+        /// <summary>
+        /// Default constructor for <see cref="Dispatcher"/>
+        /// </summary>
+        public Dispatcher()
+        {
+            this.Routes.Add(HttpEventType.COMMAND, Area.CommandsManager.ProcessEvent);
+        }
 
         /// <summary>
         /// EntryPoint of the Dispatcher which handle and route events
