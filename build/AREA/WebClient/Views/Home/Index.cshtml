@@ -23,19 +23,39 @@
             }
         </menu>
         <section class="sidebarItemsContainer">
+            <script type="text/javascript">
+                initTreeData(@Model.Areas.Count);
+            </script>
             @for (int i = 0; i < @Model.Areas.Count; i++)
             {
                 <div class="sidebarItem" id="sidebarItem@(i)">
-                    <script>
+                    <script type="text/javascript">
+                        var itemIndex = -1;
+
+                        function GetSelectedSideItemIndex() {
+                            return (itemIndex);
+                        }
+
                         var arr = '@Html.Raw(Model.Areas)'
                         $("#sidebarItem@(i)").click(function () {
                             for (var j = 0; j < arr.length; j++)
                                 $("#sidebarItem" + j.toString()).removeClass("selectedItem")
+                            @for (int k = 0; k < @Model.Areas.Count; k++)
+                            {
+                                if (i != k)
+                                {
+                                    Model.Areas[k].IsSelected = false;
+                                }
+                                else
+                                {
+                                    Model.Areas[k].IsSelected = true;
+                                }
+
+                            }
+                            itemIndex = @(i);
                             $("#sidebarItem@(i)").addClass("selectedItem")
-                            drawTreeData('@Html.Raw(Model.Areas[i].AreaToJSON())');
-                            //TEMP
-                            drawTextInCanvas("Hello le monde!", 24, "Roboto", "#000000", getCanvasSize().width / 2, getCanvasSize().height / 2, "center");
-                            drawTextInCanvas("Vous etes sur @Html.Raw(Model.Areas[i].Name)", 24, "Roboto", "#000000", getCanvasSize().width / 2, getCanvasSize().height / 2 + 40, "center");
+                            setTreeData(getTree(itemIndex))
+                            drawTreeData();
                         });
                     </script>
                     <p>@Model.Areas[i].Name</p>
@@ -46,8 +66,6 @@
     <section id="canvasContainer" class="canvasContainer" onresize="resizeCanvasToSquare()">
         <canvas id="canvasTree"></canvas>
         <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
-        <script type="text/javascript">
-            //Events on canvas here (onclick etc..)
-        </script>
+        <script type="text/javascript" src="~/Scripts/CanvasEvents.js"></script>
     </section>
 </div>

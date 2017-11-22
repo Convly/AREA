@@ -20,7 +20,7 @@ namespace WebClient.Models
         /// <summary>
         /// The list of children in the current node
         /// </summary>
-        public LinkedList<Tree<T>> children;
+        public List<Tree<T>> children;
 
         /// <summary>
         /// Constructor of a <see cref="Tree{T}"/>
@@ -29,7 +29,7 @@ namespace WebClient.Models
         public Tree(T data)
         {
             this.data = data;
-            children = new LinkedList<Tree<T>>();
+            children = new List<Tree<T>>();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace WebClient.Models
         /// <param name="data">The data to be filled in the new node</param>
         public void AddChild(T data)
         {
-            children.AddFirst(new Tree<T>(data));
+            children.Add(new Tree<T>(data));
         }
 
         /// <summary>

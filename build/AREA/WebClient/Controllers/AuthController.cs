@@ -1,8 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebClient.Models;
@@ -48,7 +55,7 @@ namespace WebClient.Controllers
             }
             if (!ValidateUser(model.Email, model.Password))
             {
-                ModelState.AddModelError(string.Empty, "Le nom d'utilisateur ou le mot de passe est incorrect.");
+                ModelState.AddModelError(string.Empty, "Incorrect Email or Password.");
                 return View(model);
             }
 
@@ -70,15 +77,45 @@ namespace WebClient.Controllers
         /// <summary>
         /// Check if the login / password combination matches the database
         /// </summary>
-        /// <param name="login">The user's login</param>
+        /// <param name="email">The user's email</param>
         /// <param name="password">The user's password</param>
         /// <returns>User was found</returns>
-        private bool ValidateUser(string login, string password)
+        private bool ValidateUser(string email, string pwd)
         {
-            // TODO : insérer ici la validation des identifiant et mot de passe de l'utilisateur...
+            // Temp
+            return true;
 
-            // Pour ce tutoriel, j'utilise une validation extrêmement sécurisée...
-            return (login == password);
+            // Check if user authentification is correct
+            try
+            {
+                DataAccess da = new DataAccess();
+                var user = da.GetUser(email);
+                if (GetSha256FromString(pwd) != user.Pwd)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        public static string GetSha256FromString(string strData)
+        {
+            var message = Encoding.ASCII.GetBytes(strData);
+            SHA256Managed hashString = new SHA256Managed();
+            string hex = "";
+
+            var hashValue = hashString.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
         }
 
         /// <summary>
@@ -101,11 +138,34 @@ namespace WebClient.Controllers
             {
                 return View("Login", model);
             }
-            if (!ValidateUser(model.Password, model.ConfirmPassword))
+            if (model.Password != model.ConfirmPassword)
             {
-                ModelState.AddModelError(string.Empty, "Les mots de passes diffèrent.");
+                ModelState.AddModelError(string.Empty, "Passwords are not the same.");
                 model.Password = "";
                 model.ConfirmPassword = "";
+                return View("Login", model);
+            }
+
+            // Check email validity
+            if (!model.Email.Contains('@'))
+            {
+                ModelState.AddModelError(string.Empty, "Email incorrect.");
+                return View("Login", model);
+            }
+            DataAccess da = new DataAccess();
+            var users = da.GetUsers();
+            foreach (var user in users)
+            {
+                if (user.Email == model.Email)
+                {
+                    ModelState.AddModelError(string.Empty, "Email already used.");
+                    return View("Login", model);
+                }
+            }
+
+            // Add user to db
+            if (!da.Create(new User(model.Email, GetSha256FromString(model.Password))))
+            {
                 return View("Login", model);
             }
 
