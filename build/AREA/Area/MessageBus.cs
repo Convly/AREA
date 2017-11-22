@@ -12,6 +12,9 @@ namespace Area
     public class MessageBus
     {
         private bool run = false;
+        /// <summary>
+        /// The list of event to be processed
+        /// </summary>
         public static List<Event> eventList = new List<Event>();
 
         private void TreatAll()
@@ -30,12 +33,18 @@ namespace Area
             }
         }
 
+        /// <summary>
+        /// Main constructor for the message bus
+        /// </summary>
         public MessageBus()
         {
             this.run = true;
             new Thread(() => this.TreatAll()).Start();
         }
 
+        /// <summary>
+        /// Destructor for the message bus
+        /// </summary>
         ~MessageBus()
         {
             this.run = false;
@@ -53,6 +62,11 @@ namespace Area
             return 0;
         }
 
+        /// <summary>
+        /// Add an event into the message bus
+        /// </summary>
+        /// <param name="e">The event to be added</param>
+        /// <returns>A success answer</returns>
         public static HttpEventAnswer Add(Event e)
         {
             lock (eventList)
