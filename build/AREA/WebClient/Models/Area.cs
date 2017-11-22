@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Drawing;
 
 namespace WebClient.Models
 {
@@ -19,7 +20,12 @@ namespace WebClient.Models
         /// <summary>
         /// A tree containing actions and reactions of the <see cref="Area"/>
         /// </summary>
-        public Tree<string> Tree { get; set; }
+        public Tree<NodeArea> Tree { get; set; }
+
+        /// <summary>
+        /// The selected state of the <see cref="Area"/>
+        /// </summary>
+        public bool IsSelected { get; set; }
 
         /// <summary>
         /// Serialize the <see cref="Area"/>
@@ -37,7 +43,8 @@ namespace WebClient.Models
         public Area(string name)
         {
             Name = name;
-            Tree = new Tree<string>("");
+            Tree = new Tree<NodeArea>(new NodeArea("Root"));
+            IsSelected = false;
         }
     }
 }
