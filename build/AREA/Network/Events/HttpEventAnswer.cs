@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Area.Events
+namespace Network.Events
 {
     /// <summary>
     /// Defines the basic object used for handling answer from the server
@@ -17,6 +17,18 @@ namespace Area.Events
         public static HttpEventAnswer Error(Event e, int code, string message)
         {
             HttpEventStatus status = new HttpEventStatus { Code = code, Message = message };
+            return new HttpEventAnswer { Parent = e, Data = null, Type = null, Status = status };
+        }
+
+        /// <summary>
+        /// Creates a specific <see cref="HttpEventAnswer"/> with a predefined pattern used for success status.
+        /// </summary>
+        /// <param name="e">The source event used for generating the answer</param>
+        /// <param name="message">The error message</param>
+        /// <returns></returns>
+        public static HttpEventAnswer Success(Event e, string message)
+        {
+            HttpEventStatus status = new HttpEventStatus { Code = 200, Message = message };
             return new HttpEventAnswer { Parent = e, Data = null, Type = null, Status = status };
         }
 
