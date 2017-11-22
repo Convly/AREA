@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29CB8B17-A113-4E6A-9B95-A8C449ED2DDC}</ProjectGuid>
+    <ProjectGuid>{829A3620-2868-46AE-9122-0C82B41F113D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ServerMonitorApplication</RootNamespace>
     <AssemblyName>ServerMonitorApplication</AssemblyName>
@@ -13,6 +13,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,19 +36,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.Core.3.2.0\lib\net45\Caliburn.Micro.dll</HintPath>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Micro.Platform, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\Caliburn.Micro.Platform.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Caliburn.Micro.Platform.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\Caliburn.Micro.Platform.Core.dll</HintPath>
+    <Reference Include="CommonServiceLocator, Version=2.0.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.1\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PropertyChanged, Version=2.1.4.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.2.1.4\lib\netstandard1.0\PropertyChanged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,17 +97,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\Pages\ConnectionViewModel.cs" />
-    <Compile Include="ViewModels\WindowViewModel.cs" />
-    <Compile Include="Views\Pages\ConnectionView.xaml.cs">
+    <Compile Include="PageManagement\ChangePage.cs" />
+    <Compile Include="Views\Connection\ConnectionView.xaml.cs">
       <DependentUpon>ConnectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WindowView.xaml.cs">
-      <DependentUpon>WindowView.xaml</DependentUpon>
+    <Compile Include="Views\Connection\ConnectionViewModel.cs" />
+    <Compile Include="Views\Login\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Login\LoginViewModel.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindowViewModel.cs" />
+    <Compile Include="Window\WindowResizer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +130,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Lato-Black.ttf" />
+    <Resource Include="Fonts\Lato-BlackItalic.ttf" />
+    <Resource Include="Fonts\Lato-Bold.ttf" />
+    <Resource Include="Fonts\Lato-BoldItalic.ttf" />
+    <Resource Include="Fonts\Lato-Hairline.ttf" />
+    <Resource Include="Fonts\Lato-HairlineItalic.ttf" />
+    <Resource Include="Fonts\Lato-Heavy.ttf" />
+    <Resource Include="Fonts\Lato-HeavyItalic.ttf" />
+    <Resource Include="Fonts\Lato-Italic.ttf" />
+    <Resource Include="Fonts\Lato-Light.ttf" />
+    <Resource Include="Fonts\Lato-LightItalic.ttf" />
+    <Resource Include="Fonts\Lato-Medium.ttf" />
+    <Resource Include="Fonts\Lato-MediumItalic.ttf" />
+    <Resource Include="Fonts\Lato-Regular.ttf" />
+    <Resource Include="Fonts\Lato-Semibold.ttf" />
+    <Resource Include="Fonts\Lato-SemiboldItalic.ttf" />
+    <Resource Include="Fonts\Lato-Thin.ttf" />
+    <Resource Include="Fonts\Lato-ThinItalic.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -108,17 +158,51 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Page Include="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Windows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Connection\ConnectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\Pages\ConnectionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\WindowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo\nexus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets'))" />
+  </Target>
 </Project>
