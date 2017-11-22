@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 
 namespace WebClient.Models
@@ -53,24 +54,11 @@ namespace WebClient.Models
             return (-1);
         }
 
-        /// <summary>
-        /// Constructor of an <see cref="IndexViewModel"/> 
-        /// </summary>
-        /// <param name="areas">A list of AREAs</param>
-        public IndexViewModel(List<Area> areas)
+        public IndexViewModel(string email)
         {
-            Areas = areas;
-        }
-
-        //TEMP
-        public IndexViewModel()
-        {
-            Areas = new List<Area>
-            {
-                new Area("Emails"),
-                new Area("FB notifications"),
-                new Area("Twitter notifications")
-            };
+            DataAccess db = DataAccess.Instance;
+            User user = db.GetUser(email);
+            Areas = user.AreasList;
         }
     }
 }
