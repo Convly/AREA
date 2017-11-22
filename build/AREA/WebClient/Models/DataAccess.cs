@@ -11,6 +11,19 @@ namespace WebClient.Models
 {
     public class DataAccess
     {
+        private static DataAccess instance = null;
+        public static DataAccess Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DataAccess();
+                }
+                return instance;
+            }
+        }
+
         MongoClient     _client;
         IMongoDatabase  _db;
 
