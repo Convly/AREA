@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Network.NetTools;
 
-namespace Area.Events
+namespace Network.Events
 {
     /// <summary>
     /// Defines the differents type which can be used to create an <see cref="Event"/>

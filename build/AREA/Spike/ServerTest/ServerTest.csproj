@@ -53,6 +53,10 @@
       <Project>{a8b07888-029c-478d-adb7-3eb481b4e390}</Project>
       <Name>Area</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Network\Network.csproj">
+      <Project>{543f8ee1-1683-49d2-95df-b257c0069a00}</Project>
+      <Name>Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
