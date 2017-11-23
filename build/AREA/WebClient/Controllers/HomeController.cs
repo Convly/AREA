@@ -27,17 +27,16 @@ namespace WebClient.Controllers
             return View(vm);
         }
 
-        public ActionResult AddArea()
+        public ActionResult AddArea(string areaName)
         {
             string name = "";
             DataAccess db = DataAccess.Instance;
             if (User.Identity is ClaimsIdentity claimId)
             {
                 name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
-                db.AddAreaToUser(name, "New area");
+                db.AddAreaToUser(name, areaName);
             }
-            IndexViewModel vm = new IndexViewModel(name);
-            return View("Index", vm);
+            return RedirectToAction("Index");
         }
 
         /// <summary>
