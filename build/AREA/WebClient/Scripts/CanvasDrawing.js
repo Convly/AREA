@@ -20,11 +20,11 @@ function drawTreeData() {
         treeData.traverseBFS(function (node) {
             if (node) {
                 if (node.data.type == "reaction") {
+                    ctx.font = "14px Roboto";
                     var sizeText = {
                         "width": ctx.measureText(node.data.name).width + 20,
                         "height": 14 + 14
                     }
-                    ctx.font = "14px Roboto";
                     var w = ctx.measureText(treeData.root.data.name).width + 20;
                     drawLineInCanvas({ "x": node.data.pos.x, "y": node.data.pos.y },
                                      { "x": treeData.root.data.pos.x, "y": treeData.root.data.pos.y }, 2, "#E66A39");

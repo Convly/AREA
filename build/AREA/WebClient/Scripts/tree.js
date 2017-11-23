@@ -143,7 +143,10 @@ tree = [];
 function addTreeData(t) {
     tree.push(new Tree());
     tree[tree.length - 1].Name = t.Name;
-    tree[tree.length - 1].root = t.root;
+    if (t.root && t.root.data.name != "")
+        tree[tree.length - 1].root = t.root;
+    else
+        tree[tree.length - 1].root = null;
 }
 
 //Get the entire tree list
