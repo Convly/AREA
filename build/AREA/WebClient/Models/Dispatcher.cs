@@ -12,7 +12,7 @@ namespace WebClient.Models
         public static List<Service> GetAvailableServices(User user)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.QUERY, user);
+            Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.QUERY, user, null);
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {
@@ -22,9 +22,41 @@ namespace WebClient.Models
             return answer.Data as List<Service>;
         }
 
+        /// <summary>
+        /// Add a user to server
+        /// </summary>
+        /// <param name="user">user</param>
+        /// <param name="tree">user's tree</param>
+        /// <returns>true => success</returns>
+        public static bool AddUser(User user)
+        {
+            Area.Server server = Area.Server.Instance;
+            Event e = new AddUserEvent(HttpEventSource.EXT, HttpEventType.QUERY, user, null);
+            var answer = server.Dispatcher.Trigger(e);
+            if (answer.Status.Code != 200)
+            {
+                Console.Error.WriteLine("Error: AddUser => " + answer.Status.Message);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Add a tree to server
+        /// </summary>
+        /// <param name="user">user</param>
+        /// <param name="tree">user's tree</param>
+        /// <returns>true => success</returns>
         public static bool AddTree(User user, AreaTree tree)
         {
-
+            Area.Server server = Area.Server.Instance;
+            Event e = new AddTreeEvent(HttpEventSource.EXT, HttpEventType.QUERY, user, new KeyValuePair<User, AreaTree>(user, tree));
+            var answer = server.Dispatcher.Trigger(e);
+            if (answer.Status.Code != 200)
+            {
+                Console.Error.WriteLine("Error: AddTree => " + answer.Status.Message);
+                return false;
+            }
             return true;
         }
     }

@@ -58,6 +58,7 @@ namespace Network.Events
         private HttpEventType type;
         private HttpEventSource source;
         private User ownerInfos;
+        private Object data;
 
         /// <summary>
         /// Defines the date of the creation for the event
@@ -75,18 +76,24 @@ namespace Network.Events
         /// Indicate some basics informations about the event's owner
         /// </summary>
         public User OwnerInfos { get => ownerInfos; set => ownerInfos = value; }
-        
+        /// <summary>
+        /// Indicate some basics informations about the event's owner
+        /// </summary>
+        public object Data { get => data; set => data = value; }
+
         /// <summary>
         /// Main constructor for <see cref="Event"/> objects
         /// </summary>
         /// <param name="source_">The source type (<see cref="HttpEventSource"/>)</param>
         /// <param name="type_">The event type (<see cref="HttpEventType"/>)</param>
         /// <param name="owner_">Some basics informations about the event's owner</param>
-        public Event(HttpEventSource source_, HttpEventType type_, User owner_)
+        /// <param name="data_">Some basics informations about the event's data</param>
+        public Event(HttpEventSource source_, HttpEventType type_, User owner_, Object data_)
         {
             this.Source = source_;
             this.Type = type_;
             this.OwnerInfos = owner_;
+            this.data = data_;
         }
     }
 }
