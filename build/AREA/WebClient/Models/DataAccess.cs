@@ -33,11 +33,21 @@ namespace WebClient.Models
             var users = GetUsers();
             foreach (var user in users)
             {
-                Dispatcher.AddUser(user);
+                try
+                {
+                    Dispatcher.AddUser(user);
+                }
+                catch { }
             }
-            foreach (var tree in users)
+            var trees = GetAllAreas();
+            foreach (var tree in trees)
             {
-                Dispatcher.AddUser(user);
+                try
+                {
+                    var userTree = GetUser(tree.Email);
+                    Dispatcher.AddTree(userTree, tree);
+                }
+                catch { }
             }
         }
 

@@ -26,7 +26,6 @@ namespace WebClient.Models
         /// Add a user to server
         /// </summary>
         /// <param name="user">user</param>
-        /// <param name="tree">user's tree</param>
         /// <returns>true => success</returns>
         public static bool AddUser(User user)
         {
