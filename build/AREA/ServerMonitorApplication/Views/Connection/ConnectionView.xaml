@@ -14,7 +14,6 @@
             <Grid.Background>
                 <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" />
             </Grid.Background>
-
             <!-- Main content scroll -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel 
@@ -28,35 +27,26 @@
                             Padding="15 50 15 15"
                             Width="330"
                             Margin="50 50 50 0">
-
                         <StackPanel>
-
                             <!-- Sign In header -->
                             <TextBlock Text="Connection" 
                                    FontSize="{StaticResource FontSizeLarge}" 
                                    FontFamily="{StaticResource LatoRegular}"
                                    Foreground="{StaticResource WordBlueBrush}" />
-
                             <!-- Sign up subtext-->
                             <TextBlock Text="to server" 
                                        FontSize="{StaticResource FontSizeRegular}"
                                        Foreground="{StaticResource ForegroundDarkBrush}"
                                        Margin="0 0 0 20"
                                        />
-
                             <!-- IP Address -->
                             <TextBox Tag="IP Address" Text="{Binding IpAddress, Mode=OneWayToSource}" MaxLength="15"/>
-
                             <!-- Port -->
                             <TextBox Tag="Port" Margin="0 0 0 30" Text="{Binding Port, Mode=OneWayToSource}" MaxLength="5"/>
-
                             <!-- Next button -->
                             <Button Command="{Binding ShowLoginViewCommand}" Content="Next" HorizontalAlignment="Center" />
-
                         </StackPanel>
-
                     </Border>
-
                 </StackPanel>
             </ScrollViewer>
         </Grid>

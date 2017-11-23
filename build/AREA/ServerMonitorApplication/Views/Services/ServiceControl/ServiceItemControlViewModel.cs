@@ -1,5 +1,8 @@
 ﻿namespace ServerMonitorApplication
 {
+    /// <summary>
+    /// All service properties
+    /// </summary>
     public class ServiceItemControlViewModel
     {
         #region Properties

@@ -2,6 +2,9 @@
 
 namespace ServerMonitorApplication
 {
+    /// <summary>
+    /// Set the current page
+    /// </summary>
     public class ChangePage
     {
         #region Property
