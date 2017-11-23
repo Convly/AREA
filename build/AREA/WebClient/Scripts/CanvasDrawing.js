@@ -20,11 +20,11 @@ function drawTreeData() {
         treeData.traverseBFS(function (node) {
             if (node) {
                 if (node.data.type == "reaction") {
+                    ctx.font = "14px Roboto";
                     var sizeText = {
                         "width": ctx.measureText(node.data.name).width + 20,
                         "height": 14 + 14
                     }
-                    ctx.font = "14px Roboto";
                     var w = ctx.measureText(treeData.root.data.name).width + 20;
                     drawLineInCanvas({ "x": node.data.pos.x, "y": node.data.pos.y },
                                      { "x": treeData.root.data.pos.x, "y": treeData.root.data.pos.y }, 2, "#E66A39");
@@ -33,13 +33,15 @@ function drawTreeData() {
                 }
             }
         });
-        ctx.font = "14px Roboto";
-        var sizeText = {
-            "width": ctx.measureText(treeData.root.data.name).width + 30,
-            "height": 14
+        if (treeData.root.data.type == "action") {
+            ctx.font = "14px Roboto";
+            var sizeText = {
+                "width": ctx.measureText(treeData.root.data.name).width + 30,
+                "height": 14
+            }
+            drawCircleInCanvas(treeData.root.data.pos.x, treeData.root.data.pos.y + sizeText.height / 2, sizeText.width / 2, "#FFFFFF", true)
+            drawTextInCanvas(treeData.root.data.name, 14, "Roboto", "#353C3E", treeData.root.data.pos.x, treeData.root.data.pos.y, "center", "top");
         }
-        drawCircleInCanvas(treeData.root.data.pos.x, treeData.root.data.pos.y + sizeText.height / 2, sizeText.width / 2, "#FFFFFF", true)
-        drawTextInCanvas(treeData.root.data.name, 14, "Roboto", "#353C3E", treeData.root.data.pos.x, treeData.root.data.pos.y, "center", "top");
     }
 }
 
