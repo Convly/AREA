@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ServerMonitorApplication.ServicesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ServerMonitorApplication"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="700"
+             d:DataContext="{d:DesignInstance local:ServicesViewModel, IsDesignTimeCreatable=True}">
+
+            <!-- Main background -->
+    <Border Background="{StaticResource ForegroundLightBrush}">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Content UserControl -->
+            <Grid Grid.Row="0">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Top Menu -->
+                <Grid Height="80" Background="{StaticResource WordBlueBrush}">
+
+                    <!-- Header -->
+                    <TextBlock Text="Services" FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeLarge}" Foreground="{StaticResource ForegroundLightBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                </Grid>
+
+                <local:ListServiceItemControl Grid.Row="1" VerticalAlignment="Top"/>
+
+            </Grid>
+            
+            <!-- Content Logger -->
+            <Grid Grid.Column="1" Background="{StaticResource WordBlueBrush}">
+                <local:ListServiceLoggerItemControl VerticalAlignment="Top"/>
+            </Grid>
+        </Grid>
+    </Border>
+
+</UserControl>

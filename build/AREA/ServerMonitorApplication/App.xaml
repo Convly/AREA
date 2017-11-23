@@ -2,24 +2,30 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ServerMonitorApplication"
-             xmlns:connection="clr-namespace:ServerMonitorApplication.Views.Connection"
-             xmlns:login="clr-namespace:ServerMonitorApplication.Views.Login"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Order is important -->
                 <ResourceDictionary Source="Styles/Colors.xaml" />
                 <ResourceDictionary Source="Styles/Fonts.xaml" />
                 <ResourceDictionary Source="Styles/Buttons.xaml" />
                 <ResourceDictionary Source="Styles/Texts.xaml" />
                 <ResourceDictionary Source="Styles/Windows.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type connection:ConnectionViewModel}">
-                <connection:ConnectionView/>
+            <DataTemplate DataType="{x:Type local:ConnectionViewModel}">
+                <local:ConnectionView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type login:LoginViewModel}">
-                <login:LoginView/>
+            <DataTemplate DataType="{x:Type local:LoginViewModel}">
+                <local:LoginView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ServicesViewModel}">
+                <local:ServicesView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ServiceItemControlViewModel}">
+                <local:ServiceItemControl/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ListServiceItemControlViewModel}">
+                <local:ListServiceItemControl/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

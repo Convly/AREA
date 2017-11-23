@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ServerMonitorApplication.Views
+namespace ServerMonitorApplication
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
