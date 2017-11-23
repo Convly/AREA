@@ -3,18 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Network.NetTools;
+using Network.Events;
 
 namespace Area
 {
     public class Cache
     {
-        private List<Network.NetTools.NetTools.Service> serviceList;
+        public static List<Service> ServiceList = new List<Service>();
 
-        public List<Network.NetTools.Service> ServiceList { get => serviceList; set => serviceList = value; }
 
-        public void UpdateServicesList()
+        public static void UpdateServicesList()
         {
 
+        }
+
+        public static Network.Events.HttpEventAnswer GetServiceList(Event e)
+        {
+            return new HttpEventAnswer
+            {
+                Parent = e,
+                Status = new HttpEventStatus { Code = 200, Message = "Success" },
+                Data = ServiceList
+            }; ;
         }
     }
 }
