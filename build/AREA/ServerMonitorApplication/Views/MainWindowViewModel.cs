@@ -1,15 +1,11 @@
-﻿using System;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using ServerMonitorApplication.PageManagement;
-using ServerMonitorApplication.Views.Connection;
-using ServerMonitorApplication.Views.Login;
-using GalaSoft.MvvmLight.Messaging;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
-namespace ServerMonitorApplication.Views
+namespace ServerMonitorApplication
 {
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
@@ -39,6 +35,11 @@ namespace ServerMonitorApplication.Views
         /// Login view model
         /// </summary>
         private LoginViewModel mLoginViewModel;
+
+        /// <summary>
+        /// Services view model
+        /// </summary>
+        private ServicesViewModel mServicesViewModel;
 
         /// <summary>
         /// The margin around the window to allow for a drop shadow
@@ -154,16 +155,6 @@ namespace ServerMonitorApplication.Views
         #region Commands
 
         /// <summary>
-        /// Connection view command
-        /// </summary>
-        public RelayCommand ShowConnectionViewCommand { get; private set; }
-
-        /// <summary>
-        /// Login view command
-        /// </summary>
-        public RelayCommand ShowLoginViewCommand { get; private set; }
-
-        /// <summary>
         /// The command to minimize the window
         /// </summary>
         public RelayCommand MinimizeCommand { get; set; }
@@ -212,6 +203,11 @@ namespace ServerMonitorApplication.Views
             CurrentViewModel = mLoginViewModel;
         }
 
+        private void ShowServicesView()
+        {
+            CurrentViewModel = mServicesViewModel;
+        }
+
         /// <summary>
         /// Show the good view model
         /// </summary>
@@ -225,6 +221,10 @@ namespace ServerMonitorApplication.Views
             else if (message.ViewModelType == typeof(LoginViewModel))
             {
                 ShowLoginView();
+            }
+            else if (message.ViewModelType == typeof(ServicesViewModel))
+            {
+                ShowServicesView();
             }
         }
 
@@ -272,6 +272,7 @@ namespace ServerMonitorApplication.Views
             mWindow = window;
             mConnectionViewModel = new ConnectionViewModel();
             mLoginViewModel = new LoginViewModel();
+            mServicesViewModel = new ServicesViewModel();
 
             // Listen out for the window resizing
             mWindow.StateChanged += (sender, e) =>
@@ -280,8 +281,6 @@ namespace ServerMonitorApplication.Views
                 WindowResized();
             };
 
-            ShowConnectionViewCommand = new RelayCommand(ShowConnectionView);
-            ShowLoginViewCommand = new RelayCommand(ShowLoginView);
             MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
             MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
             CloseCommand = new RelayCommand(() => mWindow.Close());

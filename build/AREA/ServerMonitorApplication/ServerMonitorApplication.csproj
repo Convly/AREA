@@ -98,6 +98,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PageManagement\ChangePage.cs" />
+    <Compile Include="PropertyChanged\BaseViewModel.cs" />
+    <Compile Include="PropertyChanged\ExpressionHelpers.cs" />
     <Compile Include="Views\Connection\ConnectionView.xaml.cs">
       <DependentUpon>ConnectionView.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowViewModel.cs" />
+    <Compile Include="Views\Services\ServiceControl\ServiceItemControl.xaml.cs">
+      <DependentUpon>ServiceItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Services\ServiceControl\ServiceItemControlViewModel.cs" />
+    <Compile Include="Views\Services\ServiceControl\ListServiceItemControl.xaml.cs">
+      <DependentUpon>ListServiceItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Services\ServiceControl\ListServiceItemControlViewModel.cs" />
+    <Compile Include="Views\Services\ServiceControl\Model\ServiceItemControlModel.cs" />
+    <Compile Include="Views\Services\ServiceControl\Model\ListServiceItemControlModel.cs" />
+    <Compile Include="Views\Services\ServiceLogger\ListServiceLoggerItemControl.xaml.cs">
+      <DependentUpon>ListServiceLoggerItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Services\ServiceLogger\ServiceLoggerItemControl.xaml.cs">
+      <DependentUpon>ServiceLoggerItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Services\ServicesView.xaml.cs">
+      <DependentUpon>ServicesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Services\ServicesViewModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +212,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Services\ServiceControl\ServiceItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Services\ServiceControl\ListServiceItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Services\ServiceLogger\ListServiceLoggerItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Services\ServiceLogger\ServiceLoggerItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Services\ServicesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
@@ -197,6 +239,7 @@
   <ItemGroup>
     <Resource Include="Images\Logo\nexus.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\netstandard1.4\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -9,6 +9,13 @@
         <Setter Property="Margin" Value="0 6" />
     </Style>
 
+    <Style TargetType="{x:Type TextBlock}" x:Key="BubbleText" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundMainBrush}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="4 10 4 10" />
+    </Style>
+
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />

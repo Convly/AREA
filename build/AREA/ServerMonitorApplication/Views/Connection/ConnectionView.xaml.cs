@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ServerMonitorApplication.Views.Connection
+namespace ServerMonitorApplication
 {
     /// <summary>
     /// Logique d'interaction pour ConnectionView.xaml

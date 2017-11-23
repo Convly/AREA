@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ServerMonitorApplication.PageManagement
+namespace ServerMonitorApplication
 {
     public class ChangePage
     {
