@@ -17,8 +17,10 @@ namespace Network.NetTools
         private string name;
         public string Name { get => name; set => name = value; }
 
-        private Dictionary<string, ServiceType> actionName;
-        internal Dictionary<string, ServiceType> ActionName { get => actionName; set => actionName = value; }
+        private Dictionary<string, ServiceType> actions;
+        internal Dictionary<string, ServiceType> Actions { get => actions; set => actions = value; }
 
+        private Dictionary<string, ServiceType> reactions;
+        internal Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
     }
 }

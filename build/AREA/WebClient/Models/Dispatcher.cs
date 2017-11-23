@@ -9,7 +9,7 @@ namespace WebClient.Models
 {
     public static class Dispatcher
     {
-        static List<Service> GetAvailableServices(User user)
+        public static List<Service> GetAvailableServices(User user)
         {
             Area.Server server = Area.Server.Instance;
             Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.QUERY, user);
@@ -20,6 +20,12 @@ namespace WebClient.Models
                 return null;
             }
             return answer.Data as List<Service>;
+        }
+
+        public static bool AddTree(User user, AreaTree tree)
+        {
+
+            return true;
         }
     }
 }
