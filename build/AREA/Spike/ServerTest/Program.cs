@@ -16,7 +16,7 @@ namespace ServerTest
 
             UserInfos ui = new UserInfos { ID=749763563 , Name="Herbaux", Pass="root" };
             Event e = new AddServiceLinkEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui);
-            foreach (var x in Enumerable.Range(0, 1001))
+            foreach (var x in Enumerable.Range(0, 10))
             {
                 server.Dispatcher.Trigger(e);
             }

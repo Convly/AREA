@@ -44,9 +44,12 @@ namespace ServerMonitorApplication
         /// <returns></returns>
         private bool CanShowLoginView()
         {
+            bool connected = false;
             string patternIPAddress = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$";
             string patternPort = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
-            return Regex.IsMatch(IpAddress, patternIPAddress) && Regex.IsMatch(Port, patternPort);
+            connected = Regex.IsMatch(IpAddress, patternIPAddress) && Regex.IsMatch(Port, patternPort);
+            connected = Net.Instance.Initialize(IpAddress, Port);
+            return connected;
         }
 
         /// <summary>

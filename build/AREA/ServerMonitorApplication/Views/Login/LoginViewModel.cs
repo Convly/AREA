@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace ServerMonitorApplication
@@ -15,7 +17,7 @@ namespace ServerMonitorApplication
         /// <summary>
         /// Username
         /// </summary>
-        public string Username { get; set; }
+        public static string Username { get; set; }
 
         /// <summary>
         /// Password unsecured
@@ -41,7 +43,10 @@ namespace ServerMonitorApplication
         /// <returns></returns>
         private bool CanShowServicesView()
         {
-            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+            bool loged = false;
+            loged = !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+            loged = Net.Instance.Login(Username, Password);
+            return loged;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using System;
 
 namespace ServerMonitorApplication
 {
@@ -279,6 +280,9 @@ namespace ServerMonitorApplication
             mConnectionViewModel = new ConnectionViewModel();
             mLoginViewModel = new LoginViewModel();
             mServicesViewModel = new ServicesViewModel();
+
+            // Instantiate the net singleton
+
 
             // Listen out for the window resizing
             mWindow.StateChanged += (sender, e) =>
