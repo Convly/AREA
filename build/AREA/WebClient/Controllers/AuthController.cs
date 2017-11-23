@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using Network.NetTools;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;

@@ -57,7 +57,7 @@ namespace Network.Events
         private DateTime creationDate = new DateTime().ToLocalTime();
         private HttpEventType type;
         private HttpEventSource source;
-        private UserInfos ownerInfos;
+        private User ownerInfos;
 
         /// <summary>
         /// Defines the date of the creation for the event
@@ -74,7 +74,7 @@ namespace Network.Events
         /// <summary>
         /// Indicate some basics informations about the event's owner
         /// </summary>
-        public UserInfos OwnerInfos { get => ownerInfos; set => ownerInfos = value; }
+        public User OwnerInfos { get => ownerInfos; set => ownerInfos = value; }
         
         /// <summary>
         /// Main constructor for <see cref="Event"/> objects
@@ -82,7 +82,7 @@ namespace Network.Events
         /// <param name="source_">The source type (<see cref="HttpEventSource"/>)</param>
         /// <param name="type_">The event type (<see cref="HttpEventType"/>)</param>
         /// <param name="owner_">Some basics informations about the event's owner</param>
-        public Event(HttpEventSource source_, HttpEventType type_, UserInfos owner_)
+        public Event(HttpEventSource source_, HttpEventType type_, User owner_)
         {
             this.Source = source_;
             this.Type = type_;
