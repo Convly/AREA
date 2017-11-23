@@ -45,10 +45,10 @@
                                        />
 
                             <!-- Username -->
-                            <TextBox Tag="Username" />
+                            <TextBox Tag="Username" Text="{Binding Username}" MaxLength="15" />
 
                             <!-- password -->
-                            <TextBox Tag="Password" Margin="0 0 0 30" />
+                            <TextBox Tag="Password" Margin="0 0 0 30" MaxLength="15" Text="{Binding Password}"/>
 
                             <!-- Next button -->
                             <Button Command="{Binding ShowServicesViewCommand}" Content="Next" HorizontalAlignment="Center" />
