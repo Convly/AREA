@@ -26,8 +26,8 @@ namespace Network.NetTools
         /// The object associated to the command must be a <see cref="string"/> (which is the server's password).  
         /// </summary>
         C_UNLOCK,
-
         C_PING,
+        S_LOGIN_SUCCESS,
         /// <summary>
         /// Communication direction: Both.  
         /// Inform a network entity about an error that occured.  
