@@ -16,9 +16,9 @@
 
         #region Constructor
 
-            /// <summary>
-            /// Default constructor
-            /// </summary>
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ServiceItemControlModel()
         {
             ServiceName = "Twitter";

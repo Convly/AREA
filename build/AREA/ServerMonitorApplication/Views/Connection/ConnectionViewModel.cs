@@ -8,6 +8,9 @@ using System.Text.RegularExpressions;
 
 namespace ServerMonitorApplication
 {
+    /// <summary>
+    /// Actions on the connection view
+    /// </summary>
     public class ConnectionViewModel : ViewModelBase
     {
         #region Public Properties
@@ -35,6 +38,10 @@ namespace ServerMonitorApplication
 
         #region Private Methods
 
+        /// <summary>
+        /// Inputs verifications
+        /// </summary>
+        /// <returns></returns>
         private bool CanShowLoginView()
         {
             string patternIPAddress = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$";
@@ -57,6 +64,10 @@ namespace ServerMonitorApplication
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor
+        /// Initialize the <see cref="ShowLoginViewCommand"/> to <see cref="ShowLoginView"/>
+        /// </summary>
         public ConnectionViewModel()
         {
             ShowLoginViewCommand = new RelayCommand(ShowLoginView);

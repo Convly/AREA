@@ -31,7 +31,7 @@ Tree.prototype.remove = function (data) {
     var queue = [this.root];
     while (queue.length) {
         var node = queue.shift();
-        for (var i = 0; i < node.children.length; i++) {
+        for (var i = 0; node && i < node.children.length; i++) {
             if (node.children[i].data === data) {
                 node.children.splice(i, 1);
             } else {
@@ -88,11 +88,13 @@ Tree.prototype.traverseBFS = function (fn) {
     var queue = [this.root];
     while (queue.length) {
         var node = queue.shift();
-        if (fn) {
-            fn(node);
-        }
-        for (var i = 0; i < node.children.length; i++) {
-            queue.push(node.children[i]);
+        if (node) {
+            if (fn) {
+                fn(node);
+            }
+            for (var i = 0; i < node.children.length; i++) {
+                queue.push(node.children[i]);
+            }
         }
     }
 };

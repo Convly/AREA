@@ -69,6 +69,11 @@ namespace WebClient.Models
             collection.UpdateOne(filter, update);
         }
 
+        public List<AreaTree> GetAllAreas()
+        {
+            return _db.GetCollection<AreaTree>("AREAs").Find(new BsonDocument()).ToList();
+        }
+
         public AreaTree GetAreas(string email)
         {
             var filter = Builders<AreaTree>.Filter.Eq("Email", email);
