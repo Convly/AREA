@@ -2,7 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 
-namespace WebClient.Models
+namespace Network.NetTools
 {
     public class User
     {
@@ -17,5 +17,8 @@ namespace WebClient.Models
         public string Email { get; set; }
         [BsonElement("Pwd")]
         public string Pwd { get; set; }
+
+        private Dictionary<string, string> identificationToken;
+        public Dictionary<string, string> IdentificationToken { get => identificationToken; set => identificationToken = value; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using System.Collections.Generic;
 
-namespace WebClient.Models
+namespace Network.NetTools
 {
     public class Point
     {
