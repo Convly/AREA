@@ -7,6 +7,9 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace ServerMonitorApplication
 {
+    /// <summary>
+    /// Window properties
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region Private Members
@@ -203,6 +206,9 @@ namespace ServerMonitorApplication
             CurrentViewModel = mLoginViewModel;
         }
 
+        /// <summary>
+        /// Set current view model to service view model
+        /// </summary>
         private void ShowServicesView()
         {
             CurrentViewModel = mServicesViewModel;

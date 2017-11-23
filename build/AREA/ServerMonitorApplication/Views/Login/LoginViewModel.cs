@@ -5,6 +5,9 @@ using System.Windows;
 
 namespace ServerMonitorApplication
 {
+    /// <summary>
+    /// Actions on the login view
+    /// </summary>
     public class LoginViewModel : ViewModelBase
     {
         #region Properties
@@ -33,7 +36,7 @@ namespace ServerMonitorApplication
         #region Private Methods
 
         /// <summary>
-        /// Inputs verfication
+        /// Inputs verfications
         /// </summary>
         /// <returns></returns>
         private bool CanShowServicesView()
@@ -56,6 +59,10 @@ namespace ServerMonitorApplication
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor
+        /// Initialize the command <see cref="ShowServicesViewCommand"/> to <see cref="ShowServicesView"/>
+        /// </summary>
         public LoginViewModel()
         {
             ShowServicesViewCommand = new RelayCommand(ShowServicesView);
