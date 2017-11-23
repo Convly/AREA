@@ -312,8 +312,8 @@ namespace Network
                     if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER && dataObject.Data.Value.ToString() == SERVER_PASS)
                     {
                         Console.WriteLine("New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
-                        Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) });
                         Monitors.Add(name, new InfosClient { _ip = clientIP, _port = clientPort });
+                        Server.Instance.SendDataToMonitor(name, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) });
                     }
                     else
                     {
