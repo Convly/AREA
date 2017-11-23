@@ -98,8 +98,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PageManagement\ChangePage.cs" />
-    <Compile Include="PropertyChanged\BaseViewModel.cs" />
-    <Compile Include="PropertyChanged\ExpressionHelpers.cs" />
     <Compile Include="Views\Connection\ConnectionView.xaml.cs">
       <DependentUpon>ConnectionView.xaml</DependentUpon>
     </Compile>

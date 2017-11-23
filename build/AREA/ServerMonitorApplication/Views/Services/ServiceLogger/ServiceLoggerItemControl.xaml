@@ -7,36 +7,46 @@
              mc:Ignorable="d" 
              d:DesignWidth="300">
 
-    <Border Padding="5">
+    <Border Padding="15">
         <Grid>
-
+            <!-- Username box -->
             <Border CornerRadius="10"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Height="25"
+                    Height="Auto"
                     Width="Auto"
-                    Background="Red"
+                    Background="{StaticResource WordOrangeBrush}"
                     BorderBrush="{StaticResource ForegroundLightBrush}"
                     BorderThickness="1"
-                    Padding="8 1 8 0"
-                    >
-                <TextBlock Text="Micro"/>
+                    Padding="8 1 8 3">
+                <TextBlock Text="Micro" Foreground="{StaticResource ForegroundLightBrush}" FontSize="18" FontFamily="{StaticResource LatoRegular}"/>
             </Border>
-
-            <Grid Margin="10 17 0 0">
+            <Grid Margin="13 22 0 0" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <!-- Log bubble -->
                 <Border CornerRadius="10"
+                        Padding="9"
+                        HorizontalAlignment="Left"
                         Background="{StaticResource ForegroundLightBrush}">
-
                     <!-- Log informations -->
                     <TextBlock Style="{StaticResource BubbleText}"
                                VerticalAlignment="Center"
                                TextWrapping="Wrap"
                                FontFamily="{StaticResource LatoRegular}"
-                               Foreground="{StaticResource WordBlueBrush}"
+                               FontSize="18"
+                               Foreground="{StaticResource WordDarkBlueBrush}"
                                Text="Facebook service activated"/>
-
                 </Border>
+                <!-- Log Time Information -->
+                <TextBlock Grid.Row="2"
+                           Text="11:52am"
+                           HorizontalAlignment="Right"
+                           Foreground="{StaticResource ForegroundLightBrush}"
+                           FontSize="{StaticResource FontSizeSmall}"/>
             </Grid>
         </Grid>
     </Border>
