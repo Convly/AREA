@@ -49,7 +49,7 @@
                 </Border>
 
                 <TextBlock Grid.Row="2"
-                           Text="11:54am"
+                           Text="11:52am"
                            HorizontalAlignment="Right"
                            Foreground="{StaticResource ForegroundLightBrush}"
                            FontSize="{StaticResource FontSizeSmall}"/>
