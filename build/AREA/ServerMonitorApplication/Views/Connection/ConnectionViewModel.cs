@@ -3,10 +3,8 @@ using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using ServerMonitorApplication.PageManagement;
-using ServerMonitorApplication.Views.Login;
 
-namespace ServerMonitorApplication.Views.Connection
+namespace ServerMonitorApplication
 {
     public class ConnectionViewModel : ViewModelBase
     {

@@ -3,11 +3,11 @@
 namespace ServerMonitorApplication
 {
     /// <summary>
-    /// Logique d'interaction pour LoginView.xaml
+    /// Logique d'interaction pour ListItemView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class ListServiceItemControl : UserControl
     {
-        public LoginView()
+        public ListServiceItemControl()
         {
             InitializeComponent();
         }

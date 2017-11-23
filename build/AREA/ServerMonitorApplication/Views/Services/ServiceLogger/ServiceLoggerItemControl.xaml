@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ServerMonitorApplication.ServiceLoggerItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ServerMonitorApplication"
+             mc:Ignorable="d" 
+             d:DesignWidth="300">
+
+    <Border Padding="5">
+        <Grid>
+
+            <Border CornerRadius="10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Height="25"
+                    Width="Auto"
+                    Background="Red"
+                    BorderBrush="{StaticResource ForegroundLightBrush}"
+                    BorderThickness="1"
+                    Padding="8 1 8 0"
+                    >
+                <TextBlock Text="Micro"/>
+            </Border>
+
+            <Grid Margin="10 17 0 0">
+                <!-- Log bubble -->
+                <Border CornerRadius="10"
+                        Background="{StaticResource ForegroundLightBrush}">
+
+                    <!-- Log informations -->
+                    <TextBlock Style="{StaticResource BubbleText}"
+                               VerticalAlignment="Center"
+                               TextWrapping="Wrap"
+                               FontFamily="{StaticResource LatoRegular}"
+                               Foreground="{StaticResource WordBlueBrush}"
+                               Text="Facebook service activated"/>
+
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+
+</UserControl>
