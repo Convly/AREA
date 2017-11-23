@@ -52,10 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Events\Events.cs" />
-=======
->>>>>>> c7e76fd8db1d7243732063c64ca1b9610e9bab83
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Events\HttpEventAnswer.cs" />
