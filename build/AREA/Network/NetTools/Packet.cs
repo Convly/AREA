@@ -28,6 +28,7 @@ namespace Network.NetTools
         C_UNLOCK,
         C_PING,
         S_LOGIN_SUCCESS,
+        S_PONG,
         /// <summary>
         /// Communication direction: Both.  
         /// Inform a network entity about an error that occured.  

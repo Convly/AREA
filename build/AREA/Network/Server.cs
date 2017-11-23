@@ -298,7 +298,6 @@ namespace Network
             try
             {
                 NetTools.Packet dataObject = JsonConvert.DeserializeObject<NetTools.Packet>(data);
-                string name = dataObject.Name.ToString();
 
                 if (dataObject.Data.Key == NetTools.PacketCommand.C_UNLOCK && dataObject.Key != 0)
                 {
@@ -306,6 +305,13 @@ namespace Network
                     Server.Instance.Lock_m.Unlock(dataObject.Key);
                     return;
                 }
+                else if (dataObject.Data.Key == NetTools.PacketCommand.C_UNLOCK && dataObject.Key != 0)
+                {
+                    Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = "root", Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_PONG, null) });
+                    return;
+                }
+
+                string name = dataObject.Name.ToString();
 
                 if (!Monitors.ContainsKey(name))
                 {
