@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\AddServiceLinkEvent.cs" />
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\Events.cs" />
     <Compile Include="Events\HttpEventAnswer.cs" />
     <Compile Include="Events\HttpEventStatus.cs" />
     <Compile Include="MonitorClient.cs" />
