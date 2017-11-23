@@ -1,11 +1,9 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using MongoDB.Driver.Linq;
 using System.Linq;
-using System.Web;
 
 namespace WebClient.Models
 {
@@ -40,15 +38,31 @@ namespace WebClient.Models
 
         public void AddAreaToUser(string email, string areaName)
         {
-            User user = GetUser(email);
-            if (user != null)
+            AreaTree areas = GetAreas(email);
+            if (areas != null)
             {
-                user.AreasList.Add(new Area(areaName));
-                var collection = _db.GetCollection<User>("Authentification");
-                var filter = Builders<User>.Filter.Eq("Email", email);
-                var update = Builders<User>.Update.Set("AreasList", user.AreasList);
+                areas.AreasList.Add(new ATreeRoot(areaName));
+                var collection = _db.GetCollection<AreaTree>("AREAs");
+                var filter = Builders<AreaTree>.Filter.Eq("Email", email);
+                var update = Builders<AreaTree>.Update.Set("AreasList", areas.AreasList);
                 collection.UpdateOne(filter, update);
             }
+        }
+
+        public void SendTreeToUser(string email, string treeJson)
+        {
+            List<ATreeRoot> tree = JsonConvert.DeserializeObject<List<ATreeRoot>>(treeJson);
+
+            var collection = _db.GetCollection<AreaTree>("AREAs");
+            var filter = Builders<AreaTree>.Filter.Eq("Email", email);
+            var update = Builders<AreaTree>.Update.Set("AreasList", tree);
+            collection.UpdateOne(filter, update);
+        }
+
+        public AreaTree GetAreas(string email)
+        {
+            var filter = Builders<AreaTree>.Filter.Eq("Email", email);
+            return _db.GetCollection<AreaTree>("AREAs").Find(filter).FirstOrDefault();
         }
 
         public List<User> GetUsers()
@@ -68,6 +82,7 @@ namespace WebClient.Models
             try
             {
                 _db.GetCollection<User>("Authentification").InsertOne(p);
+                _db.GetCollection<AreaTree>("AREAs").InsertOne(new AreaTree(p.Email));
             }
             catch (Exception e)
             {

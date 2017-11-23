@@ -7,6 +7,7 @@ function Node(data) {
 
 function Tree() {
     this.root = null;
+    this.Name = "";
 }
 
 Tree.prototype.add = function (data, toNodeData) {
@@ -138,16 +139,16 @@ Tree.prototype.printByLevel = function () {
 /// TREEVIEW FUNCTIONS
 tree = [];
 
-// TEMP ?
-function initTreeData(nbAreas) {
-    for (var i = 0; i < nbAreas; i++) {
-        tree.push(new Tree());
-    }
-}
-
 //Append a tree in the Tree list
 function addTreeData(t) {
-    tree.push(t);
+    tree.push(new Tree());
+    tree[tree.length - 1].Name = t.Name;
+    tree[tree.length - 1].root = t.root;
+}
+
+//Get the entire tree list
+function getFullTree() {
+    return (tree);
 }
 
 //Get in the Tree list a tree by its index
