@@ -41,12 +41,12 @@ namespace ServerMonitorApplication
         /// Inputs verfications
         /// </summary>
         /// <returns></returns>
-        private bool CanShowServicesView()
+        private void CanShowServicesView()
         {
-            bool loged = false;
-            loged = !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
-            loged = Net.Instance.Login(Username, Password);
-            return loged;
+            if (!string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password))
+            {
+                Net.Instance.Login(Username, Password);
+            }
         }
 
         /// <summary>
@@ -54,10 +54,7 @@ namespace ServerMonitorApplication
         /// </summary>
         private void ShowServicesView()
         {
-            if (CanShowServicesView())
-            {
-                Messenger.Default.Send(new ChangePage(typeof(ServicesViewModel)));
-            }
+            CanShowServicesView();
         }
 
         #endregion

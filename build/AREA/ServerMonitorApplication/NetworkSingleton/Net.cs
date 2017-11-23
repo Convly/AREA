@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace ServerMonitorApplication
 {
@@ -47,7 +49,12 @@ namespace ServerMonitorApplication
 
             switch (obj.Data.Key)
             {
+                case Network.NetTools.PacketCommand.S_LOGIN_SUCCESS:
+                    Messenger.Default.Send(new ChangePage(typeof(ServicesViewModel)));
+                    break;
+
                 case Network.NetTools.PacketCommand.ERROR:
+                    MessageBox.Show(obj.Data.Value.ToString());
                     break;
                 default:
                     break;
