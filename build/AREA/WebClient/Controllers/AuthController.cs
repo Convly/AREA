@@ -83,12 +83,12 @@ namespace WebClient.Controllers
         private bool ValidateUser(string email, string pwd)
         {
             // Temp
-            return true;
+            //return true;
 
             // Check if user authentification is correct
             try
             {
-                DataAccess da = new DataAccess();
+                DataAccess da = DataAccess.Instance;
                 var user = da.GetUser(email);
                 if (GetSha256FromString(pwd) != user.Pwd)
                 {
@@ -152,7 +152,7 @@ namespace WebClient.Controllers
                 ModelState.AddModelError(string.Empty, "Email incorrect.");
                 return View("Login", model);
             }
-            DataAccess da = new DataAccess();
+            DataAccess da = DataAccess.Instance;
             var users = da.GetUsers();
             foreach (var user in users)
             {

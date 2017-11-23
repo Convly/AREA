@@ -19,8 +19,18 @@
                         <p class="profileName">@claimId.FindFirst(ClaimTypes.NameIdentifier).Value</p>
                     }
                 }
-                <div class="logoutLabelContainer"><span class="logoutLabel"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>@Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "logoutLabel" })</span></span></div>
             }
+            <div class="logoutLabelContainer">
+                <span>
+                    @using (Html.BeginForm("AddArea", "Home", Model))
+                    {
+                        <button type="submit" style="float: left">Add a new AREA</button>
+                    }
+                </span>
+                <span class="logoutLabel"><i class="fa fa-sign-out" aria-hidden="true"></i> 
+                    <span>@Html.ActionLink("Logout", "Logout", "Auth", null, new { @class = "logoutLabel" })</span>
+                </span>
+            </div>
         </menu>
         <section class="sidebarItemsContainer">
             <script type="text/javascript">

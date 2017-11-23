@@ -11,13 +11,44 @@ namespace WebClient.Models
 {
     public class DataAccess
     {
+        private static DataAccess instance = null;
+        public static DataAccess Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DataAccess();
+                }
+                return instance;
+            }
+        }
+
         MongoClient     _client;
         IMongoDatabase  _db;
 
-        public DataAccess()
+        private DataAccess()
         {
             _client = new MongoClient();
             _db = _client.GetDatabase("Area");
+        }
+
+        ~DataAccess()
+        {
+            _client.DropDatabase("Area");
+        }
+
+        public void AddAreaToUser(string email, string areaName)
+        {
+            User user = GetUser(email);
+            if (user != null)
+            {
+                user.AreasList.Add(new Area(areaName));
+                var collection = _db.GetCollection<User>("Authentification");
+                var filter = Builders<User>.Filter.Eq("Email", email);
+                var update = Builders<User>.Update.Set("AreasList", user.AreasList);
+                collection.UpdateOne(filter, update);
+            }
         }
 
         public List<User> GetUsers()

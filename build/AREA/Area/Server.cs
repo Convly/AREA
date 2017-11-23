@@ -62,7 +62,7 @@ namespace Area
 
         private void Start(string[] args)
         {
-            this.SetLog();
+            //this.SetLog();
             string addr = Network.Server.Instance.Start(MonitorCallback, MessageBus.MessageBusCallback, "root");
             Console.WriteLine("Server running on:" + addr);
         }

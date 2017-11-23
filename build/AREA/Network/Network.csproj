@@ -49,10 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\AddServiceLinkEvent.cs" />
+    <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\HttpEventAnswer.cs" />
+    <Compile Include="Events\HttpEventStatus.cs" />
     <Compile Include="MonitorClient.cs" />
     <Compile Include="Lock\Locker.cs" />
     <Compile Include="Lock\LockManager.cs" />
     <Compile Include="NetTools\Packet.cs" />
+    <Compile Include="NetTools\UserInfos.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
