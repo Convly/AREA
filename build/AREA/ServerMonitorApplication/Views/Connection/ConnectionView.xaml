@@ -45,10 +45,10 @@
                                        />
 
                             <!-- IP Address -->
-                            <TextBox Tag="IP Address" />
+                            <TextBox Tag="IP Address" Text="{Binding IpAddress, Mode=OneWayToSource}" MaxLength="15"/>
 
                             <!-- Port -->
-                            <TextBox Tag="Port" Margin="0 0 0 30" />
+                            <TextBox Tag="Port" Margin="0 0 0 30" Text="{Binding Port, Mode=OneWayToSource}" MaxLength="5"/>
 
                             <!-- Next button -->
                             <Button Command="{Binding ShowLoginViewCommand}" Content="Next" HorizontalAlignment="Center" />
