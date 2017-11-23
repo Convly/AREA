@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Network.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,9 @@ namespace Area
     /// </summary>
     public class QueriesManager
     {
+        public static HttpEventAnswer ProcessEvent(Event e)
+        {
+            return HttpEventAnswer.Error(e, 500, "Hello from the other side");
+        }
     }
 }

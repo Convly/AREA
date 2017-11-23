@@ -22,6 +22,7 @@ namespace Area
         public Dispatcher()
         {
             this.Routes.Add(HttpEventType.COMMAND, Area.CommandsManager.ProcessEvent);
+            this.Routes.Add(HttpEventType.QUERY, Area.QueriesManager.ProcessEvent);
         }
 
         /// <summary>
