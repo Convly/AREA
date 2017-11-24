@@ -35,6 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="NetworkCommsDotNet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=f58108eb6480f6ec, processorArchitecture=MSIL">
       <HintPath>..\packages\NetworkCommsDotNet.3.0.3\lib\NetworkCommsDotNet.dll</HintPath>
     </Reference>
@@ -49,15 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\AddServiceLinkEvent.cs" />
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\Events.cs" />
     <Compile Include="Events\HttpEventAnswer.cs" />
     <Compile Include="Events\HttpEventStatus.cs" />
     <Compile Include="MonitorClient.cs" />
     <Compile Include="Lock\Locker.cs" />
     <Compile Include="Lock\LockManager.cs" />
+    <Compile Include="NetTools\AreaTree.cs" />
     <Compile Include="NetTools\Packet.cs" />
-    <Compile Include="NetTools\UserInfos.cs" />
+    <Compile Include="NetTools\Service.cs" />
+    <Compile Include="NetTools\User.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

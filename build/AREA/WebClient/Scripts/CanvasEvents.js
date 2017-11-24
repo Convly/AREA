@@ -28,13 +28,13 @@ function clickedAnTreeElement(pos) {
 
     t.traverseBFS(function (node) {
         if (node) {
-            if (node.data.type == "action") {
+            if (node.data.type === "action") {
                 var radius = (ctx.measureText(treeData.root.data.name).width + 30) / 2;
                 if (checkPointInCircle(node.data.pos, pos, radius)) {
                     nodeClicked = node;
                     return;
                 }
-            } else if (node.data.type == "reaction") {
+            } else if (node.data.type === "reaction") {
                 var sizeRect = {
                     "x": ctx.measureText(node.data.name).width + 20,
                     "y": 14 + 14
@@ -56,7 +56,7 @@ function clickedAnTreeElement(pos) {
 // Left click event in the canvas
 $("#canvasTree").click(function (event) {
     var pos = getMousePosInCanvas(canvas, event);
-    if (itemIndex != -1) {
+    if (itemIndex !== -1) {
         console.log("Left click at pos [", pos.x + ",", pos.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
 
     }
@@ -66,7 +66,7 @@ $("#canvasTree").click(function (event) {
 $("#canvasTree").contextmenu(function (event) {
     var pos = getMousePosInCanvas(canvas, event);
     var itemIndex = GetSelectedSideItemIndex();
-    if (itemIndex != -1) {
+    if (itemIndex !== -1) {
         console.log("Right click at pos [", pos.x + ",", pos.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
         var elem;
         var t = getTree(itemIndex);
