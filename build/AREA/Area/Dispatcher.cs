@@ -32,10 +32,22 @@ namespace Area
         public HttpEventAnswer Trigger(Event e)
         {
             Console.WriteLine("Server application dispatcher triggered for event of type " + e.GetType());
-            // TODO: Send information about the triggered event to the monitors
-            return (this.Routes.TryGetValue(e.Type, out Func<Event, HttpEventAnswer> route))
+
+            HttpEventAnswer ans = (this.Routes.TryGetValue(e.Type, out Func<Event, HttpEventAnswer> route))
                 ? this.Routes[e.Type](e)
                 : HttpEventAnswer.Error(e, 400, "Unknown type '" + e.Type + "'");
+
+            string msg = e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")";
+            //AddMonitorEventMessage();
+            return ans;
+        }
+
+        public static void AddMonitorEventMessage(string name, int source, string content)
+        {
+            Network.Server.EventFlow.Add(new KeyValuePair<string, KeyValuePair<int, string>>
+                (
+                    name, new KeyValuePair<int, string>(source, content))
+                );
         }
     }
 }
