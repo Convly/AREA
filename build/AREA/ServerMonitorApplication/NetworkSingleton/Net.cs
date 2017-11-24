@@ -49,6 +49,14 @@ namespace ServerMonitorApplication
 
             switch (obj.Data.Key)
             {
+                case Network.NetTools.PacketCommand.S_DISCONNECT:
+                    Messenger.Default.Send(new ChangePage(typeof(ConnectionViewModel)));
+                    break;
+
+                case Network.NetTools.PacketCommand.S_PONG:
+                    Messenger.Default.Send(new ChangePage(typeof(LoginViewModel)));
+                    break;
+
                 case Network.NetTools.PacketCommand.S_LOGIN_SUCCESS:
                     Messenger.Default.Send(new ChangePage(typeof(ServicesViewModel)));
                     break;
@@ -72,7 +80,7 @@ namespace ServerMonitorApplication
             {
                 Network.MonitorClient monitorClient = Network.MonitorClient.Instance;
                 monitorClient.Start("Monitor", Callback, ipAddress, int.Parse(port));
-                monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = Username, Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_PING, null) });
+                monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = null, Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_PING, null) });
             }
             catch (Exception ex)
             {

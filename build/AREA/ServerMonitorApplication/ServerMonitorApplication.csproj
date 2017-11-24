@@ -124,9 +124,13 @@
     <Compile Include="Views\Services\ServiceLogger\ListServiceLoggerItemControl.xaml.cs">
       <DependentUpon>ListServiceLoggerItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Services\ServiceLogger\ListServiceLoggerItemControlViewModel.cs" />
+    <Compile Include="Views\Services\ServiceLogger\Model\ListServiceLoggerItemControlModel.cs" />
+    <Compile Include="Views\Services\ServiceLogger\Model\ServiceLoggerItemControlModel.cs" />
     <Compile Include="Views\Services\ServiceLogger\ServiceLoggerItemControl.xaml.cs">
       <DependentUpon>ServiceLoggerItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Services\ServiceLogger\ServiceLoggerItemControlViewModel.cs" />
     <Compile Include="Views\Services\ServicesView.xaml.cs">
       <DependentUpon>ServicesView.xaml</DependentUpon>
     </Compile>
