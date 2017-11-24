@@ -64,7 +64,6 @@ namespace Network.Lock
             {
                 if (sw.ElapsedMilliseconds > this.Locks[key].Duration && this.Locks[key].Duration != -1)
                 {
-                    Console.WriteLine("Abort locker " + key);
                     this.Locks[key].State = false;
                 }
             }

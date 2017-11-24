@@ -199,7 +199,6 @@ namespace Network
 
             NetworkComms.SendObject("Monitor", ip, port, JsonConvert.SerializeObject(data));
 
-            Console.WriteLine("Lock key " + data.Key);
             this.Lock_m.Lock(key);
         }
 
@@ -305,7 +304,7 @@ namespace Network
                     Server.Instance.Lock_m.Unlock(dataObject.Key);
                     return;
                 }
-                else if (dataObject.Data.Key == NetTools.PacketCommand.C_UNLOCK && dataObject.Key != 0)
+                else if (dataObject.Data.Key == NetTools.PacketCommand.C_PING)
                 {
                     Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = "root", Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_PONG, null) });
                     return;
