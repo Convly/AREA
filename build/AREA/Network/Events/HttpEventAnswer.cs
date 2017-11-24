@@ -17,7 +17,7 @@ namespace Network.Events
         public static HttpEventAnswer Error(Event e, int code, string message)
         {
             HttpEventStatus status = new HttpEventStatus { Code = code, Message = message };
-            return new HttpEventAnswer { Parent = e, Data = null, Type = null, Status = status };
+            return new HttpEventAnswer { Parent = e, Data = null, Status = status };
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Network.Events
         public static HttpEventAnswer Success(Event e, string message)
         {
             HttpEventStatus status = new HttpEventStatus { Code = 200, Message = message };
-            return new HttpEventAnswer { Parent = e, Data = null, Type = null, Status = status };
+            return new HttpEventAnswer { Parent = e, Data = null, Status = status };
         }
 
         /// <summary>
@@ -40,10 +40,6 @@ namespace Network.Events
         /// Represent the answer as a data
         /// </summary>
         public  Object Data{ get; set; }
-        /// <summary>
-        /// Defines the <see cref="Type"/> of the Data
-        /// </summary>
-        public Type Type { get; set; }
         /// <summary>
         ///Http status with a code and a message
         /// </summary>

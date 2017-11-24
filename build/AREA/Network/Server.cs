@@ -93,6 +93,7 @@ namespace Network
         /// List of monitors currently connected to the server
         /// </summary>
         public static Dictionary<string, InfosClient> Monitors = new Dictionary<string, InfosClient>();
+        public static List<KeyValuePair<string, KeyValuePair<int, string>>> EventFlow = new List<KeyValuePair<string, KeyValuePair<int, string>>>();
 
         private LockManager     lock_m = new LockManager();
         private string          _serverIP;
