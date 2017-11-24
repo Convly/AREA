@@ -19,7 +19,7 @@ function drawTreeData() {
     {
         treeData.traverseBFS(function (node) {
             if (node) {
-                if (node.data.type == "reaction") {
+                if (node.data.type === "reaction") {
                     ctx.font = "14px Roboto";
                     var sizeText = {
                         "width": ctx.measureText(node.data.name).width + 20,
@@ -33,7 +33,7 @@ function drawTreeData() {
                 }
             }
         });
-        if (treeData.root.data.type == "action") {
+        if (treeData.root.data.type === "action") {
             ctx.font = "14px Roboto";
             var sizeText = {
                 "width": ctx.measureText(treeData.root.data.name).width + 30,

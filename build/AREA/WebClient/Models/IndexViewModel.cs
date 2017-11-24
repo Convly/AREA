@@ -20,6 +20,11 @@ namespace WebClient.Models
         public List<ATreeRoot> Areas { get; set; }
 
         /// <summary>
+        /// The list of <see cref="Service"/>
+        /// </summary>
+        public List<Service> Services { get; set; }
+
+        /// <summary>
         /// Serialize the list of <see cref="Area"/>
         /// </summary>
         /// <returns>The stringified list of AREAs</returns>
@@ -34,6 +39,7 @@ namespace WebClient.Models
             User user = db.GetUser(email);
             AreaTree tree = db.GetAreas(email);
             Areas = tree.AreasList;
+            Services = Dispatcher.GetAvailableServices(user);
         }
     }
 }

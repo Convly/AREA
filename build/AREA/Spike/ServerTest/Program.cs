@@ -15,7 +15,7 @@ namespace ServerTest
             Area.Server server = Area.Server.Instance;
 
             User ui = new User("bob@t.fr", "pwd");
-            Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui);
+            Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui, null);
             foreach (var x in Enumerable.Range(0, 1001))
             {
                 server.Dispatcher.Trigger(e);
