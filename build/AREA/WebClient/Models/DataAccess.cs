@@ -30,6 +30,25 @@ namespace WebClient.Models
         {
             _client = new MongoClient();
             _db = _client.GetDatabase("Area");
+            var users = GetUsers();
+            foreach (var user in users)
+            {
+                try
+                {
+                    Dispatcher.AddUser(user);
+                }
+                catch { }
+            }
+            var trees = GetAllAreas();
+            foreach (var tree in trees)
+            {
+                try
+                {
+                    var userTree = GetUser(tree.Email);
+                    Dispatcher.AddTree(userTree, tree);
+                }
+                catch { }
+            }
         }
 
         ~DataAccess()
