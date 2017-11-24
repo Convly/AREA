@@ -9,6 +9,11 @@ namespace WebClient.Models
 {
     public static class Dispatcher
     {
+        /// <summary>
+        /// Get the services who are available
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static List<Service> GetAvailableServices(User user)
         {
             Area.Server server = Area.Server.Instance;
@@ -23,6 +28,24 @@ namespace WebClient.Models
         }
 
         /// <summary>
+        /// Add a tokenAccess to server
+        /// </summary>
+        /// <param name="user">user</param>
+        /// <returns>true => success</returns>
+        public static bool AddTokensAccess(User user)
+        {
+            Area.Server server = Area.Server.Instance;
+            Event e = new AddTokensAccessEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, null);
+            var answer = server.Dispatcher.Trigger(e);
+            if (answer.Status.Code != 200)
+            {
+                Console.Error.WriteLine("Error: AddTokensAccess => " + answer.Status.Message);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Add a user to server
         /// </summary>
         /// <param name="user">user</param>
@@ -30,7 +53,7 @@ namespace WebClient.Models
         public static bool AddUser(User user)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new AddUserEvent(HttpEventSource.EXT, HttpEventType.QUERY, user, null);
+            Event e = new AddUserEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, null);
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {
@@ -46,10 +69,10 @@ namespace WebClient.Models
         /// <param name="user">user</param>
         /// <param name="tree">user's tree</param>
         /// <returns>true => success</returns>
-        public static bool AddTree(User user, AreaTree tree)
+        public static bool AddTree(User user, ATreeRoot tree)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new AddTreeEvent(HttpEventSource.EXT, HttpEventType.QUERY, user, new KeyValuePair<User, AreaTree>(user, tree));
+            Event e = new AddTreeEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, new KeyValuePair<User, ATreeRoot>(user, tree));
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {

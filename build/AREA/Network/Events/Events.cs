@@ -48,6 +48,25 @@ namespace Network.Events
     /// <summary>
     /// Event add tree
     /// </summary>
+    public class AddTokensAccessEvent : Event
+    {
+        /// <summary>
+        /// Event add tree
+        /// </summary>
+        /// <param name="source_"></param>
+        /// <param name="type_"></param>
+        /// <param name="owner_"></param>
+        /// <param name="data_"></param>
+        public AddTokensAccessEvent(HttpEventSource source_, HttpEventType type_, NetTools.User owner_, Object data_)
+            : base(source_, type_, owner_, data_)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// Event add tree
+    /// </summary>
     public class AddUserEvent : Event
     {
         /// <summary>
