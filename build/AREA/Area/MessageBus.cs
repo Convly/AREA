@@ -73,7 +73,10 @@ namespace Area
             {
                 eventList.Add(e);
             }
-            return HttpEventAnswer.Success(e, "Command Sent With Success");
+            string msg = "Command " + e.GetType() + ": Sent With Success";
+            var ans = HttpEventAnswer.Success(e, msg);
+            Server.AddMonitorEventMessage(e.OwnerInfos.Email, (int)e.Source, e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")");
+            return ans;
         }
     }
 }
