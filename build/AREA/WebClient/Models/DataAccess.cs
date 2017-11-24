@@ -36,19 +36,15 @@ namespace WebClient.Models
                 try
                 {
                     Dispatcher.AddUser(user);
+                    var trees = GetAreas(user.Email).AreasList;
+                    foreach (var tree in trees)
+                    {
+                        Dispatcher.AddTree(user, tree);
+                    }
                 }
                 catch { }
             }
-            var trees = GetAllAreas();
-            foreach (var tree in trees)
-            {
-                try
-                {
-                    var userTree = GetUser(tree.Email);
-                    Dispatcher.AddTree(userTree, tree);
-                }
-                catch { }
-            }
+
         }
 
         ~DataAccess()
@@ -69,14 +65,32 @@ namespace WebClient.Models
             }
         }
 
+        public void AddTokensAccess(User user)
+        {
+            Dispatcher.AddTokensAccess(user);
+        }
+
         public void SendTreeToUser(string email, string treeJson, int treeIndex)
         {
-            List<ATreeRoot> tree = JsonConvert.DeserializeObject<List<ATreeRoot>>(treeJson);
+            List<ATreeRoot> trees = JsonConvert.DeserializeObject<List<ATreeRoot>>(treeJson);
 
             var collection = _db.GetCollection<AreaTree>("AREAs");
             var filter = Builders<AreaTree>.Filter.Eq("Email", email);
-            var update = Builders<AreaTree>.Update.Set("AreasList", tree);
+            var update = Builders<AreaTree>.Update.Set("AreasList", trees);
             collection.UpdateOne(filter, update);
+
+            User userTree;
+            ATreeRoot tree;
+            try
+            {
+                userTree = GetUser(email);
+                tree = trees[treeIndex];
+            }
+            catch
+            {
+                return;
+            }
+            Dispatcher.AddTree(userTree, tree);
         }
 
         public List<AreaTree> GetAllAreas()
@@ -102,12 +116,13 @@ namespace WebClient.Models
             return _db.GetCollection<User>("Authentification").Find(filter).FirstOrDefault();
         }
 
-        public bool Create(User p)
+        public bool Create(User user)
         {
             try
             {
-                _db.GetCollection<User>("Authentification").InsertOne(p);
-                _db.GetCollection<AreaTree>("AREAs").InsertOne(new AreaTree(p.Email));
+                _db.GetCollection<User>("Authentification").InsertOne(user);
+                _db.GetCollection<AreaTree>("AREAs").InsertOne(new AreaTree(user.Email));
+                Dispatcher.AddUser(user);
             }
             catch (Exception e)
             {

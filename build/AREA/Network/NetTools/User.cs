@@ -22,10 +22,10 @@ namespace Network.NetTools
         [BsonElement("Pwd")]
         public string Pwd { get; set; }
 
-        private Dictionary<string, KeyValuePair<string, DateTime>> accessToken;
-        public Dictionary<string, KeyValuePair<string, DateTime>> AccessToken { get => accessToken; set => accessToken = value; }
+        private Dictionary<string, string> accessToken;
+        public Dictionary<string, string> AccessToken { get => accessToken; set => accessToken = value; }
 
-        private Dictionary<string, KeyValuePair<string, DateTime>> accessTokenSecret;
-        public Dictionary<string, KeyValuePair<string, DateTime>> AccessTokenSecret { get => accessTokenSecret; set => accessTokenSecret = value; }
+        private Dictionary<string, string> accessTokenSecret;
+        public Dictionary<string, string> AccessTokenSecret { get => accessTokenSecret; set => accessTokenSecret = value; }
     }
 }
