@@ -29,6 +29,7 @@ namespace Network.NetTools
         C_PING,
         S_LOGIN_SUCCESS,
         S_PONG,
+        S_DISCONNECT,
         /// <summary>
         /// Communication direction: Both.  
         /// Inform a network entity about an error that occured.  

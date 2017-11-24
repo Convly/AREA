@@ -313,24 +313,28 @@ namespace Network
 
                 string name = dataObject.Name.ToString();
 
+                if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER && dataObject.Data.Value.ToString() == SERVER_PASS)
+                {
+                    if (Monitors.ContainsKey(name))
+                    {
+                        Console.WriteLine("Disconnect old client " + name + " (" + clientIP + ":" + clientPort + ")");
+                        Server.Instance.SendDataToMonitor(name, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_DISCONNECT, null) });
+                        Monitors.Remove(name);
+                    }
+                    Console.WriteLine("New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
+                    Monitors.Add(name, new InfosClient { _ip = clientIP, _port = clientPort });
+                    Server.Instance.SendDataToMonitor(name, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) });
+                    
+                }
+
                 if (!Monitors.ContainsKey(name))
                 {
-                    if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER && dataObject.Data.Value.ToString() == SERVER_PASS)
-                    {
-                        Console.WriteLine("New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
-                        Monitors.Add(name, new InfosClient { _ip = clientIP, _port = clientPort });
-                        Server.Instance.SendDataToMonitor(name, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) });
-                    }
-                    else
-                    {
-                        string err = (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER) ? "Invalid command for unregistered connexion": "Bad password";
+                    string err = (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER) ? "Bad password" : "Invalid command for unregistered connexion";
 
-                        Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.ERROR, err) });
-                        Console.Error.WriteLine("Error: " + err);
-                        return;
-                    }
+                    Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.ERROR, err) });
+                    Console.Error.WriteLine("Error: " + err);
+                    return;
                 }
-                
                 else
                 {
                     Console.WriteLine("New request sent from a monitor by " + clientIP + ":" + clientPort);
@@ -342,5 +346,7 @@ namespace Network
                 Console.Error.WriteLine(err.Message);
             }
         }
+
+
     }
 }
