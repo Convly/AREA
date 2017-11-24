@@ -39,6 +39,18 @@ namespace WebClient.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult AddTokenToServiceForUser(string serviceName, string serviceToken)
+        {
+            //Modify in database
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddSecretTokenToServiceForUser(string serviceName, string serviceToken)
+        {
+            //Modify in database
+            return RedirectToAction("Index");
+        }
+
         /// <summary>
         /// GET: Home/Index
         /// </summary>

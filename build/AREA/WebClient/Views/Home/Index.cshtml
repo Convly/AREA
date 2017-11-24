@@ -69,10 +69,19 @@
             }
         </section>
     </aside>
-    <section id="canvasContainer" class="canvasContainer" onresize="resizeCanvasToSquare()">
+    <section id="canvasContainer" class="canvasContainer">
         <canvas id="canvasTree"></canvas>
         <button id="sendButton" class="sendButtonStyle" onclick="if (itemIndex != -1) {$.post('@Url.Action("SendTree", "Home")', {treeJson : JSON.stringify(getFullTree()), treeIndex : itemIndex });}">Save</button>
         <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
         <script type="text/javascript" src="~/Scripts/CanvasEvents.js"></script>
     </section>
 </div>
+<script type="text/javascript">
+    var services = JSON.parse('@Html.Raw(Model.ServicesToJSON())');
+    console.log(services);
+    for (var i = 0; i < services.length; i++) {
+        $.post('@Url.Action("AddTokenToServiceForUser", "Home")', { serviceName: services[i].Name, serviceToken: prompt("Enter the token for " + services[i].Name + ":") });
+        if (services[i].AccessTokenSecret)
+            $.post('@Url.Action("AddSecretTokenToServiceForUser", "Home")', { serviceName: services[i].Name, serviceToken: prompt("Enter the secret token for " + services[i].Name + ":") });
+    }
+</script>

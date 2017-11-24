@@ -595,7 +595,6 @@
 .canvasContainer {
     width: calc(100% - 300px);
     background-color: #353C3E;
-    color: #E66A39;
 }
 
 .sidebarItemsContainer::-webkit-scrollbar-track {
