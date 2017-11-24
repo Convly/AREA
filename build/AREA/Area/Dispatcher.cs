@@ -38,17 +38,8 @@ namespace Area
                 ? this.Routes[e.Type](e)
                 : HttpEventAnswer.Error(e, 400, "Unknown type '" + e.Type + "'");
 
-            string msg = e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")";
-            //AddMonitorEventMessage();
+            Server.AddMonitorEventMessage(e.OwnerInfos.Email, (int)e.Source, e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")");
             return ans;
-        }
-
-        public static void AddMonitorEventMessage(string name, int source, string content)
-        {
-            Network.Server.EventFlow.Add(new KeyValuePair<string, KeyValuePair<int, string>>
-                (
-                    name, new KeyValuePair<int, string>(source, content))
-                );
         }
     }
 }

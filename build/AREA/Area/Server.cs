@@ -75,6 +75,16 @@ namespace Area
             Network.Server.Instance.Stop();
         }
 
+        public static void AddMonitorEventMessage(string name, int source, string content)
+        {
+            var item = new KeyValuePair<string, KeyValuePair<int, string>>
+                (
+                    name, new KeyValuePair<int, string>(source, content)
+                );
+            Network.Server.EventFlow.Add(item);
+            Network.Server.Instance.SendDataToMonitor(new Network.NetTools.Packet { Name = "Server", Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.S_EVENT, item) });
+        }
+
         /// <summary>
         /// Callback used when a monitor send a request to the server
         /// </summary>

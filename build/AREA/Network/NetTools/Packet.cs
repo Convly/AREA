@@ -30,6 +30,7 @@ namespace Network.NetTools
         S_LOGIN_SUCCESS,
         S_PONG,
         S_DISCONNECT,
+        S_EVENT,
         /// <summary>
         /// Communication direction: Both.  
         /// Inform a network entity about an error that occured.  

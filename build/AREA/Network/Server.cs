@@ -221,6 +221,21 @@ namespace Network
             }
         }
 
+        public void SendDataToMonitor(NetTools.Packet data)
+        {
+            foreach (var user in Monitors)
+            {
+                try
+                {
+                    this.SendDataToMonitor(user.Key, data);
+                }
+                catch (Exception err)
+                {
+                    Console.Error.WriteLine(err.Message);
+                }
+            }
+        }
+
         /// <summary>
         /// Send some data (as <see cref="NetTools.Packet"/> to a monitor by its name
         /// </summary>
@@ -307,7 +322,7 @@ namespace Network
                 }
                 else if (dataObject.Data.Key == NetTools.PacketCommand.C_PING)
                 {
-                    Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = "root", Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_PONG, null) });
+                    Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = "Server", Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_PONG, null) });
                     return;
                 }
 
@@ -324,7 +339,7 @@ namespace Network
                     Console.WriteLine("New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
                     Monitors.Add(name, new InfosClient { _ip = clientIP, _port = clientPort });
                     Server.Instance.SendDataToMonitor(name, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) });
-                    
+                    return;
                 }
 
                 if (!Monitors.ContainsKey(name))
