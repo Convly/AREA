@@ -145,7 +145,7 @@ tree = [];
 function addTreeData(t) {
     tree.push(new Tree());
     tree[tree.length - 1].Name = t.Name;
-    if (t.root && t.root.data.name != "")
+    if (t.root && t.root.data.name !== "")
         tree[tree.length - 1].root = t.root;
     else
         tree[tree.length - 1].root = null;
@@ -164,5 +164,5 @@ function getTree(idx) {
 //Add a node to the tree[idx] at given node with data
 function addNode(idx, node, data) {
     var s = tree[idx].add(data, node);
-    return ((typeof s == "undefined") ? (true) : (false));
+    return ((typeof s === "undefined") ? (true) : (false));
 }

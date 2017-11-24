@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache.cs" />
     <Compile Include="CommandsManager.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="EventFactory.cs" />

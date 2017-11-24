@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using Network;
+using Network.NetTools;
 
 namespace WebClient.Models
 {
@@ -16,6 +18,11 @@ namespace WebClient.Models
         /// The list of <see cref="Area"/> visible
         /// </summary>
         public List<ATreeRoot> Areas { get; set; }
+
+        /// <summary>
+        /// The list of <see cref="Service"/>
+        /// </summary>
+        public List<Service> Services { get; set; }
 
         /// <summary>
         /// Serialize the list of <see cref="Area"/>
@@ -32,6 +39,7 @@ namespace WebClient.Models
             User user = db.GetUser(email);
             AreaTree tree = db.GetAreas(email);
             Areas = tree.AreasList;
+            Services = Dispatcher.GetAvailableServices(user);
         }
     }
 }

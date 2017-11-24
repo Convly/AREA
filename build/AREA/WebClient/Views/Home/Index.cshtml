@@ -53,6 +53,9 @@
                         $("#sidebarItem@(i)").click(function () {
                             for (var j = 0; j < arr.length; j++)
                                 $("#sidebarItem" + j.toString()).removeClass("selectedItem")
+                            if (itemIndex != -1) {
+                                $.post('@Url.Action("SendTree", "Home")', { treeJson: JSON.stringify(getFullTree()), treeIndex: itemIndex });
+                            }
                             itemIndex = @(i);
                             $("#sidebarItem@(i)").addClass("selectedItem")
                             setTreeData(getTree(itemIndex))
@@ -68,7 +71,7 @@
     </aside>
     <section id="canvasContainer" class="canvasContainer" onresize="resizeCanvasToSquare()">
         <canvas id="canvasTree"></canvas>
-        <button id="sendButton" class="sendButtonStyle" onclick="if (itemIndex != -1) {$.post('@Url.Action("SendTree", "Home")', {treeJson : JSON.stringify(getFullTree()) });}">Save</button>
+        <button id="sendButton" class="sendButtonStyle" onclick="if (itemIndex != -1) {$.post('@Url.Action("SendTree", "Home")', {treeJson : JSON.stringify(getFullTree()), treeIndex : itemIndex });}">Save</button>
         <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
         <script type="text/javascript" src="~/Scripts/CanvasEvents.js"></script>
     </section>
