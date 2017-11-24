@@ -17,8 +17,13 @@ namespace ServerTest
 
             User ui = new User("bite@sperme.eu", "katsuni");
             GetAvailableServicesEvent e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui, null);
-            Thread.Sleep(15000);
-            Console.WriteLine("Go!");
+            int x = 0;
+            while (x < 4)
+            {
+                Thread.Sleep(5000);
+                Console.WriteLine("AH " + x);
+                x++;
+            }
             server.Dispatcher.Trigger(e);
             server.Dispatcher.Trigger(e);
             server.Dispatcher.Trigger(e);
