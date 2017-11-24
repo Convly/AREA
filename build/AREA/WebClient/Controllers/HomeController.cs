@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Network.NetTools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,15 +40,21 @@ namespace WebClient.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult AddTokenToServiceForUser(string serviceName, string serviceToken)
+        public ActionResult AddTokensForUser(string tokensJson, string secretTokensJson)
         {
-            //Modify in database
-            return RedirectToAction("Index");
-        }
+            Dictionary<string, string> tokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(tokensJson);
+            Dictionary<string, string> secretTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(secretTokensJson);
 
-        public ActionResult AddSecretTokenToServiceForUser(string serviceName, string serviceToken)
-        {
-            //Modify in database
+            string name = "";
+            DataAccess db = DataAccess.Instance;
+            if (User.Identity is ClaimsIdentity claimId)
+            {
+                name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
+                User user = db.GetUser(name);
+                user.AccessToken = tokens;
+                user.AccessTokenSecret = secretTokens;
+                Dispatcher.AddTokensAccess(user);
+            }
             return RedirectToAction("Index");
         }
 

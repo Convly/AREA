@@ -79,9 +79,15 @@
 <script type="text/javascript">
     var services = JSON.parse('@Html.Raw(Model.ServicesToJSON())');
     console.log(services);
+    var tokens = {};
+    var secretTokens = {};
     for (var i = 0; i < services.length; i++) {
-        $.post('@Url.Action("AddTokenToServiceForUser", "Home")', { serviceName: services[i].Name, serviceToken: prompt("Enter the token for " + services[i].Name + ":") });
-        if (services[i].AccessTokenSecret)
-            $.post('@Url.Action("AddSecretTokenToServiceForUser", "Home")', { serviceName: services[i].Name, serviceToken: prompt("Enter the secret token for " + services[i].Name + ":") });
+        tokens[services[i].Name] = prompt("Enter the token for " + services[i].Name + ":");
+        if (services[i].AccessTokenSecret) {
+            secretTokens[services[i].Name] = prompt("Enter the secret token for " + services[i].Name + ":");
+        }
     }
+    console.log("Tokens are:", tokens);
+    console.log("Secret tokens are:", secretTokens);
+    $.post('@Url.Action("AddTokensForUser", "Home")', { tokensJson: JSON.stringify(tokens), secretTokensJson: JSON.stringify(secretTokens) });
 </script>
