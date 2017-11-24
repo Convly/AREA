@@ -50,7 +50,7 @@ namespace WebClient.Models
             }
         }
 
-        public void SendTreeToUser(string email, string treeJson)
+        public void SendTreeToUser(string email, string treeJson, int treeIndex)
         {
             List<ATreeRoot> tree = JsonConvert.DeserializeObject<List<ATreeRoot>>(treeJson);
 

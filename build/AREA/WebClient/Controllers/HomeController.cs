@@ -14,14 +14,14 @@ namespace WebClient.Controllers
     /// </summary>
     public class HomeController : Controller
     {
-        public ActionResult SendTree(string treeJson)
+        public ActionResult SendTree(string treeJson, int treeIndex)
         {
             string name = "";
             DataAccess db = DataAccess.Instance;
             if (User.Identity is ClaimsIdentity claimId)
             {
                 name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
-                db.SendTreeToUser(name, treeJson);
+                db.SendTreeToUser(name, treeJson, treeIndex);
             }
             IndexViewModel vm = new IndexViewModel(name);
             return View(vm);
