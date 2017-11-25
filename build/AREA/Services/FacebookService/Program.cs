@@ -15,9 +15,16 @@ namespace FacebookService
 
         static void Main(string[] args)
         {
-            Network.Client client = Network.Client.Instance;
-
-            client.Start("MessageBus", Callback, args[1], int.Parse(args[2]));
+            try
+            {
+                Network.Client client = Network.Client.Instance;
+                Network.NetTools.IService service = new GraphAPI();
+                client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
+            }
+            catch (Exception err)
+            {
+                Console.Error.WriteLine(err.Message);
+            }
         }
     }
 }

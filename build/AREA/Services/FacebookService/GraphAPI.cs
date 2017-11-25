@@ -11,9 +11,10 @@ namespace FacebookService
     {
         private static string name = "graphAPI";
 
-        public static void Callback(Packet obj)
+        public static int Callback(Packet obj)
         {
             Console.WriteLine("Hello from " + name);
+            return 2;
         }
 
         public string APIName()
@@ -24,6 +25,11 @@ namespace FacebookService
         public List<string> GetActionList()
         {
             return new List<string>();
+        }
+
+        public Func<Packet, int> GetCallback()
+        {
+            return Callback;
         }
 
         public List<string> GetReactionList()
