@@ -12,7 +12,7 @@ namespace ClientTest
         public static int Callback(Network.NetTools.Packet obj)
         {
             Console.WriteLine("Gotcha");
-            Network.MonitorClient.Instance.SendDataToServer(new Network.NetTools.Packet
+            Network.Client.Instance.SendDataToServer(new Network.NetTools.Packet
             {
                 Name = UserName,
                 Key = obj.Key,
@@ -23,7 +23,7 @@ namespace ClientTest
 
         static void Main(string[] args)
         {
-            Network.MonitorClient monitorClient = Network.MonitorClient.Instance;
+            Network.Client monitorClient = Network.Client.Instance;
             monitorClient.Start("Monitor", Callback, args[0], int.Parse(args[1]));
             monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = UserName , Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_REGISTER, "root") });
             Console.ReadKey();

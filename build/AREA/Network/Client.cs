@@ -9,31 +9,31 @@ namespace Network
     /// Client class for the Network library.
     /// This class allow the user to start a transmission in order to receive and send requests to a single <see cref="Server"/>.
     /// </summary>
-    public class MonitorClient
+    public class Client
     {
-        private static MonitorClient instance = null;
+        private static Client instance = null;
 
         /// <summary>
-        /// Getter for the singleton instance of a <see cref="MonitorClient"/>
+        /// Getter for the singleton instance of a <see cref="Client"/>
         /// </summary>
-        public static MonitorClient Instance
+        public static Client Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new MonitorClient();
+                    instance = new Client();
                 }
                 return instance;
             }
         }
 
-        private MonitorClient() { }
+        private Client() { }
 
         /// <summary>
-        /// Destructor of the <see cref="MonitorClient"/>. When called, it'll shutdown all the transmissions
+        /// Destructor of the <see cref="Client"/>. When called, it'll shutdown all the transmissions
         /// </summary>
-        ~MonitorClient()
+        ~Client()
         {
             try
             {
