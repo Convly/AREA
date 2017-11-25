@@ -56,9 +56,8 @@ function clickedAnTreeElement(pos) {
 // Left click event in the canvas
 $("#canvasTree").click(function (event) {
     var pos = getMousePosInCanvas(canvas, event);
-    if (itemIndex !== -1) {
+    if (typeof itemIndex != "undefined" && itemIndex !== -1) {
         console.log("Left click at pos [", pos.x + ",", pos.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
-
     }
 });
 

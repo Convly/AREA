@@ -26,7 +26,9 @@
                         var name = prompt("Please enter a name for your new AREA");
                         if (name) {
                             $.post('@Url.Action("AddArea", "Home")', { areaName: name });
-                            location.reload();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
                         }
                     }
                 </script>
@@ -38,17 +40,18 @@
                 </span>
             </div>
         </menu>
+        <script type="text/javascript">
+            var itemIndex = -1;
+
+            function GetSelectedSideItemIndex() {
+                return (itemIndex);
+            }
+        </script>
         <section class="sidebarItemsContainer">
             @for (int i = 0; i < @Model.Areas.Count; i++)
             {
                 <div class="sidebarItem" id="sidebarItem@(i)">
                     <script type="text/javascript">
-                        var itemIndex = -1;
-
-                        function GetSelectedSideItemIndex() {
-                            return (itemIndex);
-                        }
-
                         var arr = JSON.parse('@Html.Raw(Model.AreasToJSON())')
                         $("#sidebarItem@(i)").click(function () {
                             for (var j = 0; j < arr.length; j++)
@@ -79,15 +82,18 @@
 <script type="text/javascript">
     var services = JSON.parse('@Html.Raw(Model.ServicesToJSON())');
     console.log(services);
-    var tokens = {};
-    var secretTokens = {};
-    for (var i = 0; i < services.length; i++) {
-        tokens[services[i].Name] = prompt("Enter the token for " + services[i].Name + ":");
-        if (services[i].AccessTokenSecret) {
-            secretTokens[services[i].Name] = prompt("Enter the secret token for " + services[i].Name + ":");
+    var needTokens = '@Html.Raw(Model.CurrentUser.AreTokensExpired())';
+    if (needTokens == "true") {
+        var tokens = {};
+        var secretTokens = {};
+        for (var i = 0; i < services.length; i++) {
+            tokens[services[i].Name] = prompt("Enter the token for " + services[i].Name + ":");
+            if (services[i].AccessTokenSecret) {
+                secretTokens[services[i].Name] = prompt("Enter the secret token for " + services[i].Name + ":");
+            }
         }
+        console.log("Tokens are:", tokens);
+        console.log("Secret tokens are:", secretTokens);
+        $.post('@Url.Action("AddTokensForUser", "Home")', { tokensJson: JSON.stringify(tokens), secretTokensJson: JSON.stringify(secretTokens) });
     }
-    console.log("Tokens are:", tokens);
-    console.log("Secret tokens are:", secretTokens);
-    $.post('@Url.Action("AddTokensForUser", "Home")', { tokensJson: JSON.stringify(tokens), secretTokensJson: JSON.stringify(secretTokens) });
 </script>

@@ -53,6 +53,7 @@ namespace WebClient.Controllers
                 User user = db.GetUser(name);
                 user.AccessToken = tokens;
                 user.AccessTokenSecret = secretTokens;
+                db.UpdateUserToken(user);
                 Dispatcher.AddTokensAccess(user);
             }
             return RedirectToAction("Index");
