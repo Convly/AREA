@@ -25,7 +25,7 @@ namespace ClientTest
         {
             Network.MonitorClient monitorClient = Network.MonitorClient.Instance;
             monitorClient.Start("Monitor", Callback, args[0], int.Parse(args[1]));
-            monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = UserName , Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_REGISTER, "rootz") });
+            monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = UserName , Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_REGISTER, "root") });
             Console.ReadKey();
         }
     }

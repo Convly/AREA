@@ -42,11 +42,17 @@ namespace ServerMonitorApplication
         /// Inputs verifications
         /// </summary>
         /// <returns></returns>
-        private bool CanShowLoginView()
+        private void CanShowLoginView()
         {
             string patternIPAddress = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$";
             string patternPort = "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$";
-            return Regex.IsMatch(IpAddress, patternIPAddress) && Regex.IsMatch(Port, patternPort);
+            if (Regex.IsMatch(IpAddress, patternIPAddress) && Regex.IsMatch(Port, patternPort))
+            {
+                if (int.Parse(Port) > 1024)
+                {
+                    Net.Instance.Initialize(IpAddress, Port);
+                }
+            }
         }
 
         /// <summary>
@@ -54,10 +60,7 @@ namespace ServerMonitorApplication
         /// </summary>
         private void ShowLoginView()
         {
-            if (CanShowLoginView())
-            {
-                Messenger.Default.Send(new ChangePage(typeof(LoginViewModel)));
-            }
+            CanShowLoginView();
         }
 
         #endregion

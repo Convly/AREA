@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignWidth="300">
 
-    <Border Padding="15">
+    <Border d:DataContext="{x:Static local:ServiceLoggerItemControlModel.Instance}" Padding="15">
         <Grid>
             <!-- Username box -->
             <Border CornerRadius="10"
@@ -19,7 +19,7 @@
                     BorderBrush="{StaticResource ForegroundLightBrush}"
                     BorderThickness="1"
                     Padding="8 1 8 3">
-                <TextBlock Text="Micro" Foreground="{StaticResource ForegroundLightBrush}" FontSize="18" FontFamily="{StaticResource LatoRegular}"/>
+                <TextBlock Text="{Binding Username}" Foreground="{StaticResource ForegroundLightBrush}" FontSize="18" FontFamily="{StaticResource LatoRegular}"/>
             </Border>
             <Grid Margin="13 22 0 0" HorizontalAlignment="Left">
                 <Grid.RowDefinitions>
@@ -39,16 +39,16 @@
                                FontFamily="{StaticResource LatoRegular}"
                                FontSize="18"
                                Foreground="{StaticResource WordDarkBlueBrush}"
-                               Text="Facebook service activated"/>
+                               Text="{Binding Content}"/>
                 </Border>
                 <!-- Log Time Information -->
                 <TextBlock Grid.Row="2"
-                           Text="11:52am"
+                           Text="{Binding Time}"
                            HorizontalAlignment="Right"
                            Foreground="{StaticResource ForegroundLightBrush}"
                            FontSize="{StaticResource FontSizeSmall}"/>
             </Grid>
         </Grid>
     </Border>
-
+    
 </UserControl>

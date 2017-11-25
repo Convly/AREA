@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServerTest
@@ -14,12 +15,18 @@ namespace ServerTest
         {
             Area.Server server = Area.Server.Instance;
 
-            User ui = new User("bob@t.fr", "pwd");
-            Event e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui, null);
-            foreach (var x in Enumerable.Range(0, 1001))
+            User ui = new User("mail@email.fr", "pass");
+            GetAvailableServicesEvent e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui, null);
+            int x = 0;
+            while (x < 4)
             {
-                server.Dispatcher.Trigger(e);
+                Thread.Sleep(5000);
+                Console.WriteLine("AH " + x);
+                x++;
             }
+            server.Dispatcher.Trigger(e);
+            server.Dispatcher.Trigger(e);
+            server.Dispatcher.Trigger(e);
             Console.ReadKey();
         }
     }

@@ -90,14 +90,7 @@ namespace Network
         /// <param name="data"></param>
         public void SendDataToServer(Object data)
         {
-            try
-            {
-                NetworkComms.SendObject(Channel, _serverIP, _serverPort, JsonConvert.SerializeObject(data));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+             NetworkComms.SendObject(Channel, _serverIP, _serverPort, JsonConvert.SerializeObject(data));
         }
 
         /// <summary>
