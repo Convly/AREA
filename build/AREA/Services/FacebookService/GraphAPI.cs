@@ -34,9 +34,10 @@ namespace FacebookService
         private static string   _name = "graphAPI";
         private ThreadPool      _threadPool;
 
-        public static void Callback(Packet obj)
+        public static int Callback(Packet obj)
         {
             Console.WriteLine("Hello from " + _name);
+            return (2);
         }
 
         public string APIName()
@@ -47,6 +48,11 @@ namespace FacebookService
         public List<string> GetActionList()
         {
             return new List<string>();
+        }
+
+        public Func<Packet, int> GetCallback()
+        {
+            return Callback;
         }
 
         public List<string> GetReactionList()

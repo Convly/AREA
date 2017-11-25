@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Network.NetTools
 {
     public interface IService
     {
+        Func<Packet, int> GetCallback();
         string APIName();
         List<string> GetActionList();
         List<string> GetReactionList();
