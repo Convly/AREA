@@ -25,6 +25,7 @@ namespace FacebookService
             {
                 Console.Error.WriteLine(err.Message);
             }
+            Console.ReadKey();
         }
     }
 }
