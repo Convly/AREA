@@ -15,7 +15,7 @@ namespace ServerTest
         {
             Area.Server server = Area.Server.Instance;
 
-            User ui = new User("bite@sperme.eu", "katsuni");
+            User ui = new User("mail@email.fr", "pass");
             GetAvailableServicesEvent e = new GetAvailableServicesEvent(HttpEventSource.EXT, HttpEventType.COMMAND, ui, null);
             int x = 0;
             while (x < 4)
