@@ -33,7 +33,7 @@ namespace Area
                         Console.WriteLine("Bus: About to treat an event of type " + e.GetType());
                         if (e.GetType() == typeof(TriggerReactionEvent))
                         {
-                            ServiceReactionContent src = e.Data as ServiceReactionContent;
+                            ServiceReactionContent src = JsonConvert.DeserializeObject<ServiceReactionContent>(e.Data.ToString());
                             ComputeActionsTrigger(src);
                         }
                     }
@@ -94,8 +94,14 @@ namespace Area
         /// <returns></returns>
         public static int MessageBusCallback(Network.NetTools.Packet obj)
         {
-            Event e = JsonConvert.DeserializeObject<Event>(obj.Data.Value.ToString());
-            CommandsManager.ProcessEvent(e);
+            switch (obj.Data.Key)
+            {
+                case PacketCommand.REACTION:
+                    TriggerReactionEvent e = JsonConvert.DeserializeObject<TriggerReactionEvent>(obj.Data.Value.ToString());
+                    Add(e);
+                    break;
+            }
+
             return 0;
         }
 
@@ -154,9 +160,9 @@ namespace Area
             List<Service> sl = Network.Server.NewServices;
             lock (Network.Server.NewServices)
             {
-                foreach (var service in sl)
+                for (int i = 0; i < sl.Count; i++)
                 {
-                    Cache.AddNewService(service);
+                    Cache.AddNewService(sl[i]);
                 }
 
                 foreach (var Atree in Cache.GetAreaTreeList())
