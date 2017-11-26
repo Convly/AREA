@@ -1,5 +1,5 @@
-﻿using System;
-using TwitterService;
+﻿using TwitterService;
+using System;
 
 namespace Service
 {
@@ -10,7 +10,7 @@ namespace Service
             try
             {
                 Network.Client client = Network.Client.Instance;
-                Network.NetTools.IService service = new Service("TwitterApi", new TwitterController());
+                Network.NetTools.IService service = new Service("Twintivi", new TwitterController("Twintivi"));
                 client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
             }
             catch (Exception err)

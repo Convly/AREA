@@ -1,15 +1,16 @@
-﻿using Network.NetTools;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Network.NetTools;
+using Network.Events;
 
 namespace Service
 {
-    public delegate void ReactionDelegate(object obj);
-    public delegate void ActionDelegate(object obj);
+    public delegate void ReactionDelegate(Event obj);
+    public delegate void ActionDelegate(Event obj);
 
     public interface IController
     {
-        ReactionDelegate Reaction(string name);
-        void Action(string name, object obj);
+        ReactionDelegate Reaction(Network.Events.Event obj);
+        void Action(Network.Events.Event obj);
         List<string> GetActionList();
         List<string> GetReactionList();
     }
@@ -18,6 +19,7 @@ namespace Service
     {
         protected Dictionary<string, ReactionDelegate> _reactions;
         protected Dictionary<string, ActionDelegate> _actions;
+        protected string _name;
 
         public Controller()
         {
@@ -25,14 +27,18 @@ namespace Service
             _actions = new Dictionary<string, ActionDelegate>();
         }
 
-        public ReactionDelegate Reaction(string name)
+        public ReactionDelegate Reaction(Network.Events.Event obj)
         {
-            return (_reactions[name]);
+            var action = (ServiceActionContent)obj.Data;
+
+            return (_reactions[action.Name]);
         }
 
-        public void Action(string name, object obj)
+        public void Action(Network.Events.Event obj)
         {
-            _actions[name](obj);
+            var action = (ServiceActionContent)obj.Data;
+
+            _actions[action.Name](obj);
         }
 
         public List<string> GetActionList()

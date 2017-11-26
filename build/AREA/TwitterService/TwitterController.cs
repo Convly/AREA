@@ -2,13 +2,20 @@
 using Tweetinvi;
 using Service;
 using System;
+using Network.Events;
+using Network.NetTools;
+using static Network.Events.AddUserEvent;
 
 namespace TwitterService
 {
     public class TwitterController : Controller
     {
-        public TwitterController()
+        private static string _consumerKeySecret = "SEr6QSvzRD05N9AzIpucxLT3MGUd3wZLnvqk8m7Lq8u26TFbQO";
+        private static string _consumerKey = "5xQecQC24p9cTyGPQtiw7O0cE";
+
+        public TwitterController(string name)
         {
+            _name = name;
             _reactions = new Dictionary<string, ReactionDelegate>
             {
                 { "ListenTweetFromAnyone", ListenTweetFromAnyone },
@@ -19,75 +26,88 @@ namespace TwitterService
 
             _actions = new Dictionary<string, ActionDelegate>
             {
-                {"NewTweet", NewTweet }
+                { "NewTweet", NewTweet }
             };
         }
 
-        public void ListenTweetFromAnyone(Object obj)
+        public void Authentification(Event obj)
         {
-            var user = (Network.NetTools.User)obj;
-            var stream = Stream.CreateUserStream();
-            //object data = null;
+            if (obj.OwnerInfos.AccessToken.Count <= 0
+                || obj.OwnerInfos.AccessTokenSecret.Count <= 0)
+                return;
+            var user = obj.OwnerInfos;
+            string accessTokenSecret = user.AccessTokenSecret[_name];
+            string accessToken = user.AccessToken[_name];
 
+            Auth.SetUserCredentials(_consumerKey, _consumerKeySecret, accessToken, accessTokenSecret);
+        }
+
+        public void Reaction(Event obj, object reactionContent)
+        {
+            Network.NetTools.User user = obj.OwnerInfos;
+            Event react = new TriggerReactionEvent(HttpEventSource.SERVICE, HttpEventType.COMMAND, user, reactionContent);
+            Packet packet = new Packet(_name, PacketCommand.REACTION, react);
+
+            Network.Client.Instance.SendDataToServer(packet);
+            Console.WriteLine(reactionContent.ToString());
+        }
+
+        public void ListenTweetFromAnyone(Event obj)
+        {
+            var user = obj.OwnerInfos;
+            var stream = Stream.CreateUserStream();
+
+            Authentification(obj);
             stream.TweetCreatedByAnyone += (sender, args) =>
             {
-                //Network.Client.Instance.SendDataToServer(data);
-                Console.WriteLine(args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
+                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
 
-        public void ListenTweetFromMe(Object obj)
+        public void ListenTweetFromMe(Event obj)
         {
-            var user = (Network.NetTools.User)obj;
+            var user = obj.OwnerInfos;
             var stream = Stream.CreateUserStream();
-            //object data = null;
 
+            Authentification(obj);
             stream.TweetCreatedByMe += (sender, args) =>
             {
-                //Network.Client.Instance.SendDataToServer(data);
-                Console.WriteLine(args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
+                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
 
-        public void ListenTweetFromAnyoneButMe(Object obj)
+        public void ListenTweetFromAnyoneButMe(Event obj)
         {
-            var user = (Network.NetTools.User)obj;
+            var user = obj.OwnerInfos;
             var stream = Stream.CreateUserStream();
-            //object data = null;
 
+            Authentification(obj);
             stream.TweetCreatedByAnyoneButMe += (sender, args) =>
             {
-                //Network.Client.Instance.SendDataToServer(data);
-                Console.WriteLine(args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
+                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
 
-        public void ListenTweetWithKeyWord(Object obj)
+        public void ListenTweetWithKeyWord(Event obj)
         {
-            string regex = (string)obj;
+            string regex = (string)obj.Data;
             var stream = Stream.CreateFilteredStream();
-            //object data = null;
 
+            Authentification(obj);
             stream.AddTrack(regex);
             stream.MatchingTweetReceived += (sender, args) =>
             {
-                //Network.Client.Instance.SendDataToServer(data);
-                Console.WriteLine("A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText);
+                Reaction(obj, new { resume = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText });
             };
         }
 
-        public void NewTweet(object obj)
+        public void NewTweet(Event obj)
         {
-            string consumerKeySecret = "SEr6QSvzRD05N9AzIpucxLT3MGUd3wZLnvqk8m7Lq8u26TFbQO";
-            string consumerKey = "5xQecQC24p9cTyGPQtiw7O0cE";
-            string accessTokenSecret = "";
-            string accessToken = "";
-            string text = "";
-
-            Auth.SetUserCredentials(consumerKey, consumerKeySecret, accessToken, accessTokenSecret);
+            Authentification(obj);
+            string text = (string)obj.Data;
             Tweet.PublishTweet(text);
         }
     }
