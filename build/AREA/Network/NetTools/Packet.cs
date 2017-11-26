@@ -14,6 +14,11 @@ namespace Network.NetTools
         /// The object associated to the command must be a <see cref="string"/> (which is the server's password).  
         /// </summary>
         C_REGISTER,
+        /// <summary>
+        /// Communication direction: Client => Server.  
+        /// Request a register from a Client to the Server.  
+        /// The object associated to the command must be a <see cref="string"/> (which is the server's password).  
+        /// </summary>
         C_QUIT,
         C_UNLOCK,
         C_PING,
@@ -44,10 +49,7 @@ namespace Network.NetTools
         /// Inform a network entity about an error that occured.  
         /// The object associated to the command must be a <see cref="string"/>.  
         /// </summary>
-        ERROR,
-
-        S_ENABLE,
-        S_DISABLE
+        ERROR
     }
 
     /// <summary>
