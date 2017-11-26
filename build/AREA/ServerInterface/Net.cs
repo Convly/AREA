@@ -55,7 +55,7 @@ namespace ServerInterface
         /// <returns></returns>
         public static int Callback(Network.NetTools.Packet obj)
         {
-            Network.MonitorClient.Instance.SendDataToServer(new Network.NetTools.Packet
+            Network.Client.Instance.SendDataToServer(new Network.NetTools.Packet
             {
                 Name = Username,
                 Key = obj.Key,
@@ -108,7 +108,7 @@ namespace ServerInterface
         {
             try
             {
-                Network.MonitorClient monitorClient = Network.MonitorClient.Instance;
+                Network.Client monitorClient = Network.Client.Instance;
                 monitorClient.Start("Monitor", Callback, ipAddress, int.Parse(port));
                 monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = null, Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_PING, null) });
             }
@@ -130,7 +130,7 @@ namespace ServerInterface
             try
             {
                 Username = username;
-                Network.MonitorClient monitorClient = Network.MonitorClient.Instance;
+                Network.Client monitorClient = Network.Client.Instance;
                 monitorClient.SendDataToServer(new Network.NetTools.Packet { Name = Username, Key = 0, Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_REGISTER, "root") });
                 return true;
             }
