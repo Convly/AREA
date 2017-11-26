@@ -19,6 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Area", "Area\Area.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTest", "Spike\ServerTest\ServerTest.csproj", "{BB2D364A-937A-4822-BABC-DCA1DB73261C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerInterface", "ServerInterface\ServerInterface.csproj", "{5E9B0432-A115-432A-B8A3-8F5934678D07}"
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterService", "Services\TwitterService\TwitterService.csproj", "{5EF49326-D434-45CE-B7E8-C715B177911B}"
@@ -61,6 +62,10 @@ Global
 		{BB2D364A-937A-4822-BABC-DCA1DB73261C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB2D364A-937A-4822-BABC-DCA1DB73261C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB2D364A-937A-4822-BABC-DCA1DB73261C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E9B0432-A115-432A-B8A3-8F5934678D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E9B0432-A115-432A-B8A3-8F5934678D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E9B0432-A115-432A-B8A3-8F5934678D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E9B0432-A115-432A-B8A3-8F5934678D07}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Release|Any CPU.ActiveCfg = Release|Any CPU
