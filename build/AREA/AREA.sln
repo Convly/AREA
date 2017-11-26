@@ -21,15 +21,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTest", "Spike\ServerT
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ServiceModel", "Services\ServiceModel\ServiceModel.shproj", "{CD2056CB-3AEA-40DA-AE34-365A1F6D0089}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterService", "Services\TwitterService\TwitterService.csproj", "{5EF49326-D434-45CE-B7E8-C715B177911B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceModels", "Services\ServiceModels\ServiceModels.csproj", "{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Services\ServiceModel\ServiceModel.projitems*{5ef49326-d434-45ce-b7e8-c715b177911b}*SharedItemsImports = 4
-		Services\ServiceModel\ServiceModel.projitems*{cd2056cb-3aea-40da-ae34-365a1f6d0089}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -67,6 +63,10 @@ Global
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5EF49326-D434-45CE-B7E8-C715B177911B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,8 +74,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{51598902-31C4-4B93-80DC-A8D4376160AA} = {D86830E8-F42C-40F1-AECE-D8BC94A1D4FD}
 		{BB2D364A-937A-4822-BABC-DCA1DB73261C} = {D86830E8-F42C-40F1-AECE-D8BC94A1D4FD}
-		{CD2056CB-3AEA-40DA-AE34-365A1F6D0089} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 		{5EF49326-D434-45CE-B7E8-C715B177911B} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
+		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {014C1456-3662-403F-9942-4B2F18632279}

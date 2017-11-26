@@ -89,7 +89,7 @@ namespace Network
         /// <summary>
         /// List of monitors currently connected to the server
         /// </summary>
-        public static List<string> NewServices = new List<string>();
+        public static List<Service> NewServices = new List<Service>();
         public static Dictionary<string, InfosClient> Monitors = new Dictionary<string, InfosClient>();
         public static Dictionary<string, NetTools.Service> Services = new Dictionary<string, NetTools.Service>();
         public static List<NetTools.EventContent> EventFlow = new List<NetTools.EventContent>();
@@ -334,7 +334,7 @@ namespace Network
 
                 string name = dataObject.Name.ToString();
 
-                if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER && dataObject.Data.Value.ToString() == SERVER_PASS)
+                if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER)
                 {
                     if (Services.ContainsKey(name))
                     {
@@ -347,14 +347,14 @@ namespace Network
                     Service newService = JsonConvert.DeserializeObject<Service>(dataObject.Data.Value.ToString());
                     newService.Infos = new InfosClient { _ip = clientIP, _port = clientPort };
                     Services.Add(name, newService);
-                    NewServices.Add(name);
+                    NewServices.Add(newService);
                     Server.Instance.SendMessageBusEventToService(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) }, name);
                     return;
                 }
 
                 if (!Services.ContainsKey(name))
                 {
-                    string err = (dataObject.Data.Key == PacketCommand.C_REGISTER) ? "Bad password" : "Invalid command for unregistered connexion";
+                    string err = "Invalid command for unregistered connection";
 
                     Server.Instance.SendMessageBusEventCore(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.ERROR, err) }, clientIP, clientPort);
                     Console.Error.WriteLine("Error: " + err);
@@ -418,7 +418,7 @@ namespace Network
 
                 if (!Monitors.ContainsKey(name))
                 {
-                    string err = (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER) ? "Bad password" : "Invalid command for unregistered connexion";
+                    string err = (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER) ? "Bad password" : "Invalid command for unregistered connection";
 
                     Server.Instance.SendDataToMonitor(clientIP, clientPort, new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.ERROR, err) });
                     Console.Error.WriteLine("Error: " + err);

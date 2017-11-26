@@ -23,7 +23,9 @@ namespace Area
             while (this.run)
             {
                 if (Network.Server.NewServices.Count > 0)
+                {
                     UpdateRegistrationForServices();
+                }
                 lock (eventList)
                 {
                     foreach (var e in eventList)
@@ -121,19 +123,37 @@ namespace Area
             Network.Server.Instance.SendMessageBusEventToService(p, serviceName);
         }
 
+        public static bool IsServiceInList(List<Service> list, string serviceName)
+        {
+            foreach (var service in list)
+            {
+                if (service.Name == serviceName)
+                    return true;
+            }
+
+            return false;
+        }
+
         public static void UpdateRegistrationForServices()
         {
-            List<string> sl = Network.Server.NewServices;
+            List<Service> sl = Network.Server.NewServices;
+
+            foreach (var service in sl)
+            {
+                Cache.AddNewService(service);
+            }
 
             foreach (var Atree in Cache.GetAreaTreeList())
             {
                 User user = Cache.GetUserByMail(Atree.Email);
                 foreach (var tree in Atree.AreasList)
                 {
-                    if (sl.Contains(tree.root.data.serviceName))
+                    if (IsServiceInList(sl, tree.root.data.serviceName))
                         RegisterReactionForUser(user, tree.root.data.serviceName, tree.root.data.eventName);
                 }
             }
+
+            Network.Server.NewServices.Clear();
         }
     }
 }

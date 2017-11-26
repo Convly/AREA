@@ -19,6 +19,11 @@ namespace Area
 
         }
 
+        public static void AddNewService(Service service)
+        {
+            ServiceList.Add(service);
+        }
+
         public static HttpEventAnswer GetAreaTreeList(Event e)
         {
             return new HttpEventAnswer
@@ -78,6 +83,9 @@ namespace Area
                 return HttpEventAnswer.Error(e, 502, "Invalid data argument for event");
             }
 
+            if (user == null)
+                return HttpEventAnswer.Error(e, 502, "Invalid data argument for event");
+
             foreach (var item in UserList)
             {
                 if (item.Email == user.Email)
@@ -91,11 +99,14 @@ namespace Area
 
         public static HttpEventAnswer AddTree(Event e)
         {
-            AreaTree tree = null;
+            ATreeRoot tree = null;
+            User user = null;
 
             try
             {
-                tree = e.Data as AreaTree;
+                KeyValuePair<User, ATreeRoot> kvp = (KeyValuePair<User, ATreeRoot>)e.Data;
+                tree = kvp.Value;
+                user = kvp.Key;
             }
             catch (Exception err)
             {
@@ -103,12 +114,11 @@ namespace Area
                 return HttpEventAnswer.Error(e, 502, "Invalid data argument for event");
             }
 
-            foreach (var item in tree.AreasList)
-            {
-                MessageBus.RegisterReactionForUser(GetUserByMail(tree.Email), item.root.data.serviceName, item.root.data.eventName);
-            }
+            MessageBus.RegisterReactionForUser(GetUserByMail(user.Email), tree.root.data.serviceName, tree.root.data.eventName);
 
-            TreeList.Add(tree);
+            AreaTree atr = new AreaTree(user.Email);
+            atr.AreasList = new List<ATreeRoot> { tree };
+            TreeList.Add(atr);
 
             return HttpEventAnswer.Success(e, "Tree successfully added for tree");
         }

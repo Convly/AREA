@@ -82,18 +82,28 @@ namespace Service
         {
             Console.WriteLine("Hello from " + _name);
 
-            Event data = (Event)obj.Data.Value;
-            User user = data.OwnerInfos;
+            Console.WriteLine("--> " + obj.Data.Key);
 
             switch (obj.Data.Key)
             {
+                case PacketCommand.S_DISCONNECT:
+                    Console.Error.WriteLine("Disconnect by the server");
+                    Environment.Exit(84);
+                    break;
+                case PacketCommand.ERROR:
+                    Environment.Exit(84);
+                    break;
                 case PacketCommand.ACTION:
                     {
+                        Event data = (Event)obj.Data.Value;
                         _controller.Action(data);
                         break;
                     }
                 case PacketCommand.REACTION_REGISTER:
                     {
+                        Event data = (Event)obj.Data.Value;
+                        User user = data.OwnerInfos;
+
                         foreach (var it in _tasks)
                         {
                             if (it.Key.Email == user.Email)

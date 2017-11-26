@@ -30,6 +30,7 @@ namespace WebClient.Models
         {
             _client = new MongoClient();
             _db = _client.GetDatabase("Area");
+            Area.Server server = Area.Server.Instance;
             var users = GetUsers();
             foreach (var user in users)
             {
