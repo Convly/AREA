@@ -5,11 +5,6 @@ namespace Service
 {
     class Program
     {
-        public static int Callback(Network.NetTools.Packet obj)
-        {
-            return (Service.Callback(obj));
-        }
-
         static void Main(string[] args)
         {
             try

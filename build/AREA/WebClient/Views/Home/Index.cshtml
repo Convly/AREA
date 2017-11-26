@@ -26,7 +26,9 @@
                         var name = prompt("Please enter a name for your new AREA");
                         if (name) {
                             $.post('@Url.Action("AddArea", "Home")', { areaName: name });
-                            location.reload();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
                         }
                     }
                 </script>
@@ -38,22 +40,23 @@
                 </span>
             </div>
         </menu>
+        <script type="text/javascript">
+            var itemIndex = -1;
+
+            function GetSelectedSideItemIndex() {
+                return (itemIndex);
+            }
+        </script>
         <section class="sidebarItemsContainer">
             @for (int i = 0; i < @Model.Areas.Count; i++)
             {
                 <div class="sidebarItem" id="sidebarItem@(i)">
                     <script type="text/javascript">
-                        var itemIndex = -1;
-
-                        function GetSelectedSideItemIndex() {
-                            return (itemIndex);
-                        }
-
                         var arr = JSON.parse('@Html.Raw(Model.AreasToJSON())')
                         $("#sidebarItem@(i)").click(function () {
                             for (var j = 0; j < arr.length; j++)
                                 $("#sidebarItem" + j.toString()).removeClass("selectedItem")
-                            if (itemIndex != -1) {
+                            if (itemIndex != -1 && getTree(itemIndex).root) {
                                 $.post('@Url.Action("SendTree", "Home")', { treeJson: JSON.stringify(getFullTree()), treeIndex: itemIndex });
                             }
                             itemIndex = @(i);
@@ -69,10 +72,66 @@
             }
         </section>
     </aside>
-    <section id="canvasContainer" class="canvasContainer" onresize="resizeCanvasToSquare()">
+    <section id="canvasContainer" class="canvasContainer">
         <canvas id="canvasTree"></canvas>
-        <button id="sendButton" class="sendButtonStyle" onclick="if (itemIndex != -1) {$.post('@Url.Action("SendTree", "Home")', {treeJson : JSON.stringify(getFullTree()), treeIndex : itemIndex });}">Save</button>
+        <a id="addNode" class="button addNodeButton" href="#popup1" style="display: none;">Add a node</a>
+        <a id="sendButton" class="button saveButtonStyle" style="display: none;" onclick="if (itemIndex != -1) {$.post('@Url.Action("SendTree", "Home")', {treeJson : JSON.stringify(getFullTree()), treeIndex : itemIndex });}">Save tree</a>
         <script type="text/javascript" src="~/Scripts/CanvasDrawing.js"></script>
         <script type="text/javascript" src="~/Scripts/CanvasEvents.js"></script>
     </section>
+</div>
+<script type="text/javascript">
+    var services = JSON.parse('@Html.Raw(Model.ServicesToJSON())');
+    console.log(services);
+    var needTokens = '@Html.Raw(Model.CurrentUser.AreTokensExpired())';
+    if (needTokens == "True") {
+        var tokens = {};
+        var secretTokens = {};
+        for (var i = 0; i < services.length; i++) {
+            tokens[services[i].Name] = prompt("Enter the token for " + services[i].Name + ":");
+            if (services[i].AccessTokenSecret) {
+                secretTokens[services[i].Name] = prompt("Enter the secret token for " + services[i].Name + ":");
+            }
+        }
+        console.log("Tokens are:", tokens);
+        console.log("Secret tokens are:", secretTokens);
+        $.post('@Url.Action("AddTokensForUser", "Home")', { tokensJson: JSON.stringify(tokens), secretTokensJson: JSON.stringify(secretTokens) });
+    }
+</script>
+<div id="popup1" class="overlay">
+    <div class="popup">
+        <h2>New node</h2>
+        <a class="close" href="#">&times;</a>
+        <div>
+            Please name your node:
+        </div>
+        <div>
+            <input id="nodeNameField" type="text" name="nodeName">
+        </div>
+        <div>
+            Please select a service:
+        </div>
+        <div>
+            <select id="selectService">
+                <option selected disabled hidden value="choose">Choose one</option>
+                @for (int i = 0; i < @Model.Services.Count; i++)
+                {
+                    <option value="@Model.Services[i].Name">@Model.Services[i].Name</option>
+                }
+            </select>
+        </div>
+        <div id="selectEventContainer" style="display: none">
+            <div>
+                Please select an event:
+            </div>
+            <div>
+                <select id="selectEvent"></select>
+            </div>
+        </div>
+        <br />
+        <div id="sendCompleteNodeContainer" style="display: none; text-align: center;">
+            <a id="sendCompleteNode" href="#" class="button" style="color: black;">Confirm</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/PopupScript.js"></script>
 </div>

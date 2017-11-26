@@ -93,6 +93,16 @@ namespace WebClient.Models
             Dispatcher.AddTree(userTree, tree);
         }
 
+        public void UpdateUserToken(User user)
+        {
+            var collection = _db.GetCollection<AreaTree>("Authentification");
+            var filter = Builders<AreaTree>.Filter.Eq("Email", user.Email);
+            var update = Builders<AreaTree>.Update.Set("AccessToken", user.AccessToken)
+                                                  .Set("AccessTokenSecret", user.AccessTokenSecret)
+                                                  .Set("LastUpdated", DateTime.Now);
+            collection.UpdateOne(filter, update);
+        }
+
         public List<AreaTree> GetAllAreas()
         {
             return _db.GetCollection<AreaTree>("AREAs").Find(new BsonDocument()).ToList();

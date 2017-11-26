@@ -72,7 +72,7 @@ namespace WebClient.Models
         public static bool AddTree(User user, ATreeRoot tree)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new AddTreeEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, new KeyValuePair<User, ATreeRoot>(user, tree));
+            Event e = new AddTreeEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, tree);
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {

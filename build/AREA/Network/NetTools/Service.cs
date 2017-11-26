@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Network.NetTools
 {
-    enum ServiceType
+    public enum ServiceType
     {
         ACTION,
         REACTION
@@ -17,7 +17,7 @@ namespace Network.NetTools
     /// </summary>
     public class Service
     {
-        Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_)
+        public Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_)
         {
             name = name_;
             accessTokenSecret = accessTokenSecret_;
@@ -32,9 +32,9 @@ namespace Network.NetTools
         public bool AccessTokenSecret { get => accessTokenSecret; set => accessTokenSecret = value; }
 
         private Dictionary<string, ServiceType> actions;
-        internal Dictionary<string, ServiceType> Actions { get => actions; set => actions = value; }
+        public Dictionary<string, ServiceType> Actions { get => actions; set => actions = value; }
 
         private Dictionary<string, ServiceType> reactions;
-        internal Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
+        public Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
     }
 }
