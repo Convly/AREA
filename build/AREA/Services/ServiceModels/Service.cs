@@ -3,6 +3,7 @@ using Network.NetTools;
 using System.Threading;
 using Network.Events;
 using System;
+using Newtonsoft.Json;
 
 namespace Service
 {
@@ -38,9 +39,9 @@ namespace Service
                 if (it.Key == obj.ReactionName)
                     return ;
             }
-            var newThread = new Thread(delegate () { func(obj); });
+            var newThread = new Thread(() => func(obj)); ;
 
-            newThread.Start(obj);
+            newThread.Start();
             _threads.Add(obj.ReactionName, newThread);
         }
 
@@ -82,6 +83,13 @@ namespace Service
         /// <returns></returns>
         public static int Callback(Packet obj)
         {
+            Network.Client.Instance.SendDataToServer(new Network.NetTools.Packet
+            {
+                Name = obj.Name,
+                Key = obj.Key,
+                Data = new KeyValuePair<Network.NetTools.PacketCommand, object>(Network.NetTools.PacketCommand.C_UNLOCK, null)
+            });
+
             Console.WriteLine("Hello from " + _name);
 
             Console.WriteLine("--> " + obj.Data.Key);
@@ -97,15 +105,16 @@ namespace Service
                     break;
                 case PacketCommand.ACTION:
                     {
-                        ServiceActionContent data = obj.Data.Value as ServiceActionContent;
+                        ServiceActionContent data = JsonConvert.DeserializeObject<ServiceActionContent>(obj.Data.Value.ToString());
                         _controller.Action(data);
                         break;
                     }
                 case PacketCommand.REACTION_REGISTER:
                     {
-                        ReactionRegisterContent data = obj.Data.Value as ReactionRegisterContent;
+                        Console.WriteLine("Lol");
+                        ReactionRegisterContent data = JsonConvert.DeserializeObject<ReactionRegisterContent>(obj.Data.Value.ToString());
                         User user = data.Owner;
-
+                        Console.WriteLine("-------------->" + data.Owner.Email + " - " + data.ReactionName);
                         foreach (var it in _tasks)
                         {
                             if (it.Key.Email == user.Email)
