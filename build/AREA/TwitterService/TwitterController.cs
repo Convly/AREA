@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
+using Network.Events;
 using Tweetinvi;
 using Service;
-using System;
-using Network.Events;
-using Network.NetTools;
-using static Network.Events.AddUserEvent;
 
 namespace TwitterService
 {
@@ -42,16 +39,6 @@ namespace TwitterService
             Auth.SetUserCredentials(_consumerKey, _consumerKeySecret, accessToken, accessTokenSecret);
         }
 
-        public void Reaction(Event obj, object reactionContent)
-        {
-            Network.NetTools.User user = obj.OwnerInfos;
-            Event react = new TriggerReactionEvent(HttpEventSource.SERVICE, HttpEventType.COMMAND, user, reactionContent);
-            Packet packet = new Packet(_name, PacketCommand.REACTION, react);
-
-            Network.Client.Instance.SendDataToServer(packet);
-            Console.WriteLine(reactionContent.ToString());
-        }
-
         public void ListenTweetFromAnyone(Event obj)
         {
             var user = obj.OwnerInfos;
@@ -60,7 +47,7 @@ namespace TwitterService
             Authentification(obj);
             stream.TweetCreatedByAnyone += (sender, args) =>
             {
-                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
@@ -73,7 +60,7 @@ namespace TwitterService
             Authentification(obj);
             stream.TweetCreatedByMe += (sender, args) =>
             {
-                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
@@ -86,7 +73,7 @@ namespace TwitterService
             Authentification(obj);
             stream.TweetCreatedByAnyoneButMe += (sender, args) =>
             {
-                Reaction(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
             };
             stream.StartStream();
         }
@@ -100,7 +87,7 @@ namespace TwitterService
             stream.AddTrack(regex);
             stream.MatchingTweetReceived += (sender, args) =>
             {
-                Reaction(obj, new { resume = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText });
+                SendData(obj, new { resume = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText });
             };
         }
 
