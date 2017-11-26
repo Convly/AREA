@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Text;
-using System;
-
+﻿
 namespace Network.NetTools
 {
     /// <summary>
@@ -11,19 +6,44 @@ namespace Network.NetTools
     /// </summary>
     public class ServiceReactionContent
     {
+        private string _name;
+        private User _user;
+        private object _reactionContent;
+        private string _service;
+
         /// <summary>
-        /// The name of the initial action.
+        /// Return the name of the action to execute.
         /// </summary>
-        public string Name;
-        
+        public string Name { get => _name; }
+
         /// <summary>
-        /// The name of the User who want a reaction.
+        /// Return the args needed to the launch the action function.
         /// </summary>
-        public User User;
-        
+        public User User { get => _user; }
+
         /// <summary>
-        /// The reaction content
+        /// Return an object containing some content about the reaction.
         /// </summary>
-        public object ReactionContent;
+        public object ReactionContent { get => _reactionContent; }
+
+        /// <summary>
+        /// Return the name of the service.
+        /// </summary>
+        public object Service { get => _service; }
+
+        /// <summary>
+        /// Constructor of the ServiceActionContent class.
+        /// </summary>
+        /// <param name="name">The name of the reaction.</param>
+        /// <param name="user">Informations about the user.</param>
+        /// <param name="reactionContent">Contents about the reaction.</param>
+        /// <param name="service">The name of the service.</param>
+        public ServiceReactionContent(string name, User user, object reactionContent, string service)
+        {
+            _name = name;
+            _user = user;
+            _reactionContent = reactionContent;
+            _service = service;
+        }
     }
 }

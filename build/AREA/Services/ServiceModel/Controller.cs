@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using static Network.Events.AddUserEvent;
+using System.Collections.Generic;
 using Network.NetTools;
 using Network.Events;
+using System;
 
 namespace Service
 {
@@ -25,6 +27,18 @@ namespace Service
         {
             _reactions = new Dictionary<string, ReactionDelegate>();
             _actions = new Dictionary<string, ActionDelegate>();
+        }
+
+        public void SendData(Event obj, object reactionContent)
+        {
+            Network.NetTools.User user = obj.OwnerInfos;
+            var reaction = (ServiceActionContent)obj.Data;
+            ServiceReactionContent data = new ServiceReactionContent(reaction.Name, user, reactionContent, _name);
+            Event react = new TriggerReactionEvent(HttpEventSource.SERVICE, HttpEventType.COMMAND, user, data);
+            Packet packet = new Packet(_name, PacketCommand.REACTION, react);
+
+            Network.Client.Instance.SendDataToServer(packet);
+            Console.WriteLine(reactionContent.ToString());
         }
 
         public ReactionDelegate Reaction(Network.Events.Event obj)
