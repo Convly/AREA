@@ -90,6 +90,7 @@ namespace Network
         /// List of monitors currently connected to the server
         /// </summary>
         public static List<Service> NewServices = new List<Service>();
+        public static List<string> OldServices = new List<string>();
         public static Dictionary<string, InfosClient> Monitors = new Dictionary<string, InfosClient>();
         public static Dictionary<string, NetTools.Service> Services = new Dictionary<string, NetTools.Service>();
         public static List<NetTools.EventContent> EventFlow = new List<NetTools.EventContent>();
@@ -341,6 +342,7 @@ namespace Network
                         Console.WriteLine("Service: Disconnect old service " + name + " (" + clientIP + ":" + clientPort + ")");
                         Server.Instance.SendMessageBusEventToService(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_DISCONNECT, null) }, name);
                         Services.Remove(name);
+                        OldServices.Add(name);
                     }
                     Console.WriteLine("Service: New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
 

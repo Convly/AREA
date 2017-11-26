@@ -132,5 +132,18 @@ namespace Area
             }
             return null;
         }
+        public static void RemoveService(string serviceName)
+        {
+            int idx = 0;
+            foreach (var s in ServiceList)
+            {
+                if (s.Name == serviceName)
+                {
+                    ServiceList.RemoveAt(idx);
+                    return;
+                }
+                idx++;
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Optimization;
+using WebClient.Models;
 
 namespace WebClient
 {
@@ -8,6 +9,8 @@ namespace WebClient
         // Pour plus d'informations sur le regroupement, visitez https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            DataAccess db = DataAccess.Instance;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
