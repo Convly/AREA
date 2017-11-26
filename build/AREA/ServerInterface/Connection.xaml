@@ -5,8 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ServerInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="319" d:DesignWidth="517">
     <Grid Background="White">
-            
+        <TextBox HorizontalAlignment="Center" Height="22" Margin="135,136,124,161" Tag="Ip" VerticalAlignment="Center" Width="258" Background="#FFE2D8D8"/>
+        <TextBox HorizontalAlignment="Center" Height="24" Margin="135,164,124,131" Tag="Port" VerticalAlignment="Center" Width="258" Background="#FFE2D8D8"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="187,193,0,0" VerticalAlignment="Top" Width="160"/>
+
     </Grid>
 </UserControl>
