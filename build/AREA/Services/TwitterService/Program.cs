@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using TwitterService;
 using System;
 using Network.NetTools;
-using FacebookService;
+using System.Collections.Generic;
 
 namespace Service
 {
     class Program
     {
-        public static string api = "GraphApi";
+        public static string api = "Twintivi";        
         public static bool Register(IService service, bool accessTokenSecurity)
         {
             Dictionary<string, ServiceType> actions = new Dictionary<string, ServiceType>();
@@ -29,8 +29,8 @@ namespace Service
             try
             {
                 Network.Client client = Network.Client.Instance;
-                Network.NetTools.IService service = new Service(api, new FacebookController(api));
-                client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
+                Network.NetTools.IService service = new Service(api, new TwitterController(api));
+                client.Start("MessageBus", service.GetCallback(), args[0], int.Parse(args[1]));
                 Register(service, true);
             }
             catch (Exception err)

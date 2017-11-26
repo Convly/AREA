@@ -37,6 +37,7 @@ namespace WebClient.Models
         {
             _client = new MongoClient();
             _db = _client.GetDatabase("Area");
+            Area.Server server = Area.Server.Instance;
             var users = GetUsers();
             foreach (var user in users)
             {
@@ -54,6 +55,9 @@ namespace WebClient.Models
 
         }
 
+        /// <summary>
+        /// Destructor of the <see cref="DataAccess"/>
+        /// </summary>
         ~DataAccess()
         {
             _client.DropDatabase("Area");

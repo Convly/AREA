@@ -22,11 +22,32 @@ namespace Network.NetTools
         S_DISCONNECT,
         S_EVENT,
         /// <summary>
+        /// Communication direction: Server => Client.
+        /// Ask the client to execute an action.
+        /// The object associated to the command must be an <see cref="Network.Events.Event"/> (which is the action to execute and his paramaters).
+        /// </summary>
+        ACTION,
+        /// <summary>
+        /// Communication direction: Server => Client.
+        /// Ask the client to link a reaction to an user.
+        /// The object associated to the command must be an <see cref="Network.Events.Event"/> (which is the reaction to launch and his paramaters).
+        /// </summary>
+        REACTION_REGISTER,
+        /// <summary>
+        /// Communication direction: Client => Server.
+        /// Send to the message bus the fact that an reaction has been triggered.
+        /// The object associated to the command must be an ReactionRegisterContent (which is the reaction and the user link to a reaction).
+        /// </summary>
+        REACTION,
+        /// <summary>
         /// Communication direction: Both.  
         /// Inform a network entity about an error that occured.  
         /// The object associated to the command must be a <see cref="string"/>.  
         /// </summary>
-        ERROR // 
+        ERROR,
+
+        S_ENABLE,
+        S_DISABLE
     }
 
     /// <summary>
@@ -44,7 +65,6 @@ namespace Network.NetTools
         /// </summary>
         public Packet()
         {
-
         }
 
         /// <summary>

@@ -33,13 +33,17 @@ namespace Network.NetTools
         /// <param name="accessTokenSecret_">The <see cref="Service"/> needs an AccessTokenSecret</param>
         /// <param name="actions_">The <see cref="Service"/>'s actions</param>
         /// <param name="reactions_">The <see cref="Service"/>'s reactions</param>
-        public Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_)
+        /// <param name="infos_">The <see cref="Service"/>'s infos client</param>
+        public Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_, InfosClient infos_)
         {
             name = name_;
             accessTokenSecret = accessTokenSecret_;
             actions = actions_;
             reactions = reactions_;
+            infos = infos_;
         }
+
+        private InfosClient infos;
 
         private string name;
 
@@ -68,5 +72,10 @@ namespace Network.NetTools
         /// The <see cref="Service"/>'s reactions
         /// </summary>
         public Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
+
+        /// <summary>
+        /// The <see cref="Service"/>'s infos client
+        /// </summary>
+        public InfosClient Infos { get => infos; set => infos = value; }
     }
 }
