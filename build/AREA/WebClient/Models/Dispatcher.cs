@@ -7,6 +7,9 @@ using Network.Events;
 
 namespace WebClient.Models
 {
+    /// <summary>
+    /// This class dispatch all events to the server
+    /// </summary>
     public static class Dispatcher
     {
         /// <summary>

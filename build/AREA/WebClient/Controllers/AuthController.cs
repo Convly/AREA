@@ -73,7 +73,7 @@ namespace WebClient.Controllers
         /// Check if the login / password combination matches the database
         /// </summary>
         /// <param name="email">The user's email</param>
-        /// <param name="password">The user's password</param>
+        /// <param name="pwd">The user's password</param>
         /// <returns>User was found</returns>
         private bool ValidateUser(string email, string pwd)
         {

@@ -55,6 +55,9 @@ namespace WebClient.Models
 
         }
 
+        /// <summary>
+        /// Destructor of the <see cref="DataAccess"/>
+        /// </summary>
         ~DataAccess()
         {
             _client.DropDatabase("Area");
