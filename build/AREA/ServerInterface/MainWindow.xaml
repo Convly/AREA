@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServerInterface"
         mc:Ignorable="d"
-        Title="Server monitor" Height="350" Width="525">
+        Title="Server monitor" Height="700" Width="900">
     <Grid>
-        <ContentControl x:Name="ContentControl" Height="319" Width="517"/>
+        <ContentControl x:Name="ContentControl" Height="700" Width="900"/>
     </Grid>
 </Window>
