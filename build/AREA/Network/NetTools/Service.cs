@@ -17,13 +17,16 @@ namespace Network.NetTools
     /// </summary>
     public class Service
     {
-        public Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_)
+        public Service(string name_, bool accessTokenSecret_, Dictionary<string, ServiceType> actions_, Dictionary<string, ServiceType> reactions_, InfosClient infos_)
         {
             name = name_;
             accessTokenSecret = accessTokenSecret_;
             actions = actions_;
             reactions = reactions_;
+            infos = infos_;
         }
+
+        private InfosClient infos;
 
         private string name;
         public string Name { get => name; set => name = value; }
@@ -36,5 +39,6 @@ namespace Network.NetTools
 
         private Dictionary<string, ServiceType> reactions;
         public Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
+        public InfosClient Infos { get => infos; set => infos = value; }
     }
 }

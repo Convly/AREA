@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using Newtonsoft.Json;
 using Network.Lock;
+using Network.NetTools;
 
 namespace Network
 {
@@ -86,13 +87,11 @@ namespace Network
         /// </summary>
         public static string SERVER_PASS;
         /// <summary>
-        /// List of services currently connected to the server
-        /// </summary>
-        public static Dictionary<string, InfosClient> Services = new Dictionary<string, InfosClient>();
-        /// <summary>
         /// List of monitors currently connected to the server
         /// </summary>
+        public static List<string> NewServices = new List<string>();
         public static Dictionary<string, InfosClient> Monitors = new Dictionary<string, InfosClient>();
+        public static Dictionary<string, NetTools.Service> Services = new Dictionary<string, NetTools.Service>();
         public static List<NetTools.EventContent> EventFlow = new List<NetTools.EventContent>();
 
         private LockManager     lock_m = new LockManager();
@@ -151,7 +150,6 @@ namespace Network
             Console.WriteLine("Server stopped!");
             NetworkComms.RemoveGlobalIncomingPacketHandler<string>("Monitor", MonitorRequest);
             NetworkComms.RemoveGlobalIncomingPacketHandler<string>("MessageBus", MessageBusNotification);
-            Services = new Dictionary<string, InfosClient>();
             Connection.StopListening();
         }
 
@@ -183,7 +181,8 @@ namespace Network
         {
             try
             {
-                Services.Remove(name);
+                if (Services.ContainsKey(name))
+                    Services.Remove(name);
             }
             catch (Exception e)
             {
@@ -257,9 +256,19 @@ namespace Network
             catch (Exception err)
             {
                 Console.WriteLine(err.Message);
-                Monitors.Remove(name);
             }
             
+        }
+
+        public bool SendMessageBusEventCore(NetTools.Packet data, string ip, int port)
+        {
+            uint key = this.Lock_m.Add(ip, 1000);
+            data.Key = key;
+
+            NetworkComms.SendObject("MessageBus", ip, port, JsonConvert.SerializeObject(data));
+
+            this.Lock_m.Lock(key);
+            return true;
         }
 
         /// <summary>
@@ -267,18 +276,34 @@ namespace Network
         /// </summary>
         /// <param name="data">Dqtq sent to the services</param>
         /// <returns></returns>
-        public bool SendMessageBusEvent(Object data)
+        public bool SendMessageBusEvent(NetTools.Packet data)
         {
             foreach (var service in Services)
             {
                 try
                 {
-                    NetworkComms.SendObject("MessageBus", service.Value._ip, service.Value._port, data.ToString());
+                    SendMessageBusEventCore(data, service.Value.Infos._ip, service.Value.Infos._port);
                 }
                 catch (Exception e)
                 {
                     Console.Error.WriteLine(e.Message);
                 }
+            }
+            return true;
+        }
+
+        public bool SendMessageBusEventToService(NetTools.Packet data, string serviceName)
+        {
+            try
+            {
+                NetTools.Service service = Services[serviceName];
+                Object data_s = JsonConvert.SerializeObject(data);
+                SendMessageBusEventCore(data, service.Infos._ip, service.Infos._port);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                DeleteService(serviceName);
             }
             return true;
         }
@@ -293,10 +318,59 @@ namespace Network
         {
             string clientIP = connection.ConnectionInfo.RemoteEndPoint.ToString().Split(':').First();
             int clientPort = int.Parse(connection.ConnectionInfo.RemoteEndPoint.ToString().Split(':').Last());
-            NetTools.Packet dataObject = JsonConvert.DeserializeObject<NetTools.Packet>(data);
 
-            Console.WriteLine("New request receive on the message bus from " + clientIP + ":" + clientPort);
-            MessageBusNotificationCallback(dataObject);
+            NetTools.Packet dataObject = null;
+
+            try
+            {
+                dataObject = JsonConvert.DeserializeObject<NetTools.Packet>(data);
+
+                if (dataObject.Data.Key == NetTools.PacketCommand.C_UNLOCK && dataObject.Key != 0)
+                {
+                    Console.WriteLine("Service: Unlock key " + dataObject.Key);
+                    Server.Instance.Lock_m.Unlock(dataObject.Key);
+                    return;
+                }
+
+                string name = dataObject.Name.ToString();
+
+                if (dataObject.Data.Key == NetTools.PacketCommand.C_REGISTER && dataObject.Data.Value.ToString() == SERVER_PASS)
+                {
+                    if (Services.ContainsKey(name))
+                    {
+                        Console.WriteLine("Service: Disconnect old service " + name + " (" + clientIP + ":" + clientPort + ")");
+                        Server.Instance.SendMessageBusEventToService(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_DISCONNECT, null) }, name);
+                        Services.Remove(name);
+                    }
+                    Console.WriteLine("Service: New connection registered for " + name + " (" + clientIP + ":" + clientPort + ")");
+
+                    Service newService = JsonConvert.DeserializeObject<Service>(dataObject.Data.Value.ToString());
+                    newService.Infos = new InfosClient { _ip = clientIP, _port = clientPort };
+                    Services.Add(name, newService);
+                    NewServices.Add(name);
+                    Server.Instance.SendMessageBusEventToService(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.S_LOGIN_SUCCESS, null) }, name);
+                    return;
+                }
+
+                if (!Services.ContainsKey(name))
+                {
+                    string err = (dataObject.Data.Key == PacketCommand.C_REGISTER) ? "Bad password" : "Invalid command for unregistered connexion";
+
+                    Server.Instance.SendMessageBusEventCore(new NetTools.Packet { Name = name, Data = new KeyValuePair<NetTools.PacketCommand, object>(NetTools.PacketCommand.ERROR, err) }, clientIP, clientPort);
+                    Console.Error.WriteLine("Error: " + err);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("New request sent from a monitor by " + clientIP + ":" + clientPort);
+                    MessageBusNotificationCallback(dataObject);
+                }
+
+            }
+            catch (Exception err)
+            {
+                Console.Error.WriteLine(err.Message);
+            }
         }
 
         /// <summary>
@@ -316,7 +390,7 @@ namespace Network
 
                 if (dataObject.Data.Key == NetTools.PacketCommand.C_UNLOCK && dataObject.Key != 0)
                 {
-                    Console.WriteLine("Unlock key " + dataObject.Key);
+                    Console.WriteLine("Monitor: Unlock key " + dataObject.Key);
                     Server.Instance.Lock_m.Unlock(dataObject.Key);
                     return;
                 }

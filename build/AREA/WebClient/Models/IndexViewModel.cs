@@ -49,34 +49,7 @@ namespace WebClient.Models
             CurrentUser = db.GetUser(email);
             AreaTree tree = db.GetAreas(email);
             Areas = tree.AreasList;
-            //Services = Dispatcher.GetAvailableServices(CurrentUser);
-            Services = new List<Service>()
-            {
-                new Service("Facebook", false, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.REACTION}
-                }),
-                new Service("Instagram", false, new Dictionary<string, ServiceType>
-                {
-                    {"Follow", ServiceType.ACTION},
-                    {"Picture", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.REACTION}
-                }),
-                new Service("Twitter", true, new Dictionary<string, ServiceType>
-                {
-                    {"Tweet", ServiceType.ACTION},
-                    {"Post", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Tweet", ServiceType.REACTION},
-                    {"Post", ServiceType.REACTION}
-                })
-            };
+            Services = Dispatcher.GetAvailableServices(CurrentUser);
         }
     }
 }

@@ -36,7 +36,13 @@ namespace Network.NetTools
         /// Inform a network entity about an error that occured.  
         /// The object associated to the command must be a <see cref="string"/>.  
         /// </summary>
-        ERROR // 
+        ERROR,
+
+        S_REGISTER_USER_REACTION,
+        C_REACTION,
+        S_ACTION,
+        S_ENABLE,
+        S_DISABLE
     }
 
     /// <summary>

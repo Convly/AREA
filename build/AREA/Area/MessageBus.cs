@@ -1,4 +1,5 @@
 ﻿using Network.Events;
+using Network.NetTools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,16 @@ namespace Area
         {
             while (this.run)
             {
+                if (Network.Server.NewServices.Count > 0)
+                    UpdateRegistrationForServices();
                 lock (eventList)
                 {
                     foreach (var e in eventList)
                     {
+                        ServiceReactionContent src = e.Data as ServiceReactionContent;
+                        if (e.Data)
                         Console.WriteLine("Bus: About to treat an event of type " + e.GetType());
-                        Network.Server.Instance.SendMessageBusEvent(e);
+                        //Network.Server.Instance.SendMessageBusEvent(e);
                     }
                     eventList.Clear();
                 }
@@ -77,6 +82,28 @@ namespace Area
             var ans = HttpEventAnswer.Success(e, msg);
             Server.AddMonitorEventMessage(e.OwnerInfos.Email, (int)e.Source, e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")");
             return ans;
+        }
+
+        public static void RegisterReactionForUser(User user, string serviceName, string reactionName)
+        {
+            ReactionRegisterContent rrc = new ReactionRegisterContent { Owner = user, ReactionName = reactionName, ServiceName = serviceName };
+            Packet p = new Packet { Name = "Server", Key = 0, Data = new KeyValuePair<PacketCommand, object>(PacketCommand.S_REGISTER_USER_REACTION, rrc) };
+            Network.Server.Instance.SendMessageBusEventToService(p, serviceName);
+        }
+
+        public static void UpdateRegistrationForServices()
+        {
+            List<string> sl = Network.Server.NewServices;
+
+            foreach (var Atree in Cache.GetAreaTreeList())
+            {
+                User user = Cache.GetUserByMail(Atree.Email);
+                foreach (var tree in Atree.AreasList)
+                {
+                    if (sl.Contains(tree.root.data.serviceName))
+                        RegisterReactionForUser(user, tree.root.data.serviceName, tree.root.data.eventName);
+                }
+            }
         }
     }
 }

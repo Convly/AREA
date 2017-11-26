@@ -102,7 +102,6 @@ namespace WebClient.Controllers
                 Console.Error.WriteLine(e.Message);
                 return false;
             }
-            return true;
         }
 
         public static string GetSha256FromString(string strData)

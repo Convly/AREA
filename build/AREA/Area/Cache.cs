@@ -19,14 +19,49 @@ namespace Area
 
         }
 
-        public static Network.Events.HttpEventAnswer GetServiceList(Event e)
+        public static HttpEventAnswer GetAreaTreeList(Event e)
+        {
+            return new HttpEventAnswer
+            {
+                Parent = e,
+                Status = new HttpEventStatus { Code = 200, Message = "Success" },
+                Data = TreeList
+            };
+        }
+
+        public static List<AreaTree> GetAreaTreeList()
+        {
+            return TreeList;
+        }
+
+        public static HttpEventAnswer GetUserList(Event e)
+        {
+            return new HttpEventAnswer
+            {
+                Parent = e,
+                Status = new HttpEventStatus { Code = 200, Message = "Success" },
+                Data = UserList
+            };
+        }
+
+        public static List<User> GetUserList()
+        {
+            return UserList;
+        }
+
+        public static HttpEventAnswer GetServiceList(Event e)
         {
             return new HttpEventAnswer
             {
                 Parent = e,
                 Status = new HttpEventStatus { Code = 200, Message = "Success" },
                 Data = ServiceList
-            }; ;
+            };
+        }
+
+        public static List<Service> GetServiceList()
+        {
+            return ServiceList;
         }
 
         public static HttpEventAnswer AddUser(Event e)
@@ -70,13 +105,22 @@ namespace Area
 
             foreach (var item in tree.AreasList)
             {
-                string mail = tree.Email;
-                ANode root = item.root;
+                MessageBus.RegisterReactionForUser(GetUserByMail(tree.Email), item.root.data.serviceName, item.root.data.eventName);
             }
 
             TreeList.Add(tree);
 
             return HttpEventAnswer.Success(e, "Tree successfully added for tree");
+        }
+
+        public static User GetUserByMail(string mail)
+        {
+            foreach (var item in UserList)
+            {
+                if (item.Email == mail)
+                    return item;
+            }
+            return null;
         }
     }
 }
