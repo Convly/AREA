@@ -75,6 +75,12 @@ namespace Area
             Network.Server.Instance.Stop();
         }
 
+        /// <summary>
+        /// Add an event message to the monitor
+        /// </summary>
+        /// <param name="name">The name</param>
+        /// <param name="source">A source</param>
+        /// <param name="content">The content of message</param>
         public static void AddMonitorEventMessage(string name, int source, string content)
         {
             var item = new Network.NetTools.EventContent

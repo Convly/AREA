@@ -90,9 +90,25 @@ namespace Network
         /// List of monitors currently connected to the server
         /// </summary>
         public static List<Service> NewServices = new List<Service>();
+
+        /// <summary>
+        /// The list of old services
+        /// </summary>
         public static List<string> OldServices = new List<string>();
+
+        /// <summary>
+        /// The list of monitors
+        /// </summary>
         public static Dictionary<string, InfosClient> Monitors = new Dictionary<string, InfosClient>();
+
+        /// <summary>
+        /// The list of services
+        /// </summary>
         public static Dictionary<string, NetTools.Service> Services = new Dictionary<string, NetTools.Service>();
+
+        /// <summary>
+        /// A list of EventContent defining an event flow
+        /// </summary>
         public static List<NetTools.EventContent> EventFlow = new List<NetTools.EventContent>();
 
         private LockManager     lock_m = new LockManager();
@@ -221,6 +237,10 @@ namespace Network
             }
         }
 
+        /// <summary>
+        /// Send some data to a monitor
+        /// </summary>
+        /// <param name="data">Data sent to the monitor</param>
         public void SendDataToMonitor(NetTools.Packet data)
         {
             foreach (var user in Monitors)
@@ -261,6 +281,13 @@ namespace Network
             
         }
 
+        /// <summary>
+        /// Send a Message Bus Event Core
+        /// </summary>
+        /// <param name="data">Data sent to the monitor</param>
+        /// <param name="ip">IP address of the monitor</param>
+        /// <param name="port">Port of the monitor</param>
+        /// <returns></returns>
         public bool SendMessageBusEventCore(NetTools.Packet data, string ip, int port)
         {
             uint key = this.Lock_m.Add(ip, 1000);
@@ -293,6 +320,12 @@ namespace Network
             return true;
         }
 
+        /// <summary>
+        /// Send a message bus event to a <see cref="Service"/>
+        /// </summary>
+        /// <param name="data">Data sent to the monitor</param>
+        /// <param name="serviceName">A <see cref="Service"/> name</param>
+        /// <returns></returns>
         public bool SendMessageBusEventToService(NetTools.Packet data, string serviceName)
         {
             try

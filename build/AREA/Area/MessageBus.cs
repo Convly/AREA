@@ -116,6 +116,12 @@ namespace Area
             return ans;
         }
 
+        /// <summary>
+        /// Register a reaction for the user
+        /// </summary>
+        /// <param name="user">An <see cref="User"/></param>
+        /// <param name="serviceName">The <see cref="Service"/>'s name</param>
+        /// <param name="reactionName">The reaction name</param>
         public static void RegisterReactionForUser(User user, string serviceName, string reactionName)
         {
             ReactionRegisterContent rrc = new ReactionRegisterContent { Owner = user, ReactionName = reactionName, ServiceName = serviceName };
@@ -123,6 +129,12 @@ namespace Area
             Network.Server.Instance.SendMessageBusEventToService(p, serviceName);
         }
 
+        /// <summary>
+        /// Check if the service is in the services list
+        /// </summary>
+        /// <param name="list">A list of <see cref="Service"/></param>
+        /// <param name="serviceName">The <see cref="Service"/>'s name</param>
+        /// <returns></returns>
         public static bool IsServiceInList(List<Service> list, string serviceName)
         {
             foreach (var service in list)
@@ -134,6 +146,9 @@ namespace Area
             return false;
         }
 
+        /// <summary>
+        /// Remove useless services from the <see cref="MessageBus"/>'s cache
+        /// </summary>
         public static void RemoveUSelessServicesFromCache()
         {
             lock (Network.Server.OldServices)
@@ -149,6 +164,9 @@ namespace Area
             }
         }
 
+        /// <summary>
+        /// Update registration for the services
+        /// </summary>
         public static void UpdateRegistrationForServices()
         {
             List<Service> sl = Network.Server.NewServices;

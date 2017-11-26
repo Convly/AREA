@@ -28,8 +28,9 @@ namespace Network.NetTools
         /// <summary>
         /// Constructor of the ServiceActionContent class.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="args"></param>
+        /// <param name="name">The name of the <see cref="ServiceActionContent"/></param>
+        /// <param name="user">An user</param>
+        /// <param name="args">The <see cref="ServiceActionContent"/>'s arguments</param>
         public ServiceActionContent(string name, User user, object args)
         {
             _name = name;

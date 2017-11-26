@@ -8,22 +8,37 @@ using Network.Events;
 
 namespace Area
 {
+    /// <summary>
+    /// Cache
+    /// </summary>
     public class Cache
     {
         private static List<Service> ServiceList = new List<Service>();
         private static List<User> UserList = new List<User>();
         private static List<AreaTree> TreeList = new List<AreaTree>();
 
+        /// <summary>
+        /// Update the services list
+        /// </summary>
         public static void UpdateServicesList()
         {
 
         }
 
+        /// <summary>
+        /// Add a new <see cref="Service"/> to the service list
+        /// </summary>
+        /// <param name="service">A <see cref="Service"/></param>
         public static void AddNewService(Service service)
         {
             ServiceList.Add(service);
         }
 
+        /// <summary>
+        /// Get the AREA Tree list
+        /// </summary>
+        /// <param name="e">An <see cref="Event"/></param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer GetAreaTreeList(Event e)
         {
             return new HttpEventAnswer
@@ -34,11 +49,20 @@ namespace Area
             };
         }
 
+        /// <summary>
+        /// Get the AREA tree list
+        /// </summary>
+        /// <returns>The AREA tree list</returns>
         public static List<AreaTree> GetAreaTreeList()
         {
             return TreeList;
         }
 
+        /// <summary>
+        /// Get the User List
+        /// </summary>
+        /// <param name="e">An <see cref="Event"/></param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer GetUserList(Event e)
         {
             return new HttpEventAnswer
@@ -49,11 +73,20 @@ namespace Area
             };
         }
 
+        /// <summary>
+        /// Get the User list
+        /// </summary>
+        /// <returns>A list of <see cref="User"/></returns>
         public static List<User> GetUserList()
         {
             return UserList;
         }
 
+        /// <summary>
+        /// Get the service list
+        /// </summary>
+        /// <param name="e">An <see cref="Event"/></param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer GetServiceList(Event e)
         {
             return new HttpEventAnswer
@@ -64,11 +97,20 @@ namespace Area
             };
         }
 
+        /// <summary>
+        /// Get the service list
+        /// </summary>
+        /// <returns>A list of <see cref="Service"/></returns>
         public static List<Service> GetServiceList()
         {
             return ServiceList;
         }
 
+        /// <summary>
+        /// Add an <see cref="User"/> to the user list
+        /// </summary>
+        /// <param name="e">An <see cref="Event"/></param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer AddUser(Event e)
         {
             User user = null;
@@ -97,6 +139,11 @@ namespace Area
             return HttpEventAnswer.Success(e, "User successfully added");
         }
 
+        /// <summary>
+        /// Add a tree to the tree list
+        /// </summary>
+        /// <param name="e">An <see cref="Event"/></param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer AddTree(Event e)
         {
             ATreeRoot tree = null;
@@ -123,6 +170,11 @@ namespace Area
             return HttpEventAnswer.Success(e, "Tree successfully added for tree");
         }
 
+        /// <summary>
+        /// Get an <see cref="User"/> by its mail
+        /// </summary>
+        /// <param name="mail">The <see cref="User"/>'s mail</param>
+        /// <returns>An <see cref="User"/></returns>
         public static User GetUserByMail(string mail)
         {
             foreach (var item in UserList)
@@ -132,6 +184,11 @@ namespace Area
             }
             return null;
         }
+
+        /// <summary>
+        /// Remove a <see cref="Service"/> by its name
+        /// </summary>
+        /// <param name="serviceName">The <see cref="Service"/>'s name</param>
         public static void RemoveService(string serviceName)
         {
             int idx = 0;
