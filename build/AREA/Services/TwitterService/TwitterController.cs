@@ -28,21 +28,33 @@ namespace TwitterService
             };
         }
 
-        public void Authentification(Event obj)
+        public void Authentification(ReactionRegisterContent obj)
         {
-            if (obj.OwnerInfos.AccessToken.Count <= 0
-                || obj.OwnerInfos.AccessTokenSecret.Count <= 0)
+            if (obj.Owner.AccessToken.Count <= 0
+                || obj.Owner.AccessTokenSecret.Count <= 0)
                 return;
-            var user = obj.OwnerInfos;
+            var user = obj.Owner;
             string accessTokenSecret = user.AccessTokenSecret[_name];
             string accessToken = user.AccessToken[_name];
 
             Auth.SetUserCredentials(_consumerKey, _consumerKeySecret, accessToken, accessTokenSecret);
         }
 
-        public void ListenTweetFromAnyone(Event obj)
+        public void Authentification(ServiceActionContent obj)
         {
-            var user = obj.OwnerInfos;
+            if (obj.User.AccessToken.Count <= 0
+                || obj.User.AccessTokenSecret.Count <= 0)
+                return;
+            var user = obj.User;
+            string accessTokenSecret = user.AccessTokenSecret[_name];
+            string accessToken = user.AccessToken[_name];
+
+            Auth.SetUserCredentials(_consumerKey, _consumerKeySecret, accessToken, accessTokenSecret);
+        }
+
+        public void ListenTweetFromAnyone(ReactionRegisterContent obj)
+        {
+            var user = obj.Owner;
             var stream = Stream.CreateUserStream();
 
             Authentification(obj);
@@ -53,9 +65,9 @@ namespace TwitterService
             stream.StartStream();
         }
 
-        public void ListenTweetFromMe(Event obj)
+        public void ListenTweetFromMe(ReactionRegisterContent obj)
         {
-            var user = obj.OwnerInfos;
+            var user = obj.Owner;
             var stream = Stream.CreateUserStream();
 
             Authentification(obj);
@@ -66,9 +78,9 @@ namespace TwitterService
             stream.StartStream();
         }
 
-        public void ListenTweetFromAnyoneButMe(Event obj)
+        public void ListenTweetFromAnyoneButMe(ReactionRegisterContent obj)
         {
-            var user = obj.OwnerInfos;
+            var user = obj.Owner;
             var stream = Stream.CreateUserStream();
 
             Authentification(obj);
@@ -79,24 +91,24 @@ namespace TwitterService
             stream.StartStream();
         }
 
-        public void ListenTweetWithKeyWord(Event obj)
+        public void ListenTweetWithKeyWord(ReactionRegisterContent obj)
         {
-            string regex = (string)obj.Data;
+            string regex = "";
             var stream = Stream.CreateFilteredStream();
 
             Authentification(obj);
             stream.AddTrack(regex);
             stream.MatchingTweetReceived += (sender, args) =>
             {
-                SendData(obj, new { resume = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText });
+                var txt = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText;
+                SendData(obj, new { txt });
             };
         }
 
-        public void NewTweet(Event obj)
+        public void NewTweet(ServiceActionContent obj)
         {
             Authentification(obj);
-            var tmp = (ServiceActionContent)obj.Data;
-            string text = (string)tmp.Args;
+            var text = obj.Args as string;
             Tweet.PublishTweet(text);
         }
     }

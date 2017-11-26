@@ -7,12 +7,18 @@ namespace Network.NetTools
     public class ServiceActionContent
     {
         private string _name;
+        private User _user;
         private object _args;
 
         /// <summary>
         /// Return the name of the action to execute.
         /// </summary>
         public string Name { get => _name; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public User User { get => _user; }
 
         /// <summary>
         /// Return the args needed to the launch the action function.
@@ -24,9 +30,10 @@ namespace Network.NetTools
         /// </summary>
         /// <param name="name"></param>
         /// <param name="args"></param>
-        public ServiceActionContent(string name, object args)
+        public ServiceActionContent(string name, User user, object args)
         {
             _name = name;
+            _user = user;
             _args = args;
         }
     }

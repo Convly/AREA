@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
+using Network.NetTools;
+using FacebookService;
 
 namespace Service
 {
@@ -27,7 +29,7 @@ namespace Service
             try
             {
                 Network.Client client = Network.Client.Instance;
-                Network.NetTools.IService service = new Service(api, new TwitterController(api));
+                Network.NetTools.IService service = new Service(api, new FacebookController(api));
                 client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
                 Register(service, true);
             }

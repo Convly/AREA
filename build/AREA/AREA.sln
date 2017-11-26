@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{2D368407-A9A8-4566-8D1B-558E4F0DB15F}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterService", "Services\TwitterService\TwitterService.csproj", "{5EF49326-D434-45CE-B7E8-C715B177911B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceModels", "Services\ServiceModels\ServiceModels.csproj", "{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookService", "Services\FacebookService\FacebookService.csproj", "{92FAB913-3F7E-4069-B2B5-370BE2F8773A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{BB2D364A-937A-4822-BABC-DCA1DB73261C} = {D86830E8-F42C-40F1-AECE-D8BC94A1D4FD}
 		{5EF49326-D434-45CE-B7E8-C715B177911B} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
+		{92FAB913-3F7E-4069-B2B5-370BE2F8773A} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {014C1456-3662-403F-9942-4B2F18632279}

@@ -6,13 +6,13 @@ using System;
 
 namespace Service
 {
-    public delegate void ReactionDelegate(Event obj);
-    public delegate void ActionDelegate(Event obj);
+    public delegate void ReactionDelegate(ReactionRegisterContent obj);
+    public delegate void ActionDelegate(ServiceActionContent obj);
 
     public interface IController
     {
-        ReactionDelegate Reaction(Network.Events.Event obj);
-        void Action(Network.Events.Event obj);
+        ReactionDelegate Reaction(ReactionRegisterContent obj);
+        void Action(ServiceActionContent obj);
         List<string> GetActionList();
         List<string> GetReactionList();
     }
@@ -29,11 +29,10 @@ namespace Service
             _actions = new Dictionary<string, ActionDelegate>();
         }
 
-        public void SendData(Event obj, object reactionContent)
+        public void SendData(ReactionRegisterContent obj, object reactionContent)
         {
-            Network.NetTools.User user = obj.OwnerInfos;
-            var reaction = (ServiceActionContent)obj.Data;
-            ServiceReactionContent data = new ServiceReactionContent(reaction.Name, user, reactionContent, _name);
+            Network.NetTools.User user = obj.Owner;
+            ServiceReactionContent data = new ServiceReactionContent(obj.ReactionName, user, reactionContent, _name);
             Event react = new TriggerReactionEvent(HttpEventSource.SERVICE, HttpEventType.COMMAND, user, data);
             Packet packet = new Packet(_name, PacketCommand.REACTION, react);
 
@@ -41,18 +40,14 @@ namespace Service
             Console.WriteLine(reactionContent.ToString());
         }
 
-        public ReactionDelegate Reaction(Network.Events.Event obj)
+        public ReactionDelegate Reaction(ReactionRegisterContent obj)
         {
-            var action = (ServiceActionContent)obj.Data;
-
-            return (_reactions[action.Name]);
+            return (_reactions[obj.ReactionName]);
         }
 
-        public void Action(Network.Events.Event obj)
+        public void Action(ServiceActionContent obj)
         {
-            var action = (ServiceActionContent)obj.Data;
-
-            _actions[action.Name](obj);
+            _actions[obj.Name](obj);
         }
 
         public List<string> GetActionList()

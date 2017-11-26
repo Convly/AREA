@@ -31,25 +31,27 @@ namespace Service
         /// </summary>
         /// <param name="obj">The parameters of the function to launch.</param>
         /// <param name="func">The function to launch into the new thread.</param>
-        public void Add(Event obj, ReactionDelegate func)
+        public void Add(ReactionRegisterContent obj, ReactionDelegate func)
         {
-            var reaction = (ServiceActionContent)obj.Data;
+            foreach (var it in _threads)
+            {
+                if (it.Key == obj.ReactionName)
+                    return ;
+            }
             var newThread = new Thread(delegate () { func(obj); });
 
             newThread.Start(obj);
-            _threads.Add(reaction.Name, newThread);
+            _threads.Add(obj.ReactionName, newThread);
         }
 
         /// <summary>
         /// Stop a thread.
         /// </summary>
         /// <param name="reaction">The name of the thread to stop.</param>
-        public void Remove(Event obj)
+        public void Remove(ReactionRegisterContent obj)
         {
-            var reaction = (ServiceActionContent)obj.Data;
-
-            _threads[reaction.Name].Abort();
-            _threads.Remove(reaction.Name);
+            _threads[obj.ReactionName].Abort();
+            _threads.Remove(obj.ReactionName);
         }
     }
 
@@ -95,14 +97,14 @@ namespace Service
                     break;
                 case PacketCommand.ACTION:
                     {
-                        Event data = (Event)obj.Data.Value;
+                        ServiceActionContent data = obj.Data.Value as ServiceActionContent;
                         _controller.Action(data);
                         break;
                     }
                 case PacketCommand.REACTION_REGISTER:
                     {
-                        Event data = (Event)obj.Data.Value;
-                        User user = data.OwnerInfos;
+                        ReactionRegisterContent data = obj.Data.Value as ReactionRegisterContent;
+                        User user = data.Owner;
 
                         foreach (var it in _tasks)
                         {

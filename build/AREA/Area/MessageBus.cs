@@ -54,7 +54,7 @@ namespace Area
                         {
                             foreach (var action in tree.root.children)
                             {
-                                ServiceActionContent sac = new ServiceActionContent(action.data.eventName, src.ReactionContent);
+                                ServiceActionContent sac = new ServiceActionContent(action.data.eventName, src.User, src.ReactionContent);
                                 Packet p = new Packet
                                 {
                                     Name = "Server",
