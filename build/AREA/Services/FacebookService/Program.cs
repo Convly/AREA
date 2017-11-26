@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FacebookService
+namespace Service
 {
     class Program
     {
@@ -18,7 +18,7 @@ namespace FacebookService
             try
             {
                 Network.Client client = Network.Client.Instance;
-                Network.NetTools.IService service = new GraphAPI();
+                Network.NetTools.IService service = new Service("GraphApi", new Controller());
                 client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
             }
             catch (Exception err)

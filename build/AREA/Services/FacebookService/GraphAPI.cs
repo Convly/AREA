@@ -1,42 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Network.NetTools;
 using System.Threading;
+using System;
 
-public class ThreadPool
+namespace Service
 {
-    private Dictionary<string, Thread> _threads;
-
-    public Dictionary<string, Thread>   Threads { get; set; }
-
-    public void Add(string reaction, void() func)
+    public class ThreadPool
     {
-        Thread newThread = new Thread(new ThreadStart(func));
+        private Dictionary<string, Thread> _threads;
 
-        newThread.Start();
-        _threads.Add(reaction, newThread);
+        public Dictionary<string, Thread> Threads { get; set; }
+
+        public ThreadPool()
+        {
+            _threads = new Dictionary<string, Thread>();
+        }
+
+        public void Add(User user, string reaction, ReactionDelegate func)
+        {
+            var newThread = new Thread(delegate () { func(user); });
+
+            newThread.Start(user);
+            _threads.Add(reaction, newThread);
+        }
+
+        public void Remove(string reaction)
+        {
+            _threads[reaction].Abort();
+            _threads.Remove(reaction);
+        }
     }
 
-    public void Remove(string action)
+    public class Service : Network.NetTools.IService
     {
-        _threads[action].Abort();
-        _threads.Remove(action);
-    }
-}
+        private string                      _name;
+        private Dictionary<int, ThreadPool> _tasks;
+        private Dictionary<int, User>       _users;
+        private IController                 _controller;
 
-namespace FacebookService
-{
-    public class GraphAPI : Network.NetTools.IService
-    {
-        private static string   _name = "graphAPI";
-        private ThreadPool      _threadPool;
 
-        public static int Callback(Packet obj)
+        public Service(string name, IController controller)
+        {
+            _name = name;
+            _tasks = new Dictionary<int, ThreadPool>();
+            _users = new Dictionary<int, User>();
+            _controller = controller;
+        }
+
+        public int Callback(Packet obj)
         {
             Console.WriteLine("Hello from " + _name);
+
+            var state = true;
+            string transaction = "";
+            User user = new User("", "");
+
+            switch (state)
+            {
+                // ACTION
+                case true :
+                    {
+                        _controller.Action(transaction);
+                        break;
+                    }
+                // REACTION
+                default:
+                    {
+                        foreach (var it in _users)
+                        {
+                            if (it.Value.Email == user.Email)
+                            {
+                                _tasks[it.Key].Add(user, transaction, _controller.Reaction(transaction));
+                                break;
+                            }
+                        }
+                        break;
+                    }
+            }
+            
             return (2);
         }
 
