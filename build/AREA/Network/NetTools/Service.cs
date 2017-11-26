@@ -32,9 +32,9 @@ namespace Network.NetTools
         public bool AccessTokenSecret { get => accessTokenSecret; set => accessTokenSecret = value; }
 
         private Dictionary<string, ServiceType> actions;
-        internal Dictionary<string, ServiceType> Actions { get => actions; set => actions = value; }
+        public Dictionary<string, ServiceType> Actions { get => actions; set => actions = value; }
 
         private Dictionary<string, ServiceType> reactions;
-        internal Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
+        public Dictionary<string, ServiceType> Reactions { get => reactions; set => reactions = value; }
     }
 }
