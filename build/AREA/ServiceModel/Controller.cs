@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using Network.NetTools;
+using System.Collections.Generic;
 
 namespace Service
 {
     public delegate void ReactionDelegate(object obj);
-    public delegate void ActionDelegate();
+    public delegate void ActionDelegate(object obj);
 
     public interface IController
     {
         ReactionDelegate Reaction(string name);
-        void Action(string name);
-        List<string> GetActions();
-        List<string> GetReactions();
+        void Action(string name, object obj);
+        List<string> GetActionList();
+        List<string> GetReactionList();
     }
 
-    class Controller : IController
+    public class Controller : IController
     {
-        private Dictionary<string, ReactionDelegate>    _reactions;
-        private Dictionary<string, ActionDelegate>      _actions;
+        protected Dictionary<string, ReactionDelegate> _reactions;
+        protected Dictionary<string, ActionDelegate> _actions;
 
         public Controller()
         {
@@ -29,12 +30,12 @@ namespace Service
             return (_reactions[name]);
         }
 
-        public void Action(string name)
+        public void Action(string name, object obj)
         {
-            _actions[name]();
+            _actions[name](obj);
         }
 
-        public List<string> GetActions()
+        public List<string> GetActionList()
         {
             List<string> tmp = new List<string>();
 
@@ -43,7 +44,7 @@ namespace Service
             return (tmp);
         }
 
-        public List<string> GetReactions()
+        public List<string> GetReactionList()
         {
             List<string> tmp = new List<string>();
 

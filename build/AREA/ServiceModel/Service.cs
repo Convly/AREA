@@ -16,11 +16,13 @@ namespace Service
             _threads = new Dictionary<string, Thread>();
         }
 
-        public void Add(User user, string reaction, ReactionDelegate func)
+        public void Add(Object obj, string reaction, ReactionDelegate func)
         {
+            User user = null;
+
             var newThread = new Thread(delegate () { func(user); });
 
-            newThread.Start(user);
+            newThread.Start(obj);
             _threads.Add(reaction, newThread);
         }
 
@@ -33,21 +35,17 @@ namespace Service
 
     public class Service : Network.NetTools.IService
     {
-        private string                      _name;
-        private Dictionary<int, ThreadPool> _tasks;
-        private Dictionary<int, User>       _users;
-        private IController                 _controller;
-
+        private static string _name;
+        private static Dictionary<User, ThreadPool> _tasks = new Dictionary<User, ThreadPool>();
+        private static IController _controller;
 
         public Service(string name, IController controller)
         {
             _name = name;
-            _tasks = new Dictionary<int, ThreadPool>();
-            _users = new Dictionary<int, User>();
             _controller = controller;
         }
 
-        public int Callback(Packet obj)
+        public static int Callback(Packet obj)
         {
             Console.WriteLine("Hello from " + _name);
 
@@ -58,27 +56,28 @@ namespace Service
             switch (state)
             {
                 // ACTION
-                case true :
+                case true:
                     {
-                        _controller.Action(transaction);
+                        _controller.Action(transaction, obj);
                         break;
                     }
                 // REACTION
                 default:
                     {
-                        foreach (var it in _users)
+                        foreach (var it in _tasks)
                         {
-                            if (it.Value.Email == user.Email)
+                            if (it.Key.Email == user.Email)
                             {
-                                _tasks[it.Key].Add(user, transaction, _controller.Reaction(transaction));
+                                _tasks[it.Key].Add(obj, transaction, _controller.Reaction(transaction));
                                 break;
                             }
                         }
+                        _tasks.Add(user, new ThreadPool());
+                        _tasks[user].Add(user, transaction, _controller.Reaction(transaction));
                         break;
                     }
             }
-            
-            return (2);
+            return (0);
         }
 
         public string APIName()
@@ -88,27 +87,51 @@ namespace Service
 
         public List<string> GetActionList()
         {
-            return new List<string>();
+            return (_controller.GetActionList());
         }
 
         public Func<Packet, int> GetCallback()
         {
-            return Callback;
+            return (Callback);
         }
 
         public List<string> GetReactionList()
         {
-            return new List<string>();
+            return (_controller.GetReactionList());
         }
 
         public List<User> GetUsersListByAction(string action)
         {
-            return new List<User>();
+            List<User> tmp = new List<User>();
+            foreach (var users in _tasks)
+            {
+                foreach (var task in users.Value.Threads)
+                {
+                    if (task.Key == action)
+                    {
+                        tmp.Add(users.Key);
+                        break;
+                    }
+                }
+            }
+            return (tmp);
         }
 
         public List<User> GetUsersListByReaction(string reaction)
         {
-            return new List<User>();
+            List<User> tmp = new List<User>();
+            foreach (var users in _tasks)
+            {
+                foreach (var task in users.Value.Threads)
+                {
+                    if (task.Key == reaction)
+                    {
+                        tmp.Add(users.Key);
+                        break;
+                    }
+                }
+            }
+            return (tmp);
         }
     }
 }
