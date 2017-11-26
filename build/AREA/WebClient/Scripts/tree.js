@@ -153,16 +153,16 @@ function addTreeData(t) {
 
 //Get the entire tree list
 function getFullTree() {
-    return (tree);
+    return tree;
 }
 
 //Get in the Tree list a tree by its index
 function getTree(idx) {
-    return (tree[idx]);
+    return tree[idx];
 }
 
 //Add a node to the tree[idx] at given node with data
 function addNode(idx, node, data) {
     var s = tree[idx].add(data, node);
-    return ((typeof s === "undefined") ? (true) : (false));
+    return typeof s === "undefined" ? true : false;
 }

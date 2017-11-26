@@ -15,7 +15,7 @@ namespace WebClient.Models
     public class IndexViewModel
     {
         /// <summary>
-        /// The list of <see cref="Area"/> visible
+        /// The list of AREAs visible
         /// </summary>
         public List<ATreeRoot> Areas;
 
@@ -30,7 +30,7 @@ namespace WebClient.Models
         public User CurrentUser;
 
         /// <summary>
-        /// Serialize the list of <see cref="Area"/>
+        /// Serialize the list of AREAs
         /// </summary>
         /// <returns>The stringified list of AREAs</returns>
         public string AreasToJSON()
@@ -38,11 +38,19 @@ namespace WebClient.Models
             return (JsonConvert.SerializeObject(Areas));
         }
 
+        /// <summary>
+        /// Serialize the list of <see cref="Service"/>
+        /// </summary>
+        /// <returns>The stringified list of <see cref="Service"/></returns>
         public string ServicesToJSON()
         {
             return (JsonConvert.SerializeObject(Services));
         }
 
+        /// <summary>
+        /// Constructor of the <see cref="IndexViewModel"/>
+        /// </summary>
+        /// <param name="email">The <see cref="User"/>'s email</param>
         public IndexViewModel(string email)
         {
             DataAccess db = DataAccess.Instance;
