@@ -81,5 +81,24 @@ namespace Network.Events
         {
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class TriggerReactionEvent : Event
+        {
+            /// <summary>
+            /// Event add user
+            /// </summary>
+            /// <param name="source_"></param>
+            /// <param name="type_"></param>
+            /// <param name="owner_"></param>
+            /// <param name="data_"></param>
+            public TriggerReactionEvent(HttpEventSource source_, HttpEventType type_, NetTools.User owner_, Object data_)
+                : base(source_, type_, owner_, data_)
+            {
+
+            }
+        }
     }
 }
