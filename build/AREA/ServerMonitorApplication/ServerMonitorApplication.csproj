@@ -60,6 +60,7 @@
     <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -111,26 +112,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowViewModel.cs" />
-    <Compile Include="Views\Services\ServiceControl\ServiceItemControl.xaml.cs">
-      <DependentUpon>ServiceItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Services\ServiceControl\ServiceItemControlViewModel.cs" />
-    <Compile Include="Views\Services\ServiceControl\ListServiceItemControl.xaml.cs">
-      <DependentUpon>ListServiceItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Services\ServiceControl\ListServiceItemControlViewModel.cs" />
-    <Compile Include="Views\Services\ServiceControl\Model\ServiceItemControlModel.cs" />
-    <Compile Include="Views\Services\ServiceControl\Model\ListServiceItemControlModel.cs" />
-    <Compile Include="Views\Services\ServiceLogger\ListServiceLoggerItemControl.xaml.cs">
-      <DependentUpon>ListServiceLoggerItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Services\ServiceLogger\ListServiceLoggerItemControlViewModel.cs" />
-    <Compile Include="Views\Services\ServiceLogger\Model\ListServiceLoggerItemControlModel.cs" />
-    <Compile Include="Views\Services\ServiceLogger\Model\ServiceLoggerItemControlModel.cs" />
-    <Compile Include="Views\Services\ServiceLogger\ServiceLoggerItemControl.xaml.cs">
-      <DependentUpon>ServiceLoggerItemControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Services\ServiceLogger\ServiceLoggerItemControlViewModel.cs" />
+    <Compile Include="Views\Services\DesignModel\ServerListMessageDesignModel.cs" />
+    <Compile Include="Views\Services\DesignModel\ServerMessageDesignModel.cs" />
     <Compile Include="Views\Services\ServicesView.xaml.cs">
       <DependentUpon>ServicesView.xaml</DependentUpon>
     </Compile>
@@ -212,22 +195,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Services\ServiceControl\ServiceItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Services\ServiceControl\ListServiceItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Services\ServiceLogger\ListServiceLoggerItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Services\ServiceLogger\ServiceLoggerItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

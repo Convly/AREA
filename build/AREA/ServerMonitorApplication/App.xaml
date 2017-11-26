@@ -22,12 +22,6 @@
             <DataTemplate DataType="{x:Type local:ServicesViewModel}">
                 <local:ServicesView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:ServiceItemControlViewModel}">
-                <local:ServiceItemControl/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type local:ListServiceItemControlViewModel}">
-                <local:ListServiceItemControl/>
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

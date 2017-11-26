@@ -28,7 +28,7 @@
                     <TextBlock Text="Services" FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeLarge}" Foreground="{StaticResource ForegroundLightBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
                 <!-- Services list -->
-                <local:ListServiceItemControl Grid.Row="1" VerticalAlignment="Top" Background="{StaticResource ForegroundLightBrush}"/>
+                
             </Grid>
             <!-- Drop shadow -->
             <Border Grid.Column="1" Width="1" BorderThickness="1 0 0 0">
@@ -43,7 +43,13 @@
             </Border>
             <!-- Content Logger -->
             <Grid Grid.Column="2" Background="{StaticResource WordBlueBrush}">
-                <local:ListServiceLoggerItemControl VerticalAlignment="Top"/>
+                <ListView Foreground="Black">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding ServerMessages}" Header="Name" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </Grid>
     </Border>

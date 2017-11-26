@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace ServerMonitorApplication
@@ -33,11 +35,17 @@ namespace ServerMonitorApplication
         /// </summary>
         public string Password { get; set; }
 
+        public ObservableCollection<ServerMessageDesignModel> mServerMessage { get; set; }
         #endregion
+
+        public Net()
+        {
+            mServerMessage = new ObservableCollection<ServerMessageDesignModel>();
+        }
 
         #region Callback
 
-        public static int Callback(Network.NetTools.Packet obj)
+        public int Callback(Network.NetTools.Packet obj)
         {
             Console.WriteLine("Gotcha");
             Network.MonitorClient.Instance.SendDataToServer(new Network.NetTools.Packet
@@ -49,6 +57,11 @@ namespace ServerMonitorApplication
 
             switch (obj.Data.Key)
             {
+                case Network.NetTools.PacketCommand.S_EVENT:
+                    DataLoggerConverter(obj.Data.Value);
+                    Messenger.Default.Send(new ChangePage(typeof(ServicesViewModel)));
+                    break;
+
                 case Network.NetTools.PacketCommand.S_DISCONNECT:
                     Messenger.Default.Send(new ChangePage(typeof(ConnectionViewModel)));
                     break;
@@ -64,6 +77,7 @@ namespace ServerMonitorApplication
                 case Network.NetTools.PacketCommand.ERROR:
                     MessageBox.Show(obj.Data.Value.ToString());
                     break;
+
                 default:
                     break;
             }
@@ -108,6 +122,21 @@ namespace ServerMonitorApplication
             }
         }
 
+        public void DataLoggerConverter(Object data)
+        {
+            Network.NetTools.EventContent obj = JsonConvert.DeserializeObject<Network.NetTools.EventContent>(data.ToString());
+            var action = new ServerMessageDesignModel
+            {
+                Username = obj.Name,
+                Content = obj.Content,
+                Time = DateTime.Now.ToString("dd-MM-yyyy : HH-mm-ss"),
+            };
+            if (action != null)
+            {
+                mServerMessage.Add(action);
+                ServerListMessageDesignModel.Instance.UpdateListMessage(mServerMessage);
+            }
+        } 
         #endregion
     }
 }
