@@ -2,6 +2,7 @@
 using Network.Events;
 using Tweetinvi;
 using Service;
+using Network.NetTools;
 
 namespace TwitterService
 {
@@ -94,7 +95,8 @@ namespace TwitterService
         public void NewTweet(Event obj)
         {
             Authentification(obj);
-            string text = (string)obj.Data;
+            var tmp = (ServiceActionContent)obj.Data;
+            string text = (string)tmp.Args;
             Tweet.PublishTweet(text);
         }
     }
