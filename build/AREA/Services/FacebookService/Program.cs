@@ -30,8 +30,8 @@ namespace Service
             {
                 Network.Client client = Network.Client.Instance;
                 Network.NetTools.IService service = new Service(api, new FacebookController(api));
-                client.Start("MessageBus", service.GetCallback(), args[1], int.Parse(args[2]));
-                Register(service, true);
+                client.Start("MessageBus", service.GetCallback(), args[0], int.Parse(args[1]));
+                Register(service, false);
             }
             catch (Exception err)
             {

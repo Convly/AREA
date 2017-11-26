@@ -16,7 +16,7 @@ namespace FacebookService
     public class FacebookController : Controller
     {
         /// <summary>
-        /// Consstructor of the class.
+        /// Constructor of the class.
         /// </summary>
         /// <param name="name">The name of the API.</param>
         public FacebookController(string name)
@@ -27,6 +27,7 @@ namespace FacebookService
             };
             _actions = new Dictionary<string, ActionDelegate>
             {
+                { "Post", Post }
             };
         }
 
@@ -37,11 +38,10 @@ namespace FacebookService
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        public void Post(Event obj)
+        public void Post(ServiceActionContent obj)
         {
-            var accessToken = obj.OwnerInfos.AccessToken[_name];
-            var tmp = (ServiceActionContent)obj.Data;
-            string message = (string)tmp.Args;
+            var accessToken = obj.User.AccessToken[_name];
+            string message = obj.Args as string;
 
             HttpClient httpClient = new HttpClient
             {
