@@ -23,19 +23,19 @@ function drawTreeData() {
     clearCanvasContent();
     if (treeData && treeData.root)
     {
-        var fullRootName = ((treeData.root.data.name == "") ? ("") : ("[" + treeData.root.data.name + "] - ")) +
+        var fullRootName = (treeData.root.data.name === "" ? "" : "[" + treeData.root.data.name + "] - ") +
             treeData.root.data.serviceName + " (" + treeData.root.data.eventName + ")";
         treeData.traverseBFS(function (node) {
             if (node) {
                 if (node.data.type === "action") {
                     console.log("wut");
                     ctx.font = "14px Roboto";
-                    var fullName = ((node.data.name == "") ? ("") : ("[" + node.data.name + "] - ")) +
+                    var fullName = (node.data.name === "" ? "" : "[" + node.data.name + "] - ") +
                         node.data.serviceName + " (" + node.data.eventName + ")";
                     var sizeText = {
                         "width": ctx.measureText(fullName).width + 20,
                         "height": 14 + 14
-                    }
+                    };
                     var w = ctx.measureText(fullRootName).width + 20;
                     drawLineInCanvas({ "x": node.data.pos.x, "y": node.data.pos.y },
                                      { "x": treeData.root.data.pos.x, "y": treeData.root.data.pos.y }, 2, "#E66A39");
@@ -49,8 +49,8 @@ function drawTreeData() {
             var sizeText = {
                 "width": ctx.measureText(fullRootName).width + 30,
                 "height": 14
-            }
-            drawCircleInCanvas(treeData.root.data.pos.x, treeData.root.data.pos.y + sizeText.height / 2, sizeText.width / 2, "#FFFFFF", true)
+            };
+            drawCircleInCanvas(treeData.root.data.pos.x, treeData.root.data.pos.y + sizeText.height / 2, sizeText.width / 2, "#FFFFFF", true);
             drawTextInCanvas(fullRootName, 14, "Roboto", "#353C3E", treeData.root.data.pos.x, treeData.root.data.pos.y, "center", "top");
         }
     }
@@ -117,10 +117,10 @@ function drawTextInCanvas(text, fontSize, fontFamily, color, posX, posY, textAli
 /// GETTER FUNCTIONS
 //Get canvas size
 function getCanvasSize() {
-    return ({
+    return {
         "width": canvas.width,
         "height": canvas.height
-    })
+    };
 }
 
 
@@ -128,10 +128,10 @@ function getCanvasSize() {
 $(document).ready(function () {
     canvas.width = canvasCont.clientWidth;
     canvas.height = canvasCont.clientHeight;
-})
+});
 
 window.onresize = function () {
     canvas.width = canvasCont.clientWidth;
     canvas.height = canvasCont.clientHeight;
-    drawTreeData()
+    drawTreeData();
 };

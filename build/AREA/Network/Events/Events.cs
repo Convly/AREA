@@ -46,7 +46,7 @@ namespace Network.Events
     }
 
     /// <summary>
-    /// Event add tree
+    /// Event add token
     /// </summary>
     public class AddTokensAccessEvent : Event
     {
@@ -65,7 +65,7 @@ namespace Network.Events
     }
 
     /// <summary>
-    /// Event add tree
+    /// Event add user
     /// </summary>
     public class AddUserEvent : Event
     {
