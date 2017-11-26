@@ -7,8 +7,15 @@ using System.Web.Routing;
 
 namespace WebClient
 {
+    /// <summary>
+    /// Defines all routes for the application
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Defines routes
+        /// </summary>
+        /// <param name="routes">A route collection</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

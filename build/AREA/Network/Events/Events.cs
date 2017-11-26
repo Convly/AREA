@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Network.NetTools;
 
 namespace Network.Events
 {
@@ -46,7 +41,7 @@ namespace Network.Events
     }
 
     /// <summary>
-    /// Event add tree
+    /// Event add token
     /// </summary>
     public class AddTokensAccessEvent : Event
     {
@@ -65,7 +60,7 @@ namespace Network.Events
     }
 
     /// <summary>
-    /// Event add tree
+    /// Event add user
     /// </summary>
     public class AddUserEvent : Event
     {
@@ -77,6 +72,25 @@ namespace Network.Events
         /// <param name="owner_"></param>
         /// <param name="data_"></param>
         public AddUserEvent(HttpEventSource source_, HttpEventType type_, NetTools.User owner_, Object data_)
+            : base(source_, type_, owner_, data_)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class TriggerReactionEvent : Event
+    {
+        /// <summary>
+        /// Event add user
+        /// </summary>
+        /// <param name="source_"></param>
+        /// <param name="type_"></param>
+        /// <param name="owner_"></param>
+        /// <param name="data_"></param>
+        public TriggerReactionEvent(HttpEventSource source_, HttpEventType type_, NetTools.User owner_, Object data_)
             : base(source_, type_, owner_, data_)
         {
 

@@ -30,6 +30,7 @@ namespace Network.Lock
         /// Add a new <see cref="Locker"/> in the manager
         /// </summary>
         /// <param name="username">The owner of the <see cref="Locker"/></param>
+        /// <param name="duration">A duration</param>
         /// <returns>This method return the generated key of the <see cref="Locker"/></returns>
         public uint Add(string username, int duration)
         {

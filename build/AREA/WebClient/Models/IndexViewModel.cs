@@ -15,7 +15,7 @@ namespace WebClient.Models
     public class IndexViewModel
     {
         /// <summary>
-        /// The list of <see cref="Area"/> visible
+        /// The list of AREAs visible
         /// </summary>
         public List<ATreeRoot> Areas;
 
@@ -30,7 +30,7 @@ namespace WebClient.Models
         public User CurrentUser;
 
         /// <summary>
-        /// Serialize the list of <see cref="Area"/>
+        /// Serialize the list of AREAs
         /// </summary>
         /// <returns>The stringified list of AREAs</returns>
         public string AreasToJSON()
@@ -38,45 +38,26 @@ namespace WebClient.Models
             return (JsonConvert.SerializeObject(Areas));
         }
 
+        /// <summary>
+        /// Serialize the list of <see cref="Service"/>
+        /// </summary>
+        /// <returns>The stringified list of <see cref="Service"/></returns>
         public string ServicesToJSON()
         {
             return (JsonConvert.SerializeObject(Services));
         }
 
+        /// <summary>
+        /// Constructor of the <see cref="IndexViewModel"/>
+        /// </summary>
+        /// <param name="email">The <see cref="User"/>'s email</param>
         public IndexViewModel(string email)
         {
             DataAccess db = DataAccess.Instance;
             CurrentUser = db.GetUser(email);
             AreaTree tree = db.GetAreas(email);
             Areas = tree.AreasList;
-            //Services = Dispatcher.GetAvailableServices(CurrentUser);
-            Services = new List<Service>()
-            {
-                new Service("Facebook", false, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.REACTION}
-                }),
-                new Service("Instagram", false, new Dictionary<string, ServiceType>
-                {
-                    {"Follow", ServiceType.ACTION},
-                    {"Picture", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Post", ServiceType.REACTION}
-                }),
-                new Service("Twitter", true, new Dictionary<string, ServiceType>
-                {
-                    {"Tweet", ServiceType.ACTION},
-                    {"Post", ServiceType.ACTION}
-                }, new Dictionary<string, ServiceType>
-                {
-                    {"Tweet", ServiceType.REACTION},
-                    {"Post", ServiceType.REACTION}
-                })
-            };
+            Services = Dispatcher.GetAvailableServices(CurrentUser);
         }
     }
 }

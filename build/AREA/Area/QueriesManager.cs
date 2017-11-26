@@ -12,8 +12,14 @@ namespace Area
     /// </summary>
     public class QueriesManager
     {
+        /// <summary>
+        /// Routes
+        /// </summary>
         public static Dictionary<Type, Func<Event, HttpEventAnswer>> Routes;
 
+        /// <summary>
+        /// QueriesManager
+        /// </summary>
         public QueriesManager()
         {
             Routes = new Dictionary<Type, Func<Event, HttpEventAnswer>>
@@ -22,6 +28,11 @@ namespace Area
             };
         }
 
+        /// <summary>
+        /// ProcessEvent
+        /// </summary>
+        /// <param name="e">The event to be added</param>
+        /// <returns>An <see cref="HttpEventAnswer"/></returns>
         public static HttpEventAnswer ProcessEvent(Event e)
         {
             foreach (var route in Routes)

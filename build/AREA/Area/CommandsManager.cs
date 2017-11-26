@@ -1,4 +1,6 @@
 ﻿using Network.Events;
+using System;
+using System.Collections.Generic;
 
 namespace Area
 {
@@ -7,6 +9,12 @@ namespace Area
     /// </summary>
     public class CommandsManager
     {
+        private static Dictionary<Type, Func<Event, HttpEventAnswer>> extEventsRoutes =
+            new Dictionary<Type, Func<Event, HttpEventAnswer>>
+            {
+                {typeof(AddUserEvent),  Cache.AddUser},
+                {typeof(AddTreeEvent),  Cache.AddTree}
+            };
         private EventFactory evtFactory = new EventFactory();
 
         /// <summary>
@@ -44,7 +52,7 @@ namespace Area
         /// <returns></returns>
         public static HttpEventAnswer ServiceEventCallback(Event e)
         {
-            return HttpEventAnswer.Error(e, 500, "Hello from ServiceEventCallback");
+            return MessageBus.Add(e);
         }
 
         /// <summary>
@@ -54,7 +62,12 @@ namespace Area
         /// <returns></returns>
         public static HttpEventAnswer ExtEventCallback(Event e)
         {
-            return MessageBus.Add(e);
+            foreach (var route in extEventsRoutes)
+            {
+                if (route.Key == e.GetType())
+                    return route.Value(e);
+            }
+            return HttpEventAnswer.Error(e, 500, "Unkown event " + e.GetType());
         }
 
         /// <summary>

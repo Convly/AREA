@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
 using Network.NetTools;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebClient.Models;
@@ -79,7 +73,7 @@ namespace WebClient.Controllers
         /// Check if the login / password combination matches the database
         /// </summary>
         /// <param name="email">The user's email</param>
-        /// <param name="password">The user's password</param>
+        /// <param name="pwd">The user's password</param>
         /// <returns>User was found</returns>
         private bool ValidateUser(string email, string pwd)
         {
@@ -102,9 +96,13 @@ namespace WebClient.Controllers
                 Console.Error.WriteLine(e.Message);
                 return false;
             }
-            return true;
         }
 
+        /// <summary>
+        /// Hash a string into an SHA-256 encoded string
+        /// </summary>
+        /// <param name="strData">The string to be encoded</param>
+        /// <returns>The SHA-256 encoded string</returns>
         public static string GetSha256FromString(string strData)
         {
             var message = Encoding.ASCII.GetBytes(strData);

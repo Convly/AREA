@@ -7,6 +7,9 @@ using Network.Events;
 
 namespace WebClient.Models
 {
+    /// <summary>
+    /// This class dispatch all events to the server
+    /// </summary>
     public static class Dispatcher
     {
         /// <summary>
@@ -53,7 +56,7 @@ namespace WebClient.Models
         public static bool AddUser(User user)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new AddUserEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, null);
+            Event e = new AddUserEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, user);
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {

@@ -1,4 +1,5 @@
 ﻿using Network.Events;
+using Network.NetTools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,50 @@ namespace Area
         {
             while (this.run)
             {
+                if (Network.Server.OldServices.Count > 0)
+                    RemoveUSelessServicesFromCache();
+                if (Network.Server.NewServices.Count > 0)
+                    UpdateRegistrationForServices();
                 lock (eventList)
                 {
                     foreach (var e in eventList)
                     {
                         Console.WriteLine("Bus: About to treat an event of type " + e.GetType());
-                        Network.Server.Instance.SendMessageBusEvent(e);
+                        if (e.GetType() == typeof(TriggerReactionEvent))
+                        {
+                            ServiceReactionContent src = JsonConvert.DeserializeObject<ServiceReactionContent>(e.Data.ToString());
+                            ComputeActionsTrigger(src);
+                        }
                     }
                     eventList.Clear();
+                }
+            }
+        }
+
+        private void ComputeActionsTrigger(ServiceReactionContent src)
+        {
+            foreach (var ATree in Cache.GetAreaTreeList())
+            {
+                if (ATree.Email == src.User.Email)
+                {
+                    foreach (var tree in ATree.AreasList)
+                    {
+                        if (tree.root.data.eventName == src.Name)
+                        {
+                            foreach (var action in tree.root.children)
+                            {
+                                ServiceActionContent sac = new ServiceActionContent(action.data.eventName, src.User, src.ReactionContent);
+                                Packet p = new Packet
+                                {
+                                    Name = "Server",
+                                    Key = 0,
+                                    Data = new KeyValuePair<PacketCommand, object>(PacketCommand.ACTION, sac)
+                                };
+                                
+                                Network.Server.Instance.SendMessageBusEventToService(p, action.data.serviceName);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -57,8 +94,14 @@ namespace Area
         /// <returns></returns>
         public static int MessageBusCallback(Network.NetTools.Packet obj)
         {
-            Event e = JsonConvert.DeserializeObject<Event>(obj.Data.Value.ToString());
-            CommandsManager.ProcessEvent(e);
+            switch (obj.Data.Key)
+            {
+                case PacketCommand.REACTION:
+                    TriggerReactionEvent e = JsonConvert.DeserializeObject<TriggerReactionEvent>(obj.Data.Value.ToString());
+                    Add(e);
+                    break;
+            }
+
             return 0;
         }
 
@@ -77,6 +120,81 @@ namespace Area
             var ans = HttpEventAnswer.Success(e, msg);
             Server.AddMonitorEventMessage(e.OwnerInfos.Email, (int)e.Source, e.GetType() + ": " + ans.Status.Code + " (" + ans.Status.Message + ")");
             return ans;
+        }
+
+        /// <summary>
+        /// Register a reaction for the user
+        /// </summary>
+        /// <param name="user">An <see cref="User"/></param>
+        /// <param name="serviceName">The <see cref="Service"/>'s name</param>
+        /// <param name="reactionName">The reaction name</param>
+        public static void RegisterReactionForUser(User user, string serviceName, string reactionName)
+        {
+            ReactionRegisterContent rrc = new ReactionRegisterContent { Owner = user, ReactionName = reactionName, ServiceName = serviceName };
+            Packet p = new Packet { Name = "Server", Key = 0, Data = new KeyValuePair<PacketCommand, object>(PacketCommand.REACTION_REGISTER, rrc) };
+            Network.Server.Instance.SendMessageBusEventToService(p, serviceName);
+        }
+
+        /// <summary>
+        /// Check if the service is in the services list
+        /// </summary>
+        /// <param name="list">A list of <see cref="Service"/></param>
+        /// <param name="serviceName">The <see cref="Service"/>'s name</param>
+        /// <returns></returns>
+        public static bool IsServiceInList(List<Service> list, string serviceName)
+        {
+            foreach (var service in list)
+            {
+                if (service.Name == serviceName)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Remove useless services from the <see cref="MessageBus"/>'s cache
+        /// </summary>
+        public static void RemoveUSelessServicesFromCache()
+        {
+            lock (Network.Server.OldServices)
+            {
+                List<string> sl = Network.Server.OldServices;
+
+                foreach (var serviceName in sl)
+                {
+                    Cache.RemoveService(serviceName);
+                }
+
+                Network.Server.OldServices.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Update registration for the services
+        /// </summary>
+        public static void UpdateRegistrationForServices()
+        {
+            List<Service> sl = Network.Server.NewServices;
+            lock (Network.Server.NewServices)
+            {
+                for (int i = 0; i < sl.Count; i++)
+                {
+                    Cache.AddNewService(sl[i]);
+                }
+
+                foreach (var Atree in Cache.GetAreaTreeList())
+                {
+                    User user = Cache.GetUserByMail(Atree.Email);
+                    foreach (var tree in Atree.AreasList)
+                    {
+                        if (IsServiceInList(sl, tree.root.data.serviceName))
+                            RegisterReactionForUser(user, tree.root.data.serviceName, tree.root.data.eventName);
+                    }
+                }
+
+                Network.Server.NewServices.Clear();
+            }
         }
     }
 }
