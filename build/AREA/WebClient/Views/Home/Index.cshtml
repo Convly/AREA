@@ -84,7 +84,7 @@
     var services = JSON.parse('@Html.Raw(Model.ServicesToJSON())');
     console.log(services);
     var needTokens = '@Html.Raw(Model.CurrentUser.AreTokensExpired())';
-    if (needTokens == "True") {
+    if (needTokens == "True" && services.length) {
         var tokens = {};
         var secretTokens = {};
         for (var i = 0; i < services.length; i++) {

@@ -32,5 +32,10 @@ namespace WebClient.Models
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
+
+        public LoginViewModel()
+        {
+            DataAccess db = DataAccess.Instance;
+        }
     }
 }
