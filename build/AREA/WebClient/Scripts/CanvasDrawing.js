@@ -10,6 +10,12 @@ treeData = null;
 //Set the data of the current tree
 function setTreeData(tree) {
     treeData = tree;
+    if (treeData && treeData.root) {
+        $("#sendButton").css("display", "");
+    }
+    else {
+        $("#sendButton").css("display", "none");
+    }
 }
 
 //Draw the tree on screen
@@ -17,31 +23,40 @@ function drawTreeData() {
     clearCanvasContent();
     if (treeData && treeData.root)
     {
+        var fullRootName = ((treeData.root.data.name == "") ? ("") : ("[" + treeData.root.data.name + "] - ")) +
+            treeData.root.data.serviceName + " (" + treeData.root.data.eventName + ")";
         treeData.traverseBFS(function (node) {
             if (node) {
-                if (node.data.type === "reaction") {
+                if (node.data.type === "action") {
+                    console.log("wut");
                     ctx.font = "14px Roboto";
+                    var fullName = ((node.data.name == "") ? ("") : ("[" + node.data.name + "] - ")) +
+                        node.data.serviceName + " (" + node.data.eventName + ")";
                     var sizeText = {
-                        "width": ctx.measureText(node.data.name).width + 20,
+                        "width": ctx.measureText(fullName).width + 20,
                         "height": 14 + 14
                     }
-                    var w = ctx.measureText(treeData.root.data.name).width + 20;
+                    var w = ctx.measureText(fullRootName).width + 20;
                     drawLineInCanvas({ "x": node.data.pos.x, "y": node.data.pos.y },
                                      { "x": treeData.root.data.pos.x, "y": treeData.root.data.pos.y }, 2, "#E66A39");
                     drawRectInCanvas(node.data.pos.x - sizeText.width / 2, node.data.pos.y - 14 / 2, sizeText.width, sizeText.height, "#FFFFFF", true);
-                    drawTextInCanvas(node.data.name, 14, "Roboto", "#353C3E", node.data.pos.x, node.data.pos.y, "center", "top");
+                    drawTextInCanvas(fullName, 14, "Roboto", "#353C3E", node.data.pos.x, node.data.pos.y, "center", "top");
                 }
             }
         });
-        if (treeData.root.data.type === "action") {
+        if (treeData.root.data.type === "reaction") {
             ctx.font = "14px Roboto";
             var sizeText = {
-                "width": ctx.measureText(treeData.root.data.name).width + 30,
+                "width": ctx.measureText(fullRootName).width + 30,
                 "height": 14
             }
             drawCircleInCanvas(treeData.root.data.pos.x, treeData.root.data.pos.y + sizeText.height / 2, sizeText.width / 2, "#FFFFFF", true)
-            drawTextInCanvas(treeData.root.data.name, 14, "Roboto", "#353C3E", treeData.root.data.pos.x, treeData.root.data.pos.y, "center", "top");
+            drawTextInCanvas(fullRootName, 14, "Roboto", "#353C3E", treeData.root.data.pos.x, treeData.root.data.pos.y, "center", "top");
         }
+    }
+    if (posInCanvas) {
+        drawLineInCanvas({ x: posInCanvas.x - 5, y: posInCanvas.y - 5 }, { x: posInCanvas.x + 5, y: posInCanvas.y + 5 }, 3, "#E66A39");
+        drawLineInCanvas({ x: posInCanvas.x - 5, y: posInCanvas.y + 5 }, { x: posInCanvas.x + 5, y: posInCanvas.y - 5 }, 3, "#E66A39");
     }
 }
 

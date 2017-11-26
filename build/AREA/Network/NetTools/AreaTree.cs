@@ -18,12 +18,16 @@ namespace Network.NetTools
     public class ANodeData
     {
         public string name { get; set; }
+        public string serviceName { get; set; }
+        public string eventName { get; set; }
         public Point pos { get; set; }
         public string type { get; set; }
         
         public ANodeData()
         {
             name = "";
+            serviceName = "";
+            eventName = "";
             pos = new Point();
             type = "";
         }

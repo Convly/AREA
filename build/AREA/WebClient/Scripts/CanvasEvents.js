@@ -1,6 +1,7 @@
 ﻿//Events on canvas here (onclick etc..)
 var canvas = document.getElementById("canvasTree");
 var ctx = canvas.getContext("2d");
+var posInCanvas = null;
 
 //Get the relative mouse position in a canvas
 function getMousePosInCanvas(canvas, event) {
@@ -55,33 +56,25 @@ function clickedAnTreeElement(pos) {
 
 // Left click event in the canvas
 $("#canvasTree").click(function (event) {
-    var pos = getMousePosInCanvas(canvas, event);
-    if (itemIndex !== -1) {
-        console.log("Left click at pos [", pos.x + ",", pos.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
-
+    if (typeof itemIndex != "undefined" && itemIndex !== -1) {
+        posInCanvas = getMousePosInCanvas(canvas, event);
+        console.log("Left click at pos [", posInCanvas.x + ",", posInCanvas.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
+        drawTreeData();
+        $("#addNode").css("display", "");
     }
 });
 
 // Right click event in the canvas
 $("#canvasTree").contextmenu(function (event) {
-    var pos = getMousePosInCanvas(canvas, event);
     var itemIndex = GetSelectedSideItemIndex();
     if (itemIndex !== -1) {
-        console.log("Right click at pos [", pos.x + ",", pos.y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
+        console.log("Right click at pos [", getMousePosInCanvas(canvas, event).x + ",", getMousePosInCanvas(canvas, event).y, "]\nThe current selected AREA is", GetSelectedSideItemIndex());
         var elem;
         var t = getTree(itemIndex);
-        if ((elem = clickedAnTreeElement(pos))) {
+        if ((elem = clickedAnTreeElement(getMousePosInCanvas(canvas, event))) && elem.data.type != "reaction") {
             console.log("Node to remove:", elem);
             if (confirm("Do you really want to remove the " + elem.data.type + " \"" + elem.data.name + "\" ?")) {
                 t.remove(elem.data);
-                setTreeData(t);
-                drawTreeData();
-            }
-        } else {
-            var name = prompt("Please name your new node:");
-            if (name) {
-                if (!addNode(itemIndex, t.root, { "name": name, "pos": pos, "type": "action" }))
-                    addNode(itemIndex, t.root.data, { "name": name, "pos": pos, "type": "reaction" });
                 setTreeData(t);
                 drawTreeData();
             }

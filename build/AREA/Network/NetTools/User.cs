@@ -14,6 +14,12 @@ namespace Network.NetTools
         {
             Email = email;
             Pwd = pwd;
+            LastUpdated = null;
+        }
+
+        public bool AreTokensExpired()
+        {
+            return (LastUpdated == null || DateTime.UtcNow.Subtract((DateTime)LastUpdated).TotalMinutes >= 120.0f);
         }
 
         public ObjectId Id { get; set; }
@@ -27,5 +33,7 @@ namespace Network.NetTools
 
         private Dictionary<string, string> accessTokenSecret;
         public Dictionary<string, string> AccessTokenSecret { get => accessTokenSecret; set => accessTokenSecret = value; }
+
+        public Nullable<DateTime> LastUpdated { get; set; }
     }
 }

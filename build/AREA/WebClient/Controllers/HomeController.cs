@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Network.NetTools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,25 @@ namespace WebClient.Controllers
             {
                 name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
                 db.AddAreaToUser(name, areaName);
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult AddTokensForUser(string tokensJson, string secretTokensJson)
+        {
+            Dictionary<string, string> tokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(tokensJson);
+            Dictionary<string, string> secretTokens = JsonConvert.DeserializeObject<Dictionary<string, string>>(secretTokensJson);
+
+            string name = "";
+            DataAccess db = DataAccess.Instance;
+            if (User.Identity is ClaimsIdentity claimId)
+            {
+                name = claimId.FindFirst(ClaimTypes.NameIdentifier).Value;
+                User user = db.GetUser(name);
+                user.AccessToken = tokens;
+                user.AccessTokenSecret = secretTokens;
+                db.UpdateUserToken(user);
+                Dispatcher.AddTokensAccess(user);
             }
             return RedirectToAction("Index");
         }
