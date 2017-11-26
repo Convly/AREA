@@ -34,7 +34,9 @@ namespace Network.NetTools
         /// <summary>
         /// The <see cref="ObjectId"/> <see cref="User"/>'s identifier
         /// </summary>
-        public ObjectId Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         /// <summary>
         /// The <see cref="User"/>'s email

@@ -3,6 +3,8 @@ using Network.Events;
 using Tweetinvi;
 using Service;
 using Network.NetTools;
+using System;
+using Newtonsoft.Json;
 
 namespace TwitterService
 {
@@ -54,13 +56,16 @@ namespace TwitterService
 
         public void ListenTweetFromAnyone(ReactionRegisterContent obj)
         {
+            Console.WriteLine("Yolo1ListenAll");
             var user = obj.Owner;
+            Authentification(obj);
+
             var stream = Stream.CreateUserStream();
 
-            Authentification(obj);
             stream.TweetCreatedByAnyone += (sender, args) =>
             {
-                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                Console.WriteLine(args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
+                SendData(obj, args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
             };
             stream.StartStream();
         }
@@ -68,12 +73,13 @@ namespace TwitterService
         public void ListenTweetFromMe(ReactionRegisterContent obj)
         {
             var user = obj.Owner;
-            var stream = Stream.CreateUserStream();
 
             Authentification(obj);
+            var stream = Stream.CreateUserStream();
+
             stream.TweetCreatedByMe += (sender, args) =>
             {
-                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                SendData(obj, args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
             };
             stream.StartStream();
         }
@@ -81,12 +87,13 @@ namespace TwitterService
         public void ListenTweetFromAnyoneButMe(ReactionRegisterContent obj)
         {
             var user = obj.Owner;
-            var stream = Stream.CreateUserStream();
 
             Authentification(obj);
+            var stream = Stream.CreateUserStream();
+
             stream.TweetCreatedByAnyoneButMe += (sender, args) =>
             {
-                SendData(obj, new { resume = args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText });
+                SendData(obj, args.Tweet.CreatedBy.ScreenName + " tweet on your page : " + args.Tweet.FullText);
             };
             stream.StartStream();
         }
@@ -94,22 +101,21 @@ namespace TwitterService
         public void ListenTweetWithKeyWord(ReactionRegisterContent obj)
         {
             string regex = "";
+            Authentification(obj);
             var stream = Stream.CreateFilteredStream();
 
-            Authentification(obj);
             stream.AddTrack(regex);
             stream.MatchingTweetReceived += (sender, args) =>
             {
                 var txt = "A tweet containing '" + regex + "' has been found : " + args.Tweet.FullText;
-                SendData(obj, new { txt });
+                SendData(obj, txt);
             };
         }
 
         public void NewTweet(ServiceActionContent obj)
         {
             Authentification(obj);
-            var text = obj.Args as string;
-            Tweet.PublishTweet(text);
+            Tweet.PublishTweet(obj.Args.ToString());
         }
     }
 }
