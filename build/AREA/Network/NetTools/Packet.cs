@@ -56,9 +56,6 @@ namespace Network.NetTools
         /// </summary>
         ERROR,
 
-        S_REGISTER_USER_REACTION,
-        C_REACTION,
-        S_ACTION,
         S_ENABLE,
         S_DISABLE
     }

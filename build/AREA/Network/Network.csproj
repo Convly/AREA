@@ -63,8 +63,10 @@
     <Compile Include="NetTools\EventContent.cs" />
     <Compile Include="NetTools\IService.cs" />
     <Compile Include="NetTools\Packet.cs" />
+    <Compile Include="NetTools\ReactionRegisterContent.cs" />
     <Compile Include="NetTools\Service.cs" />
     <Compile Include="NetTools\ServiceActionContent.cs" />
+    <Compile Include="NetTools\ServiceReactionContent.cs" />
     <Compile Include="NetTools\User.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

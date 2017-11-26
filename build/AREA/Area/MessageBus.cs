@@ -28,12 +28,42 @@ namespace Area
                 {
                     foreach (var e in eventList)
                     {
-                        ServiceReactionContent src = e.Data as ServiceReactionContent;
-                        if (e.Data)
                         Console.WriteLine("Bus: About to treat an event of type " + e.GetType());
-                        //Network.Server.Instance.SendMessageBusEvent(e);
+                        if (e.GetType() == typeof(TriggerReactionEvent))
+                        {
+                            ServiceReactionContent src = e.Data as ServiceReactionContent;
+                            ComputeActionsTrigger(src);
+                        }
                     }
                     eventList.Clear();
+                }
+            }
+        }
+
+        private void ComputeActionsTrigger(ServiceReactionContent src)
+        {
+            foreach (var ATree in Cache.GetAreaTreeList())
+            {
+                if (ATree.Email == src.User.Email)
+                {
+                    foreach (var tree in ATree.AreasList)
+                    {
+                        if (tree.root.data.eventName == src.Name)
+                        {
+                            foreach (var action in tree.root.children)
+                            {
+                                ServiceActionContent sac = new ServiceActionContent(action.data.eventName, src.ReactionContent);
+                                Packet p = new Packet
+                                {
+                                    Name = "Server",
+                                    Key = 0,
+                                    Data = new KeyValuePair<PacketCommand, object>(PacketCommand.ACTION, sac)
+                                };
+                                
+                                Network.Server.Instance.SendMessageBusEventToService(p, action.data.serviceName);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -87,7 +117,7 @@ namespace Area
         public static void RegisterReactionForUser(User user, string serviceName, string reactionName)
         {
             ReactionRegisterContent rrc = new ReactionRegisterContent { Owner = user, ReactionName = reactionName, ServiceName = serviceName };
-            Packet p = new Packet { Name = "Server", Key = 0, Data = new KeyValuePair<PacketCommand, object>(PacketCommand.S_REGISTER_USER_REACTION, rrc) };
+            Packet p = new Packet { Name = "Server", Key = 0, Data = new KeyValuePair<PacketCommand, object>(PacketCommand.REACTION_REGISTER, rrc) };
             Network.Server.Instance.SendMessageBusEventToService(p, serviceName);
         }
 
