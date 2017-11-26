@@ -21,18 +21,42 @@ namespace ServerInterface
     /// </summary>
     public partial class ConnectionPage : UserControl
     {
+        #region Members
+
+        /// <summary>
+        /// Connection page instance
+        /// </summary>
         public static ConnectionPage Instance;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ConnectionPage()
         {
             InitializeComponent();
             Instance = this;
         }
 
+        #endregion
+
+        #region Private Method
+
+        /// <summary>
+        /// Try connection and login on the button click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Net.Instance.Connection(ip_txtbox.Text, port_txtbox.Text);
             Thread.Sleep(300);
             Net.Instance.Login(name_txtbox.Text);
         }
+
+        #endregion
     }
 }

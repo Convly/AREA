@@ -15,6 +15,9 @@ using System.Windows.Shapes;
 
 namespace ServerInterface
 {
+    /// <summary>
+    /// Design model
+    /// </summary>
     public class ServerMessageDesignModel
     {
         public string Name;
@@ -27,14 +30,31 @@ namespace ServerInterface
     /// </summary>
     public partial class ServicesPage : UserControl
     {
+        #region Members
+
+        /// <summary>
+        /// Services page instance
+        /// </summary>
         public static ServicesPage Instance;
 
+        /// <summary>
+        /// Message list
+        /// </summary>
         public List<ServerMessageDesignModel> msgList = new List<ServerMessageDesignModel>();
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ServicesPage()
         {
             InitializeComponent();
             Instance = this;
         }
+
+        #endregion
     }
 }

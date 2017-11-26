@@ -20,16 +20,37 @@ namespace ServerInterface
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Members
+        
+        /// <summary>
+        /// Connection page instance
+        /// </summary>
         public static ConnectionPage conntectionInstance = new ConnectionPage();
+
+        /// <summary>
+        /// Services page instance
+        /// </summary>
         public static ServicesPage servicesInstance = new ServicesPage();
 
+        /// <summary>
+        /// Main window instance
+        /// </summary>
         public static MainWindow Instance;
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
             ContentControl.Content = conntectionInstance;
         }
+
+        #endregion
     }
 }

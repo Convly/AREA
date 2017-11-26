@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ServerInterface"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <TextBlock x:Name="serverMessage" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="300" Width="300"/>
+             d:DesignHeight="700" Width="900">
+    <Grid Background="{StaticResource WordBlueBrush}">
+        <Label Content="Server log" HorizontalAlignment="Left" Margin="38,25,0,0" VerticalAlignment="Top" Foreground="{StaticResource ForegroundLightBrush}" FontFamily="{StaticResource LatoBold}" FontSize="{StaticResource FontSizeLarge}"/>
+        <Border BorderBrush="{StaticResource WordOrangeBrush}" BorderThickness="2" Margin="40,91,40,40">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <TextBlock x:Name="serverMessage" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Height="545" Width="780" Foreground="{StaticResource ForegroundLightBrush}" FontFamily="{StaticResource LatoThin}" FontSize="{StaticResource FontSizeSmall}"/>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </UserControl>

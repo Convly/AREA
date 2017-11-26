@@ -9,29 +9,50 @@ using System.Windows.Data;
 
 namespace ServerInterface
 {
+    /// <summary>
+    /// Network management
+    /// </summary>
     public class Net
     {
+        #region Members
+
+        /// <summary>
+        /// Check if ready for change page
+        /// </summary>
         public int checkConnection = 0;
 
+        #endregion
+
         #region Singleton
+
         /// <summary>
         /// A single instance of net object
         /// </summary>
         private static readonly Net instance = new Net();
+
         /// <summary>
         /// Property
         /// </summary>
         public static Net Instance { get { return instance; } }
+
         #endregion
+
         #region Properties
+
         /// <summary>
-        /// Username copy
+        /// Username
         /// </summary>
         public static string Username { get; set; }
 
         #endregion
 
         #region Callback
+
+        /// <summary>
+        /// Call back function when a packet is received
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static int Callback(Network.NetTools.Packet obj)
         {
             Network.MonitorClient.Instance.SendDataToServer(new Network.NetTools.Packet
@@ -72,9 +93,17 @@ namespace ServerInterface
             }
             return 0;
         }
+
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Set the connection to the server
+        /// </summary>
+        /// <param name="ipAddress"></param>
+        /// <param name="port"></param>
+        /// <returns></returns>
         public bool Connection(string ipAddress, string port)
         {
             try
@@ -91,6 +120,11 @@ namespace ServerInterface
             return true;
         }
 
+        /// <summary>
+        /// Send the username to the server
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public bool Login(string username)
         {
             try
@@ -107,8 +141,10 @@ namespace ServerInterface
             }
         }
 
-        #endregion
-
+        /// <summary>
+        /// Convert and add to the list the received packet
+        /// </summary>
+        /// <param name="data"></param>
         private static void DataMessageConverter(Object data)
         {
             App.Current.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Send, new Action(delegate ()
@@ -118,7 +154,7 @@ namespace ServerInterface
                 {
                     Name = obj.Name,
                     Content = obj.Content,
-                    Time = DateTime.Now.ToString("dd-MM-yyyy : HH-mm-ss"),
+                    Time = DateTime.Now.ToString("[dd-MM-yyyy-HH-mm-ss]"),
                 };
                 ServicesPage.Instance.msgList.Add(action);
 
@@ -126,11 +162,14 @@ namespace ServerInterface
 
                 foreach (var smdm in ServicesPage.Instance.msgList)
                 {
-                    text += smdm.Name + " : " + smdm.Time + " : " + smdm.Content + "\n";
+                    text += smdm.Name + " " + smdm.Time + " : " + smdm.Content + "\n";
                 }
 
                 ServicesPage.Instance.serverMessage.Text = text;
             }));
         }
+
+        #endregion
+
     }
 }
