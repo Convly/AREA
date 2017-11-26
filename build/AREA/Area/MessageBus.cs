@@ -22,10 +22,10 @@ namespace Area
         {
             while (this.run)
             {
+                if (Network.Server.OldServices.Count > 0)
+                    RemoveUSelessServicesFromCache();
                 if (Network.Server.NewServices.Count > 0)
-                {
                     UpdateRegistrationForServices();
-                }
                 lock (eventList)
                 {
                     foreach (var e in eventList)
@@ -134,26 +134,43 @@ namespace Area
             return false;
         }
 
+        public static void RemoveUSelessServicesFromCache()
+        {
+            lock (Network.Server.OldServices)
+            {
+                List<string> sl = Network.Server.OldServices;
+
+                foreach (var serviceName in sl)
+                {
+                    Cache.RemoveService(serviceName);
+                }
+
+                Network.Server.OldServices.Clear();
+            }
+        }
+
         public static void UpdateRegistrationForServices()
         {
             List<Service> sl = Network.Server.NewServices;
-
-            foreach (var service in sl)
+            lock (Network.Server.NewServices)
             {
-                Cache.AddNewService(service);
-            }
-
-            foreach (var Atree in Cache.GetAreaTreeList())
-            {
-                User user = Cache.GetUserByMail(Atree.Email);
-                foreach (var tree in Atree.AreasList)
+                foreach (var service in sl)
                 {
-                    if (IsServiceInList(sl, tree.root.data.serviceName))
-                        RegisterReactionForUser(user, tree.root.data.serviceName, tree.root.data.eventName);
+                    Cache.AddNewService(service);
                 }
-            }
 
-            Network.Server.NewServices.Clear();
+                foreach (var Atree in Cache.GetAreaTreeList())
+                {
+                    User user = Cache.GetUserByMail(Atree.Email);
+                    foreach (var tree in Atree.AreasList)
+                    {
+                        if (IsServiceInList(sl, tree.root.data.serviceName))
+                            RegisterReactionForUser(user, tree.root.data.serviceName, tree.root.data.eventName);
+                    }
+                }
+
+                Network.Server.NewServices.Clear();
+            }
         }
     }
 }
