@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ServerInterface.ConnectionPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ServerInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="319" d:DesignWidth="517">
+    <Grid Background="White">
+        <TextBox x:Name="name_txtbox" HorizontalAlignment="Center" Height="22" Margin="135,109,124,188" Tag="Name" VerticalAlignment="Center" Width="258" Background="#FFE2D8D8"/>
+        <TextBox x:Name="ip_txtbox" HorizontalAlignment="Center" Height="22" Margin="135,136,124,161" Tag="Ip" VerticalAlignment="Center" Width="258" Background="#FFE2D8D8"/>
+        <TextBox x:Name="port_txtbox" HorizontalAlignment="Center" Height="22" Margin="135,163,124,134" Tag="Port" VerticalAlignment="Center" Width="258" Background="#FFE2D8D8"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="187,193,0,0" VerticalAlignment="Top" Width="160" Click="Button_Click"/>
+
+    </Grid>
+</UserControl>

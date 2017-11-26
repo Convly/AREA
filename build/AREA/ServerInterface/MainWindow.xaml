@@ -8,6 +8,5 @@
         Title="Server monitor" Height="350" Width="525">
     <Grid>
         <ContentControl x:Name="ContentControl" Height="319" Width="517"/>
-
     </Grid>
 </Window>

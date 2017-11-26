@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +17,22 @@ using System.Windows.Shapes;
 namespace ServerInterface
 {
     /// <summary>
-    /// Logique d'interaction pour Login.xaml
+    /// Logique d'interaction pour Connection.xaml
     /// </summary>
-    public partial class Login : UserControl
+    public partial class ConnectionPage : UserControl
     {
-        public Login()
+        public static ConnectionPage Instance;
+        public ConnectionPage()
         {
             InitializeComponent();
+            Instance = this;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Net.Instance.Connection(ip_txtbox.Text, port_txtbox.Text);
+            Thread.Sleep(300);
+            Net.Instance.Login(name_txtbox.Text);
         }
     }
 }

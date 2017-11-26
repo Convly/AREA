@@ -15,14 +15,26 @@ using System.Windows.Shapes;
 
 namespace ServerInterface
 {
-    /// <summary>
-    /// Logique d'interaction pour Services.xaml
-    /// </summary>
-    public partial class Services : UserControl
+    public class ServerMessageDesignModel
     {
-        public Services()
+        public string Name;
+        public string Content;
+        public string Time;
+    }
+
+    /// <summary>
+    /// Logique d'interaction pour ServicesPage.xaml
+    /// </summary>
+    public partial class ServicesPage : UserControl
+    {
+        public static ServicesPage Instance;
+
+        public List<ServerMessageDesignModel> msgList = new List<ServerMessageDesignModel>();
+
+        public ServicesPage()
         {
             InitializeComponent();
+            Instance = this;
         }
     }
 }

@@ -20,13 +20,15 @@ namespace ServerInterface
     /// </summary>
     public partial class MainWindow : Window
     {
-        Login loginInstance = new Login();
-        Connection conntectionInstance = new Connection();
-        Services servicesInstance = new Services();
+        public static ConnectionPage conntectionInstance = new ConnectionPage();
+        public static ServicesPage servicesInstance = new ServicesPage();
+
+        public static MainWindow Instance;
 
         public MainWindow()
         {
             InitializeComponent();
+            Instance = this;
             ContentControl.Content = conntectionInstance;
         }
     }
