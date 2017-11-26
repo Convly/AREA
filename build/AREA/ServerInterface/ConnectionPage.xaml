@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="ServerInterface.ConnectionPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ServerInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="900">
+    
+        <Border Background="{StaticResource WordBlueBrush}">
+            <Grid>
+                <!-- Blue background image -->
+                <Grid.Background>
+                    <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" />
+                </Grid.Background>
+                <!-- Main content scroll -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <StackPanel 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextBlock.TextAlignment="Center">
+
+                        <!-- Login main content white box -->
+                        <Border Background="{StaticResource ForegroundLightBrush}" 
+                            CornerRadius="10"
+                            Padding="15 50 15 15"
+                            Width="330"
+                            Margin="50 50 50 0">
+                            <StackPanel>
+                                <!-- Sign In header -->
+                                <TextBlock Text="Connection" 
+                                   FontSize="{StaticResource FontSizeLarge}" 
+                                   FontFamily="{StaticResource LatoRegular}"
+                                   Foreground="{StaticResource WordBlueBrush}" />
+                                <!-- Sign up subtext-->
+                                <TextBlock Text="to server" 
+                                       FontSize="{StaticResource FontSizeRegular}"
+                                       Foreground="{StaticResource ForegroundDarkBrush}"
+                                       Margin="0 0 0 20"
+                                       />
+                                <!-- Username -->
+                                <TextBox x:Name="name_txtbox" Tag="Name" MaxLength="15"/>
+                                <!-- IP Address -->
+                                <TextBox x:Name="ip_txtbox" Tag="IP Address" MaxLength="15"/>
+                                <!-- Port -->
+                                <TextBox x:Name="port_txtbox" Tag="Port" Margin="0 0 0 30" MaxLength="5"/>
+                                <!-- Next button -->
+                                <Button Content="Next" HorizontalAlignment="Center" Click="Button_Click" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    
+</UserControl>
