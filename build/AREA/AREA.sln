@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{2D368407-A9A8-4566-8D1B-558E4F0DB15F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.Tests", "WebClient.Tests\WebClient.Tests.csproj", "{CB0E8A47-FA95-477E-B254-D97B993C8E5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Spike", "Spike", "{D86830E8-F42C-40F1-AECE-D8BC94A1D4FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerMonitorApplication", "ServerMonitorApplication\ServerMonitorApplication.csproj", "{829A3620-2868-46AE-9122-0C82B41F113D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{543F8EE1-1683-49D2-95DF-B257C0069A00}"
 EndProject
@@ -20,6 +18,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTest", "Spike\ServerTest\ServerTest.csproj", "{BB2D364A-937A-4822-BABC-DCA1DB73261C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerInterface", "ServerInterface\ServerInterface.csproj", "{5E9B0432-A115-432A-B8A3-8F5934678D07}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterService", "Services\TwitterService\TwitterService.csproj", "{5EF49326-D434-45CE-B7E8-C715B177911B}"
@@ -42,10 +41,6 @@ Global
 		{CB0E8A47-FA95-477E-B254-D97B993C8E5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB0E8A47-FA95-477E-B254-D97B993C8E5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB0E8A47-FA95-477E-B254-D97B993C8E5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{829A3620-2868-46AE-9122-0C82B41F113D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{829A3620-2868-46AE-9122-0C82B41F113D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{829A3620-2868-46AE-9122-0C82B41F113D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{829A3620-2868-46AE-9122-0C82B41F113D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{543F8EE1-1683-49D2-95DF-B257C0069A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{543F8EE1-1683-49D2-95DF-B257C0069A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{543F8EE1-1683-49D2-95DF-B257C0069A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
