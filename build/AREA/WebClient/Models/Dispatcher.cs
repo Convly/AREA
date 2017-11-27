@@ -38,7 +38,7 @@ namespace WebClient.Models
         public static bool AddTokensAccess(User user)
         {
             Area.Server server = Area.Server.Instance;
-            Event e = new AddTokensAccessEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, null);
+            Event e = new AddTokensAccessEvent(HttpEventSource.EXT, HttpEventType.COMMAND, user, user);
             var answer = server.Dispatcher.Trigger(e);
             if (answer.Status.Code != 200)
             {

@@ -61,6 +61,7 @@
                             }
                             itemIndex = @(i);
                             $("#sidebarItem@(i)").addClass("selectedItem")
+                            console.log("the tree", getTree(itemIndex))
                             setTreeData(getTree(itemIndex))
                             drawTreeData();
                         });

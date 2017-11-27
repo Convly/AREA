@@ -170,6 +170,36 @@ namespace Area
             return HttpEventAnswer.Success(e, "Tree successfully added for tree");
         }
 
+        public static HttpEventAnswer AddToken(Event e)
+        {
+            User user = null;
+
+            try
+            {
+                user = e.OwnerInfos;
+            }
+            catch (Exception err)
+            {
+                Console.Error.WriteLine(err.Message);
+                return HttpEventAnswer.Error(e, 502, "Invalid data argument for event");
+            }
+
+            bool found = false;
+            for (int i = 0; i < UserList.Count; i++)
+            {
+                if (UserList[i].Email == user.Email)
+                {
+                    UserList[i] = user;
+                    found = true;
+                }
+            }
+
+            if (!found)
+                UserList.Add(user);
+
+            return HttpEventAnswer.Success(e, "Tree successfully added for tree");
+        }
+
         /// <summary>
         /// Get an <see cref="User"/> by its mail
         /// </summary>

@@ -13,7 +13,8 @@ namespace Area
             new Dictionary<Type, Func<Event, HttpEventAnswer>>
             {
                 {typeof(AddUserEvent),  Cache.AddUser},
-                {typeof(AddTreeEvent),  Cache.AddTree}
+                {typeof(AddTreeEvent),  Cache.AddTree},
+                {typeof(AddTokensAccessEvent),  Cache.AddToken}
             };
         private EventFactory evtFactory = new EventFactory();
 
