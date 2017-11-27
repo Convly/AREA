@@ -120,7 +120,7 @@ namespace Service
                             if (it.Key.Email == user.Email)
                             {
                                 _tasks[it.Key].Add(data, _controller.Reaction(data));
-                                break;
+                                return 0;
                             }
                         }
                         _tasks.Add(user, new ThreadPool());
