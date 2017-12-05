@@ -17,6 +17,10 @@ public class Payload
 
     [JsonProperty("text")]
     public string Text { get; set; }
+
+    [JsonProperty("icon_emoji")]
+    public string IconEmoji { get; set; }
+    
 }
 
 namespace SlackService
@@ -33,7 +37,10 @@ namespace SlackService
             };
             _actions = new Dictionary<string, ActionDelegate>
             {
-                { "PostMessage", PostMessage }
+                { "PostMessage", PostMessage },
+                { "PostEmojiCookie", PostEmojiCookie},
+                { "PostEmojiCookieWithText", PostEmojiCookieWithText},
+                { "PostPublicity", PostPublicity}
             };
         }
 
@@ -48,7 +55,8 @@ namespace SlackService
             {
                 Channel = channel,
                 Username = username,
-                Text = text
+                Text = text,
+                IconEmoji = null,
             };
 
             string payloadJson = JsonConvert.SerializeObject(payload);
@@ -64,5 +72,88 @@ namespace SlackService
             }
         }
 
+        public void PostEmojiCookie(ServiceActionContent obj)
+        {
+            string username = "NexusAreaCookiePoster";
+            string channel = null;
+            Uri _uri = new Uri(obj.User.AccessToken[_name]);
+
+            Payload payload = new Payload()
+            {
+                Channel = channel,
+                Username = username,
+                Text = null,
+                IconEmoji = ":cookie:",
+            };
+
+            string payloadJson = JsonConvert.SerializeObject(payload);
+
+            using (WebClient client = new WebClient())
+            {
+                NameValueCollection data = new NameValueCollection();
+                data["payload"] = payloadJson;
+
+                var response = client.UploadValues(_uri, "POST", data);
+
+                string responseText = _encoding.GetString(response);
+            }
+        }
+
+        public void PostEmojiCookieWithText(ServiceActionContent obj)
+        {
+            string text = obj.Args as string;
+            string username = "NexusAreaCookieMessenger";
+            string channel = null;
+            Uri _uri = new Uri(obj.User.AccessToken[_name]);
+
+            Payload payload = new Payload()
+            {
+                Channel = channel,
+                Username = username,
+                Text = text,
+                IconEmoji = ":cookie:",
+            };
+
+            string payloadJson = JsonConvert.SerializeObject(payload);
+
+            using (WebClient client = new WebClient())
+            {
+                NameValueCollection data = new NameValueCollection();
+                data["payload"] = payloadJson;
+
+                var response = client.UploadValues(_uri, "POST", data);
+
+                string responseText = _encoding.GetString(response);
+            }
+        }
+
+        public void PostPublicity(ServiceActionContent obj)
+        {
+            string username = "NexusAreaPropagande";
+            string channel = null;
+            Uri _uri = new Uri(obj.User.AccessToken[_name]);
+
+            Payload payload = new Payload()
+            {
+                Channel = channel,
+                Username = username,
+                Text = "<http://nexus-software.fr|Click here> to see our beautiful site !! The third is particularly amazing !!!",
+                IconEmoji = ":cookie:",
+            };
+
+            string payloadJson = JsonConvert.SerializeObject(payload);
+
+            using (WebClient client = new WebClient())
+            {
+                NameValueCollection data = new NameValueCollection();
+                data["payload"] = payloadJson;
+
+                var response = client.UploadValues(_uri, "POST", data);
+
+                string responseText = _encoding.GetString(response);
+            }
+        }
     }
 }
+
+//
