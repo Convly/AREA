@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using Network.Events;
+using Network.NetTools;
 using Tweetinvi;
 using Service;
-using Network.NetTools;
 using System;
-using Newtonsoft.Json;
 
 namespace TwitterService
 {
@@ -21,12 +19,18 @@ namespace TwitterService
                 { "ListenTweetFromAnyone", ListenTweetFromAnyone },
                 { "ListenTweetFromMe", ListenTweetFromMe },
                 { "ListenTweetFromAnyoneButMe", ListenTweetFromAnyoneButMe },
-                { "ListenTweetWithKeyWord", ListenTweetWithKeyWord}
+                { "ListenTweetWithKeyWord", ListenTweetWithKeyWord },
+                { "ListenTweetWithHashTag", ListenTweetWithHashTag },
+                { "ListenTweetWithDollarTag", ListenTweetWithDollarsTag },
+                { "ListenTweetWithMention", ListenTweetWithMention },
             };
 
             _actions = new Dictionary<string, ActionDelegate>
             {
-                { "NewTweet", NewTweet }
+                { "NewTweet", NewTweet },
+                { "ReTweet", ReTweet },
+                { "FavoriteTweet", FavoriteTweet},
+                { "DeleteTweet", DeleteTweet }
             };
         }
 
@@ -100,7 +104,7 @@ namespace TwitterService
 
         public void ListenTweetWithKeyWord(ReactionRegisterContent obj)
         {
-            string regex = "";
+            string regex = "Epitech";
             Authentification(obj);
             var stream = Stream.CreateFilteredStream();
 
@@ -112,10 +116,67 @@ namespace TwitterService
             };
         }
 
+        public void ListenTweetWithHashTag(ReactionRegisterContent obj)
+        {
+            Authentification(obj);
+            var stream = Stream.CreateTrackedStream();
+
+            stream.AddTrack("#Epitech");
+            stream.MatchingTweetReceived += (sender, args) =>
+            {
+                var txt = "A tweet containing the hashtag ' #Epitech ' has been found : " + args.Tweet.FullText;
+                SendData(obj, txt);
+            };
+        }
+
+        public void ListenTweetWithDollarsTag(ReactionRegisterContent obj)
+        {
+            Authentification(obj);
+            var stream = Stream.CreateTrackedStream();
+
+            stream.AddTrack("$Epitech");
+            stream.MatchingTweetReceived += (sender, args) =>
+            {
+                var txt = "A tweet containing the Dollar tag ' $Epitech ' has been found : " + args.Tweet.FullText;
+                SendData(obj, txt);
+            };
+        }
+
+        public void ListenTweetWithMention(ReactionRegisterContent obj)
+        {
+            Authentification(obj);
+            var stream = Stream.CreateTrackedStream();
+
+            stream.AddTrack("@Epitech");
+            stream.MatchingTweetReceived += (sender, args) =>
+            {
+                var txt = "A tweet containing the Mention ' @Epitech ' has been found : " + args.Tweet.FullText;
+                SendData(obj, txt);
+            };
+        }
+
         public void NewTweet(ServiceActionContent obj)
         {
             Authentification(obj);
             Tweet.PublishTweet(obj.Args.ToString());
+        }
+
+        public void ReTweet(ServiceActionContent obj)
+        {
+            Authentification(obj);
+            var retweet = Tweet.PublishRetweet(int.Parse(obj.Args.ToString()));
+        }
+
+        public void DeleteTweet(ServiceActionContent obj)
+        {
+            Authentification(obj);
+            var success = Tweet.DestroyTweet(int.Parse(obj.Args.ToString()));
+        }
+
+        public void FavoriteTweet(ServiceActionContent obj)
+        {
+            Authentification(obj);
+            var success = Tweet.FavoriteTweet(int.Parse(obj.Args.ToString()));
         }
     }
 }

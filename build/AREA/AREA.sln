@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceModels", "Services\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookService", "Services\FacebookService\FacebookService.csproj", "{92FAB913-3F7E-4069-B2B5-370BE2F8773A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlackService", "Services\SlackService\SlackService.csproj", "{7F15E296-8F92-49C8-A02C-5BDF7A18EF55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92FAB913-3F7E-4069-B2B5-370BE2F8773A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F15E296-8F92-49C8-A02C-5BDF7A18EF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F15E296-8F92-49C8-A02C-5BDF7A18EF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F15E296-8F92-49C8-A02C-5BDF7A18EF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F15E296-8F92-49C8-A02C-5BDF7A18EF55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{5EF49326-D434-45CE-B7E8-C715B177911B} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 		{9CF412BF-9FC4-45BC-B67C-0E362EBDF205} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 		{92FAB913-3F7E-4069-B2B5-370BE2F8773A} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
+		{7F15E296-8F92-49C8-A02C-5BDF7A18EF55} = {C58499FB-D7FB-4B0F-B5D9-59D27D46FAE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {014C1456-3662-403F-9942-4B2F18632279}
